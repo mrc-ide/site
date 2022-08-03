@@ -5,7 +5,6 @@
 #' @param vectors Site vectors inputs
 #' @param seasonality Site seasonality inputs
 #' @param eir Site baseline EIR
-#' @param baseline_year Simulation baseline year
 #' @param overrides List of malariasimulation default parameter overrides
 #'
 #' @return A malariasimulation parameter list

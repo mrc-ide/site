@@ -32,7 +32,7 @@ add_interventions <- function(p, interventions){
   # RTSS
   if(sum(interventions$rtss_cov, na.rm = TRUE) > 0){
     p <- add_rtss(p = p,
-                  inteventions = interventions)
+                  interventions = interventions)
   }
 
   return(p)

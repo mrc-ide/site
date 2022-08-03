@@ -10,7 +10,6 @@ site_parameters(
   vectors,
   seasonality,
   eir = NULL,
-  baseline_year = 2000,
   overrides = list()
 )
 }
@@ -24,8 +23,6 @@ site_parameters(
 \item{seasonality}{Site seasonality inputs}
 
 \item{eir}{Site baseline EIR}
-
-\item{baseline_year}{Simulation baseline year}
 
 \item{overrides}{List of malariasimulation default parameter overrides}
 }
