@@ -20,7 +20,32 @@ knitr::opts_chunk$set(
 [![R-CMD-check](https://github.com/mrc-ide/site/workflows/R-CMD-check/badge.svg)](https://github.com/mrc-ide/site/actions)
 <!-- badges: end -->
 
-The goal of site is to ...
+Site acts as a translational layer between a site file and malariasimulation.
+
+The site file is the file storing all of the context specific information for a site,
+such as historical intervention coverage, seasonality, vectors etc. To simulate
+a given site, we must convert this information into an input parameter list for
+malaria simulation. That is what site is here to do!
+
+If we have a correctly configured site file `example_site`, then all we need to 
+do is create the parameter list and pass that to malariasimulation to run:
+
+```{r, eval=FALSE}
+site <- example_site
+site_par <- site_parameters(
+  interventions = site$interventions,
+  demography = site$demography,
+  vectors = site$vectors,
+  seasonality = site$seasonality,
+  eir = site$eir,
+  overrides = list(human_population = 10000)
+)
+site_sim <- malariasimulation::run_simulation(
+  timesteps = site_par$timesteps,
+  parameters = site_par
+)
+
+```
 
 ## Installation
 

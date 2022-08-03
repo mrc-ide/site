@@ -1,15 +1,22 @@
 Package: site
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Site specific malariasimulation modelling
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Authors@R: c(
+    person("Pete", "Winskill", email = "p.winskill@imperial.ac.uk", role = c("aut", "cre"))
+    )
+Description: This package converts a parameterised "site file" into malariasimulation
+  model input parameter list.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Remotes:
+  mrc-ide/malariasimulation
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
+Depends: 
+    R (>= 2.10)
+Imports: 
+    malariasimulation
