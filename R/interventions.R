@@ -199,15 +199,11 @@ add_smc <- function(p, interventions){
 add_rtss <- function(p, interventions){
   month <- 365 / 12
   timesteps <- 1 + (interventions$year - p$baseline_year) * 365
-  start <- max(2, timesteps[interventions$rtss_cov > 0][1])
-  end <- timesteps[length(timesteps)]
 
   p <- malariasimulation::set_rtss_epi(
     parameters = p,
-    start = start,
-    end = end,
-    # Currently coverage is fixed
-    coverage = 0.8,
+    timesteps = timesteps,
+    coverages = interventions$rtss_cov,
     age = round(6 * month),
     min_wait = 0,
     boosters = round(18 * month),
