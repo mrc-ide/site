@@ -34,6 +34,11 @@ add_interventions <- function(p, interventions){
     p <- add_rtss(p = p,
                   interventions = interventions)
   }
+  # PMC
+  if(sum(interventions$pmc_cov, na.rm = TRUE) > 0){
+    p <- add_pmc(p = p,
+                 interventions = interventions)
+  }
 
   return(p)
 }
@@ -58,7 +63,7 @@ add_drugs <- function(p){
 
   p <- malariasimulation::set_drugs(
     parameters = p,
-    list(SP_params,
+    list(tetst = SP_params,
          malariasimulation::AL_params,
          malariasimulation::SP_AQ_params,
          SP_full_efficacy,
@@ -164,6 +169,10 @@ add_irs <- function(p, interventions){
 add_smc <- function(p, interventions){
   month <- 365 / 12
 
+  if(!all(interventions$smc_drug == "sp_aq")){
+    stop("Not currently set up for non SP AQ SMC drug")
+  }
+
   peak <- malariasimulation::peak_season_offset(p)
   # Note: min age and max age are not currently time-varying
   rounds <- interventions$smc_n_rounds
@@ -213,3 +222,28 @@ add_rtss <- function(p, interventions){
 
   return(p)
 }
+
+#' Add PMC
+#'
+#' @inheritParams add_interventions
+#'
+#' @return modified parameter list
+add_pmc <- function(p, interventions){
+  month <- 365 / 12
+  timesteps <- 1 + (interventions$year - p$baseline_year) * 365
+
+  if(!all(interventions$pmc_drug == "sp")){
+    stop("Not currently set up for non SP PMC drug")
+  }
+
+  p <- malariasimulation::set_pmc(
+    parameters = p,
+    drug = 1,
+    timesteps = timesteps,
+    coverages = interventions$pmc_cov,
+    ages = c(2, 3, 9) * 30
+  )
+
+  return(p)
+}
+

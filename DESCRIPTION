@@ -19,4 +19,4 @@ RoxygenNote: 7.2.1
 Depends: 
     R (>= 2.10)
 Imports: 
-    malariasimulation (>= 1.4.0)
+    malariasimulation (>= 1.4.1)

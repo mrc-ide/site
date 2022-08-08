@@ -28,4 +28,7 @@ test_that("adding smc works", {
   expect_equal(p1$smc_min_age, rep(interventions$smc_min_age, rounds))
   expect_equal(p1$smc_max_age, rep(interventions$smc_max_age, rounds))
   expect_equal(p1$smc_timesteps, timesteps)
+
+  interventions$smc_drug <- "n"
+  expect_error(add_smc(p = p1, interventions = interventions), "Not currently set up for non SP AQ SMC drug")
 })
