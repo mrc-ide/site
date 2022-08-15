@@ -9,6 +9,7 @@ site_parameters(
   demography,
   vectors,
   seasonality,
+  min_ages = c(0, 5, 15) * 365,
   eir = NULL,
   overrides = list()
 )
@@ -21,6 +22,8 @@ site_parameters(
 \item{vectors}{Site vectors inputs}
 
 \item{seasonality}{Site seasonality inputs}
+
+\item{min_ages}{Lower age bands for incidence and N age outputs}
 
 \item{eir}{Site baseline EIR}
 
