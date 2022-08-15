@@ -2,9 +2,11 @@
 #'
 #' @param p parameter list
 #' @param interventions site intervention inputs
+#' @param species Can be falciparum: "pf" or vivax: "pv", for vivax SMC, RTSS
+#'  and PMC are not implemented
 #'
 #' @return modified parameter list
-add_interventions <- function(p, interventions){
+add_interventions <- function(p, interventions, species){
 
   # Drug types
   p <- add_drugs(p)
@@ -25,17 +27,20 @@ add_interventions <- function(p, interventions){
       interventions = interventions)
   }
   # SMC
-  if(sum(interventions$smc_cov, na.rm = TRUE) > 0){
+  if(sum(interventions$smc_cov, na.rm = TRUE) > 0 &
+     species ==  "pf"){
     peak <- add_smc(p = p,
                     interventions = interventions)
   }
   # RTSS
-  if(sum(interventions$rtss_cov, na.rm = TRUE) > 0){
+  if(sum(interventions$rtss_cov, na.rm = TRUE) > 0 &
+     species ==  "pf"){
     p <- add_rtss(p = p,
                   interventions = interventions)
   }
   # PMC
-  if(sum(interventions$pmc_cov, na.rm = TRUE) > 0){
+  if(sum(interventions$pmc_cov, na.rm = TRUE) > 0 &
+     species ==  "pf"){
     p <- add_pmc(p = p,
                  interventions = interventions)
   }

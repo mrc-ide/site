@@ -4,12 +4,15 @@
 \alias{add_interventions}
 \title{Add all interventions}
 \usage{
-add_interventions(p, interventions)
+add_interventions(p, interventions, species)
 }
 \arguments{
 \item{p}{parameter list}
 
 \item{interventions}{site intervention inputs}
+
+\item{species}{Can be falciparum: "pf" or vivax: "pv", for vivax SMC, RTSS
+and PMC are not implemented}
 }
 \value{
 modified parameter list
