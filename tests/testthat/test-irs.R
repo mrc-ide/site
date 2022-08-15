@@ -1,4 +1,5 @@
 test_that("adding irs works", {
+  example_site <- single_site(example_site, 1)
   interventions <- example_site$interventions
   interventions$irs_cov[1:10] <- 0.5
 

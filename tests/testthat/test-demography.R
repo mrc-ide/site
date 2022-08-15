@@ -1,5 +1,5 @@
 test_that("adding (static) demography works", {
-  data("example_site")
+  example_site <- single_site(example_site, 1)
   demography <- example_site$demography
   p0 <- malariasimulation::get_parameters()
   p0$baseline_year <- 2000

@@ -1,4 +1,5 @@
 test_that("adding smc works", {
+  example_site <- single_site(example_site, 1)
   interventions <- example_site$interventions
   interventions$smc_cov[1:10] <- 0.5
   p0 <- malariasimulation::get_parameters()

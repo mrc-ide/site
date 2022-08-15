@@ -1,4 +1,5 @@
 test_that("adding vectors works", {
+  example_site <- single_site(example_site, 1)
   vectors <- example_site$vectors
   p0 <- malariasimulation::get_parameters()
   p1 <- add_vectors(p = p0, vectors = vectors)

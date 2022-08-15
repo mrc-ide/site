@@ -1,4 +1,5 @@
 test_that("adding treatment works", {
+  example_site <- single_site(example_site, 1)
   interventions <- example_site$interventions
   p0 <- malariasimulation::get_parameters()
   p0$baseline_year <- 2000

@@ -1,4 +1,6 @@
 test_that("multiplication works", {
+  example_site <- single_site(example_site, 1)
+
   p0 <- list()
   interventions <- example_site$interventions
   p1 <- add_time(p = p0, interventions = interventions)
