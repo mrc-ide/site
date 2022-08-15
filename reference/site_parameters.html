@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">site</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,6 +48,7 @@
 <span>  <span class="va">vectors</span>,</span>
 <span>  <span class="va">seasonality</span>,</span>
 <span>  min_ages <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">5</span>, <span class="fl">15</span><span class="op">)</span> <span class="op">*</span> <span class="fl">365</span>,</span>
+<span>  species <span class="op">=</span> <span class="st">"pf"</span>,</span>
 <span>  eir <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  overrides <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -73,6 +74,11 @@
 
 <dt>min_ages</dt>
 <dd><p>Lower age bands for incidence and N age outputs</p></dd>
+
+
+<dt>species</dt>
+<dd><p>Can be falciparum: "pf" or vivax: "pv", for vivax SMC, RTSS
+and PMC are not implemented</p></dd>
 
 
 <dt>eir</dt>
