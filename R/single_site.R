@@ -12,7 +12,7 @@ single_site <- function(site_file, index){
   index_site <- site_file$sites[index, ]
 
   to_mod <- c("sites", "interventions", "pyrethroid_resistance", "population",
-              "vectors", "seasonality", "eir")
+              "vectors", "seasonality", "prevalence", "eir")
 
   site <- site_file
   for(level in to_mod){
