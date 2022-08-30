@@ -29,8 +29,8 @@ add_interventions <- function(p, interventions, species){
   # SMC
   if(sum(interventions$smc_cov, na.rm = TRUE) > 0 &
      species ==  "pf"){
-    peak <- add_smc(p = p,
-                    interventions = interventions)
+    p <- add_smc(p = p,
+                 interventions = interventions)
   }
   # RTSS
   if(sum(interventions$rtss_cov, na.rm = TRUE) > 0 &
@@ -56,7 +56,7 @@ add_interventions <- function(p, interventions, species){
 add_drugs <- function(p){
 
   # Shape (alpha) 2.516 and scale (beta) 46.68 From Gina's
-    # fit to Cisse et al data
+  # fit to Cisse et al data
   SP_params <- c(0.9, 0.32, 2.516, 46.68)
 
   # For treatment of clinical disease, we already include efficacy within
