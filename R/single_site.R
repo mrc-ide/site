@@ -16,7 +16,8 @@ single_site <- function(site_file, index){
 
   site <- site_file
   for(level in to_mod){
-    site[[level]] <- merge(index_site, site[[level]])
+    mc <- intersect(colnames(index_site), colnames(site[[level]]))
+    site[[level]] <- dplyr::left_join(index_site, site[[level]], by = mc)
   }
   return(site)
 }
