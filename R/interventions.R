@@ -194,6 +194,14 @@ add_smc <- function(p, interventions){
   min_age <- rep(interventions$smc_min_age, rounds)
   max_age <- rep(interventions$smc_max_age, rounds)
 
+  index <- timesteps < 0
+  if(sum(index) > 0){
+    timesteps <- timesteps[!index]
+    coverages <- coverages[!index]
+    min_age <- min_age[!index]
+    max_age <- max_age[!index]
+  }
+
   p <- malariasimulation::set_smc(
     parameters = p,
     drug = 3,
