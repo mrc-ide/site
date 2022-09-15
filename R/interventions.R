@@ -148,19 +148,32 @@ add_irs <- function(p, interventions){
   peak_season_times <- peak + year_start_times
   # Assume IRS occurs 3 months before seasonal peak
   irs_spray_times <- round(peak_season_times - 3 * month)
+  coverages = interventions$irs_cov
+
+  index <- irs_spray_times < 0
+  if(sum(index) > 0){
+    irs_spray_times <- irs_spray_times[!index]
+    coverages <- coverages[!index]
+    ls_theta <- interventions$ls_theta[!index]
+    ls_gamma <- interventions$ls_gamma[!index]
+    ks_theta <- interventions$ks_theta[!index]
+    ks_gamma <- interventions$ks_gamma[!index]
+    ms_theta <- interventions$ms_theta[!index]
+    ms_gamma <- interventions$ms_gamma[!index]
+  }
 
   n_species <- length(p$species)
 
   p <- malariasimulation::set_spraying(
     parameters = p,
     timesteps = irs_spray_times,
-    coverages = interventions$irs_cov,
-    ls_theta = matrix(rep(interventions$ls_theta, n_species), ncol = n_species),
-    ls_gamma = matrix(rep(interventions$ls_gamma, n_species), ncol = n_species),
-    ks_theta = matrix(rep(interventions$ks_theta, n_species), ncol = n_species),
-    ks_gamma = matrix(rep(interventions$ks_gamma, n_species), ncol = n_species),
-    ms_theta = matrix(rep(interventions$ms_theta, n_species), ncol = n_species),
-    ms_gamma = matrix(rep(interventions$ms_gamma, n_species), ncol = n_species)
+    coverages = coverages,
+    ls_theta = matrix(rep(ls_theta, n_species), ncol = n_species),
+    ls_gamma = matrix(rep(ls_gamma, n_species), ncol = n_species),
+    ks_theta = matrix(rep(ks_theta, n_species), ncol = n_species),
+    ks_gamma = matrix(rep(ks_gamma, n_species), ncol = n_species),
+    ms_theta = matrix(rep(ms_theta, n_species), ncol = n_species),
+    ms_gamma = matrix(rep(ms_gamma, n_species), ncol = n_species)
   )
 
   return(p)

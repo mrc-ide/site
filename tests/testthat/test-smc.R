@@ -22,12 +22,14 @@ test_that("adding smc works", {
     )
   )
   timesteps <- round(round_relative_time) + rep(peak_season_times, rounds)
+  index <- timesteps < 0
+  timesteps <- timesteps[!index]
 
   expect_equal(p1$smc, TRUE)
-  expect_equal(p1$smc_coverages, rep(interventions$smc_cov, rounds))
+  expect_equal(p1$smc_coverages, rep(interventions$smc_cov, rounds)[!index])
   expect_equal(p1$smc_drug, 3)
-  expect_equal(p1$smc_min_age, rep(interventions$smc_min_age, rounds))
-  expect_equal(p1$smc_max_age, rep(interventions$smc_max_age, rounds))
+  expect_equal(p1$smc_min_age, rep(interventions$smc_min_age, rounds)[!index])
+  expect_equal(p1$smc_max_age, rep(interventions$smc_max_age, rounds)[!index])
   expect_equal(p1$smc_timesteps, timesteps)
 
   interventions$smc_drug <- "n"
