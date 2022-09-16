@@ -148,18 +148,25 @@ add_irs <- function(p, interventions){
   peak_season_times <- peak + year_start_times
   # Assume IRS occurs 3 months before seasonal peak
   irs_spray_times <- round(peak_season_times - 3 * month)
-  coverages = interventions$irs_cov
+  coverages <- interventions$irs_cov
+  ls_theta <- interventions$ls_theta
+  ls_gamma <- interventions$ls_gamma
+  ks_theta <- interventions$ks_theta
+  ks_gamma <- interventions$ks_gamma
+  ms_theta <- interventions$ms_theta
+  ms_gamma <- interventions$ms_gamma
+
 
   index <- irs_spray_times < 0
   if(sum(index) > 0){
     irs_spray_times <- irs_spray_times[!index]
     coverages <- coverages[!index]
-    ls_theta <- interventions$ls_theta[!index]
-    ls_gamma <- interventions$ls_gamma[!index]
-    ks_theta <- interventions$ks_theta[!index]
-    ks_gamma <- interventions$ks_gamma[!index]
-    ms_theta <- interventions$ms_theta[!index]
-    ms_gamma <- interventions$ms_gamma[!index]
+    ls_theta <- ls_theta[!index]
+    ls_gamma <- ls_gamma[!index]
+    ks_theta <- ks_theta[!index]
+    ks_gamma <- ks_gamma[!index]
+    ms_theta <- ms_theta[!index]
+    ms_gamma <- ms_gamma[!index]
   }
 
   n_species <- length(p$species)
