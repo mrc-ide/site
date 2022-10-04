@@ -157,7 +157,7 @@ add_irs <- function(p, interventions){
   ms_gamma <- interventions$ms_gamma
 
 
-  index <- irs_spray_times < 0
+  index <- irs_spray_times <= 0
   if(sum(index) > 0){
     irs_spray_times <- irs_spray_times[!index]
     coverages <- coverages[!index]
@@ -214,7 +214,7 @@ add_smc <- function(p, interventions){
   min_age <- rep(interventions$smc_min_age, rounds)
   max_age <- rep(interventions$smc_max_age, rounds)
 
-  index <- timesteps < 0
+  index <- timesteps <= 0
   if(sum(index) > 0){
     timesteps <- timesteps[!index]
     coverages <- coverages[!index]
