@@ -15,5 +15,5 @@ test_that("adding itns works", {
                matrix(rep(interventions$dn0, length(p1$species)), ncol = length(p1$species)))
   expect_equal(p1$bednet_rn, matrix(rep(interventions$rn0, length(p1$species)), ncol = length(p1$species)))
   expect_equal(p1$bednet_rnm, matrix(rep(interventions$rnm, length(p1$species)), ncol = length(p1$species)))
-  expect_equal(p1$bednet_gamman, interventions$gamman)
+  expect_equal(p1$bednet_gamman, interventions$gamman * 365)
 })

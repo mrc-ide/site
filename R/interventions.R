@@ -120,7 +120,7 @@ add_itns <- function(p, interventions){
   dn0 <- matrix(rep(interventions$dn0, n_species), ncol = n_species)
   rn <- matrix(rep(interventions$rn0, n_species), ncol = n_species)
   rnm <- matrix(rep(interventions$rnm, n_species), ncol = n_species)
-  gamman <- interventions$gamman
+  gamman <- interventions$gamman * 365
 
   p <- malariasimulation::set_bednets(
     parameters = p,
