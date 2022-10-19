@@ -12,7 +12,8 @@ site_parameters(
   min_ages = c(0, 5, 15) * 365,
   species = "pf",
   eir = NULL,
-  overrides = list()
+  overrides = list(),
+  burnin = 0
 )
 }
 \arguments{
@@ -32,6 +33,8 @@ and PMC are not implemented}
 \item{eir}{Site baseline EIR}
 
 \item{overrides}{List of malariasimulation default parameter overrides}
+
+\item{burnin}{Number of burn in years}
 }
 \value{
 A malariasimulation parameter list

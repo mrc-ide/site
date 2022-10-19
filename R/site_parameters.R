@@ -9,15 +9,22 @@
 #'  and PMC are not implemented
 #' @param eir Site baseline EIR
 #' @param overrides List of malariasimulation default parameter overrides
+#' @param burnin Number of burn in years
 #'
 #' @return A malariasimulation parameter list
 #' @export
 site_parameters <- function(interventions, demography, vectors, seasonality,
                             min_ages = c(0, 5, 15) * 365, species = "pf",
-                            eir = NULL, overrides = list()){
+                            eir = NULL, overrides = list(), burnin = 0){
 
   p <- malariasimulation::get_parameters(overrides = overrides)
   p$individual_mosquitoes <- FALSE
+
+  if(burnin > 0){
+    p$burnin <- burnin
+    interventions <- burnin_interventions(interventions, burnin)
+    demography <- burnin_demography(demography, burnin)
+  }
 
   p <- p |>
     add_time(interventions) |>
