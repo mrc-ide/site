@@ -6,7 +6,6 @@
 #' @param burnin Burn in period (years)
 #'
 #' @return Intervention inputs with burn in
-#' @export
 burnin_interventions <- function(interventions, burnin){
   start_year <- min(interventions$year) - burnin
   interventions <- interventions |>
@@ -23,7 +22,6 @@ burnin_interventions <- function(interventions, burnin){
 #' @param burnin Burn in period (years)
 #'
 #' @return Demography inputs with burn in
-#' @export
 burnin_demography <- function(demography, burnin){
   start_year <- min(demography$year) - burnin
   demog_start <- demography[demography$year == min(demography$year), ]
