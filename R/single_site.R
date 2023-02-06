@@ -1,4 +1,4 @@
-#' Extarcta a single site-input from a country site file
+#' Extract a single site-input from a country site file
 #'
 #' @param site_file Country site file
 #' @param index Index row from site_file$sites

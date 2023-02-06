@@ -2,7 +2,7 @@
 % Please edit documentation in R/single_site.R
 \name{single_site}
 \alias{single_site}
-\title{Extarcta a single site-input from a country site file}
+\title{Extract a single site-input from a country site file}
 \usage{
 single_site(site_file, index)
 }
@@ -15,5 +15,5 @@ single_site(site_file, index)
 Single site
 }
 \description{
-Extarcta a single site-input from a country site file
+Extract a single site-input from a country site file
 }
