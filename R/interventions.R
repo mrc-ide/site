@@ -109,6 +109,7 @@ add_treatment <- function(p, interventions){
 #' @return modified parameter list
 add_itns <- function(p, interventions){
 
+  # If not specified, assume distribution happens January 1st
   if(!"itn_distribution_day" %in% colnames(interventions)){
     interventions$itn_distribution_day <- 1
   }
