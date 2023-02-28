@@ -108,8 +108,12 @@ add_treatment <- function(p, interventions){
 #'
 #' @return modified parameter list
 add_itns <- function(p, interventions){
-  # Assuming net distribution happens on January 1st
-  timesteps <- 1 + (interventions$year - p$baseline_year) * 365
+
+  # If not specified, assume distribution happens January 1st
+  if(!"itn_distribution_day" %in% colnames(interventions)){
+    interventions$itn_distribution_day <- 1
+  }
+  timesteps <- interventions$itn_distribution_day + (interventions$year - p$baseline_year) * 365
   # Net retention half life does not vary over time (Should match what is used when fitting input dist)
   retention <- 365 * 5
   # Net input coverage
