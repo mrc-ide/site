@@ -15,5 +15,5 @@ burnin_interventions(interventions, burnin)
 Intervention inputs with burn in
 }
 \description{
-Assumes interventions for burn in period are = to those in year 1.
+Assumes interventions for burn in period are = 0 coverage.
 }
