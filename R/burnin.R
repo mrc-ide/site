@@ -1,6 +1,6 @@
 #' Expand interventions retrospectively for burn in period
 #'
-#' Assumes interventions for burn in period are = to those in year 1.
+#' Assumes interventions for burn in period are = 0 coverage.
 #'
 #' @param interventions Site intervention inputs
 #' @param burnin Burn in period (years)
@@ -10,6 +10,17 @@ burnin_interventions <- function(interventions, burnin){
   start_year <- min(interventions$year) - burnin
   interventions <- interventions |>
     tidyr::complete(year = start_year:(max(interventions$year))) |>
+    tidyr::replace_na(
+      replace = list(
+        itn_use = 0,
+        itn_input_dist = 0,
+        tx_cov = 0,
+        irs_cov = 0,
+        smc_cov = 0,
+        rtss_cov = 0,
+        pmc_cov = 0
+      )
+    ) |>
     tidyr::fill(dplyr::everything(), .direction = "up")
   return(interventions)
 }
