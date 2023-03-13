@@ -149,17 +149,28 @@ add_irs <- function(p, interventions){
   month <- 365 / 12
   peak <- malariasimulation::peak_season_offset(p)
   year_start_times <-  1 + (interventions$year - p$baseline_year) * 365
-  peak_season_times <- peak + year_start_times
-  # Assume IRS occurs 3 months before seasonal peak
-  irs_spray_times <- round(peak_season_times - 3 * month)
-  coverages <- interventions$irs_cov
-  ls_theta <- interventions$ls_theta
-  ls_gamma <- interventions$ls_gamma
-  ks_theta <- interventions$ks_theta
-  ks_gamma <- interventions$ks_gamma
-  ms_theta <- interventions$ms_theta
-  ms_gamma <- interventions$ms_gamma
 
+  if(any(interventions$irs_spray_rounds > 2)){
+    stop("Maximum of 2 IRS spray rounds per year supported")
+  }
+
+  peak_season_times <- peak + year_start_times
+  peak_season_times <- rep(peak_season_times, interventions$irs_spray_rounds)
+
+  # Assume multiple spray rounds are 6 months apart (First is 3 months prior to peak)
+  offset <- sapply(interventions$irs_spray_rounds, function(x){
+    c(3, -3)[1:x]
+  }) |>
+    unlist()
+  irs_spray_times <- round(peak_season_times - offset * month)
+
+  coverages <- rep(interventions$irs_cov, interventions$irs_spray_rounds)
+  ls_theta <- rep(interventions$ls_theta, interventions$irs_spray_rounds)
+  ls_gamma <- rep(interventions$ls_gamma, interventions$irs_spray_rounds)
+  ks_theta <- rep(interventions$ks_theta, interventions$irs_spray_rounds)
+  ks_gamma <- rep(interventions$ks_gamma, interventions$irs_spray_rounds)
+  ms_theta <- rep(interventions$ms_theta, interventions$irs_spray_rounds)
+  ms_gamma <- rep(interventions$ms_gamma, interventions$irs_spray_rounds)
 
   index <- irs_spray_times <= 0
   if(sum(index) > 0){
