@@ -2,6 +2,7 @@ test_that("burnin works", {
   bi <- 10
   example_site <- single_site(example_site, 1)
 
+
   interventions <- burnin_interventions(example_site$interventions, bi)
   expect_equal(nrow(interventions), nrow(example_site$interventions) + bi)
   expect_equal(sum(is.na(interventions)), 0)

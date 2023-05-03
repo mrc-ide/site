@@ -318,11 +318,12 @@ add_stephensi_invasion <- function(p, interventions){
   no_scaling <- rep(1, length(timesteps))
 
   p <- malariasimulation::set_rescaled_carrying_capacity(
+    parameters = p,
     timesteps = timesteps,
     scalers = matrix(
       c(
         rep(no_scaling, n_species - 1),
-        inteventions$stephensi_scaler,
+        interventions$stephensi_scaler
       ),
       ncol = n_species)
   )
