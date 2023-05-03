@@ -18,7 +18,9 @@ burnin_interventions <- function(interventions, burnin){
         irs_cov = 0,
         smc_cov = 0,
         rtss_cov = 0,
-        pmc_cov = 0
+        pmc_cov = 0,
+        lsm_cov = 0,
+        stephensi_scaler = 1
       )
     ) |>
     tidyr::fill(dplyr::everything(), .direction = "up")

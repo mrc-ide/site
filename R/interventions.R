@@ -44,6 +44,16 @@ add_interventions <- function(p, interventions, species){
     p <- add_pmc(p = p,
                  interventions = interventions)
   }
+  # LSM
+  if(sum(interventions$lsm_cov, na.rm = TRUE) > 0){
+    p <- add_lsm(p = p,
+                 interventions = interventions)
+  }
+  # Stephensi
+  if(any(interventions$stephensi_scaler > 1)){
+    p <- add_stephensi_invasion(p = p,
+                 interventions = interventions)
+  }
 
   return(p)
 }
@@ -290,6 +300,52 @@ add_pmc <- function(p, interventions){
     timesteps = timesteps,
     coverages = interventions$pmc_cov,
     ages = c(2, 3, 9) * 30
+  )
+
+  return(p)
+}
+
+#' Add LSM
+#'
+#' @inheritParams add_interventions
+#'
+#' @return modified parameter list
+add_stephensi_invasion <- function(p, interventions){
+  month <- 365 / 12
+  timesteps <- 1 + (interventions$year - p$baseline_year) * 365
+
+  n_species <- length(p$species)
+  no_scaling <- rep(1, length(timesteps))
+
+  p <- malariasimulation::set_rescaled_carrying_capacity(
+    timesteps = timesteps,
+    scalers = matrix(
+      c(
+        rep(no_scaling, n_species - 1),
+        inteventions$stephensi_scaler,
+      ),
+      ncol = n_species)
+  )
+  return(p)
+}
+
+#' Add LSM
+#'
+#' @inheritParams add_interventions
+#'
+#' @return modified parameter list
+add_lsm <- function(p, interventions){
+  month <- 365 / 12
+  timesteps <- 1 + (interventions$year - p$baseline_year) * 365
+
+  n_species <- length(p$species)
+  p <- malariasimulation::set_larval_source_management(
+    parameters = p,
+    timesteps = timesteps,
+    coverages = matrix(
+      rep(interventions$lsm_cov, n_species),
+      ncol = n_species
+    )
   )
 
   return(p)
