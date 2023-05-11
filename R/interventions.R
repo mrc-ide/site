@@ -2,7 +2,7 @@
 #'
 #' @param p parameter list
 #' @param interventions site intervention inputs
-#' @param species Can be falciparum: "pf" or vivax: "pv", for vivax SMC, RTSS
+#' @param species Can be falciparum: "pf" or vivax: "pv", for vivax SMC, vaccines
 #'  and PMC are not implemented
 #'
 #' @return modified parameter list
@@ -257,14 +257,18 @@ add_rtss <- function(p, interventions){
   month <- 365 / 12
   timesteps <- 1 + (interventions$year - p$baseline_year) * 365
 
-  p <- malariasimulation::set_rtss_epi(
+  p$pev_doses <- round(c(0, 1.5 * month, 3 * month))
+
+  p <- malariasimulation::set_pev_epi(
     parameters = p,
+    profile = rtss_profile,
     timesteps = timesteps,
     coverages = interventions$rtss_cov,
     age = round(6 * month),
     min_wait = 0,
-    boosters = round(18 * month),
+    booster_timestep = round(18 * month),
     booster_coverage = 0.8,
+    booster_profile = list(rtss_booster_profile),
     seasonal_boosters = FALSE
   )
 

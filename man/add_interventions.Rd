@@ -11,7 +11,7 @@ add_interventions(p, interventions, species)
 
 \item{interventions}{site intervention inputs}
 
-\item{species}{Can be falciparum: "pf" or vivax: "pv", for vivax SMC, RTSS
+\item{species}{Can be falciparum: "pf" or vivax: "pv", for vivax SMC, vaccines
 and PMC are not implemented}
 }
 \value{
