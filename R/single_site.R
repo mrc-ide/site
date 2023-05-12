@@ -14,6 +14,7 @@ single_site <- function(site_file, index){
   site <- list()
   for(level in names(site_file)){
     mc <- intersect(colnames(index_site), colnames(site_file[[level]]))
+    mc <- setdiff(mc, "country") # Don't match on country name, match on ISO if they are present
     if(length(mc) == 0){
       site[[level]] <- site_file[[level]]
     } else {
