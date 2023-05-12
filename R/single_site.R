@@ -13,13 +13,14 @@ single_site <- function(site_file, index){
   # Drop the country name as it has inconsistent spelling
   index_site <- index_site[ , !names(index_site) == "country"]
 
-  to_mod <- c("sites", "interventions", "pyrethroid_resistance", "population",
-              "vectors", "seasonality", "prevalence", "eir")
-
-  site <- site_file
-  for(level in to_mod){
-    mc <- intersect(colnames(index_site), colnames(site[[level]]))
-    site[[level]] <- dplyr::left_join(index_site, site[[level]], by = mc)
+  site <- list()
+  for(level in names(site_file)){
+    mc <- intersect(colnames(index_site), colnames(site_file[[level]]))
+    if(length(mc) == 0){
+      site[[level]] <- site_file[[level]]
+    } else {
+      site[[level]] <- dplyr::left_join(index_site, site_file[[level]], by = mc)
+    }
   }
   return(site)
 }
