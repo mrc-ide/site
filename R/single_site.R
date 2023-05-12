@@ -10,6 +10,8 @@ single_site <- function(site_file, index){
     stop("Mis-specified site index")
   }
   index_site <- site_file$sites[index, ]
+  # Drop the country name as it has inconsistent spelling
+  index_site <- index_site[ , !names(index_site) == "country"]
 
   to_mod <- c("sites", "interventions", "pyrethroid_resistance", "population",
               "vectors", "seasonality", "prevalence", "eir")
