@@ -239,18 +239,20 @@ add_smc <- function(p, interventions){
 #'
 #' @return modified parameter list
 add_pev_epi <- function(p, interventions){
+  
+
   month <- 365 / 12
   timesteps <- 1 + (interventions$year - p$baseline_year) * 365
 
   p <- malariasimulation::set_pev_epi(
     parameters = p,
-    profile = rtss_profile,
+    profile = malariasimulation::rtss_profile,
     timesteps = timesteps,
     coverages = interventions$rtss_cov,
     age = round(6 * month),
     min_wait = 0,
     booster_timestep = round(18 * month),
-    booster_profile = list(rtss_booster_profile),
+    booster_profile = list(malariasimulation::rtss_booster_profile),
     booster_coverage = 0.8,
     seasonal_boosters = FALSE
   )
