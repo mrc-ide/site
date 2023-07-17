@@ -233,12 +233,12 @@ add_smc <- function(p, interventions){
   return(p)
 }
 
-#' Add RTS,S
+#' Add pre-erythrocytic vaccine
 #'
 #' @inheritParams add_interventions
 #'
 #' @return modified parameter list
-add_pev <- function(p, interventions){
+add_pev_epi <- function(p, interventions){
   month <- 365 / 12
   timesteps <- 1 + (interventions$year - p$baseline_year) * 365
 
@@ -249,7 +249,8 @@ add_pev <- function(p, interventions){
     coverages = interventions$rtss_cov,
     age = round(6 * month),
     min_wait = 0,
-    boosters = round(18 * month),
+    booster_timestep = round(18 * month),
+    booster_profile = list(rtss_booster_profile),
     booster_coverage = 0.8,
     seasonal_boosters = FALSE
   )
