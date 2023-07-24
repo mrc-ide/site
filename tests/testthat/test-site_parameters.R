@@ -32,7 +32,7 @@ test_that("setting vivax works", {
     seasonality = example_site$seasonality,
     species = "pv"
   )
-  expect_false(p$rtss)
+  expect_false(p$pev)
   expect_false(p$smc)
   expect_false(p$pmc)
 })

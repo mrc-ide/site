@@ -35,7 +35,7 @@ add_interventions <- function(p, interventions, species){
   # RTSS
   if(sum(interventions$rtss_cov, na.rm = TRUE) > 0 &
      species ==  "pf"){
-    p <- add_rtss(p = p,
+    p <- add_pev_epi(p = p,
                   interventions = interventions)
   }
   # PMC
@@ -233,24 +233,27 @@ add_smc <- function(p, interventions){
   return(p)
 }
 
-#' Add RTS,S
+#' Add pre-erythrocytic vaccine
 #'
 #' @inheritParams add_interventions
 #'
 #' @return modified parameter list
-add_rtss <- function(p, interventions){
+add_pev_epi <- function(p, interventions){
+  
+
   month <- 365 / 12
   timesteps <- 1 + (interventions$year - p$baseline_year) * 365
 
-  p <- malariasimulation::set_rtss_epi(
+  p <- malariasimulation::set_pev_epi(
     parameters = p,
+    profile = malariasimulation::rtss_profile,
     timesteps = timesteps,
     coverages = interventions$rtss_cov,
     age = round(6 * month),
     min_wait = 0,
-    boosters = round(18 * month),
-    booster_coverage = 0.8,
-    seasonal_boosters = FALSE
+    booster_timestep = round(18 * month),
+    booster_profile = list(malariasimulation::rtss_booster_profile),
+    booster_coverage = 0.8
   )
 
   return(p)
