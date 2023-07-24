@@ -253,8 +253,7 @@ add_pev_epi <- function(p, interventions){
     min_wait = 0,
     booster_timestep = round(18 * month),
     booster_profile = list(malariasimulation::rtss_booster_profile),
-    booster_coverage = 0.8,
-    seasonal_boosters = FALSE
+    booster_coverage = 0.8
   )
 
   return(p)
