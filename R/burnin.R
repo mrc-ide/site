@@ -36,15 +36,11 @@ burnin_interventions <- function(interventions, burnin){
 #'
 #' @return Demography inputs with burn in
 burnin_demography <- function(demography, burnin){
-  start_year <- min(demography$year) - burnin
-  demog_start <- demography[demography$year == min(demography$year), ]
-  burnin_years <- start_year:(min(demography$year) - 1)
-  demog_burnin <- dplyr::bind_rows(
-    lapply(burnin_years, function(x, demog_start){
-      demog_start |>
-        dplyr::mutate(year = x)
-    }, demog_start = demog_start)
-  )
-  demography <- dplyr::bind_rows(demog_burnin, demography)
+  current_start_year <- min(as.integer(rownames(demography)))
+  new_start_year <-  current_start_year - burnin
+  burnin_years <- new_start_year:(current_start_year - 1)
+  burnin_demog <- demography[rep(1, burnin), ]
+  rownames(burnin_demog) <- burnin_years
+  demography <- rbind(burnin_demog, demography)
   return(demography)
 }
