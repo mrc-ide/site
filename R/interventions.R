@@ -33,7 +33,7 @@ add_interventions <- function(p, interventions, species){
                  interventions = interventions)
   }
   # RTSS
-  if(sum(interventions$rtss_cov, na.rm = TRUE) > 0 &
+  if((sum(interventions$rtss_coverage, na.rm = TRUE) > 0 | sum(interventions$r21_coverage, na.rm = TRUE) > 0) &
      species ==  "pf"){
     p <- add_pev_epi(p = p,
                   interventions = interventions)
@@ -244,17 +244,37 @@ add_pev_epi <- function(p, interventions){
   month <- 365 / 12
   timesteps <- 1 + (interventions$year - p$baseline_year) * 365
 
+  # pull correct coverage values for input parameters depending on vaccine type
+  interventions <- interventions |>
+    dplyr::mutate(
+      coverage = ifelse(vaccine == 'R21', r21_coverage, rtss_coverage),
+      booster_coverage = ifelse(vaccine == 'R21', r21_booster_coverage, rtss_coverage)
+    )
+  
+  vaccine_profile <- ifelse(
+    unique(interventions$vaccine) == 'R21',
+    list(
+      'initial_profile' = profile$r21_profile,
+      'booster_profile' = profile$r21_booster_profile
+    ),
+    list(
+      'initial_profile' = malariasimulation::rtss_profile,
+      'booster_profile' = malariasimulation::rtss_booster_profile
+    )
+  )
+  
   p <- malariasimulation::set_pev_epi(
     parameters = p,
-    profile = malariasimulation::rtss_profile,
+    profile = vaccine_profile$initial_profile,
     timesteps = timesteps,
-    coverages = interventions$rtss_cov,
+    coverages = interventions$coverage,
     age = round(6 * month),
     min_wait = 0,
-    booster_timestep = round(18 * month),
-    booster_profile = list(malariasimulation::rtss_booster_profile),
-    booster_coverage = 0.8
+    booster_timestep = rep(round(12 * month), nrow(interventions)),
+    booster_profile = rep(list(vaccine_profile$booster_profile), nrow(interventions)),
+    booster_coverage = vaccine_profile$booster_coverage # added in to incorporate changing booster coverage over time for GAVI project
   )
+  
 
   return(p)
 }
