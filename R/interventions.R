@@ -251,28 +251,39 @@ add_pev_epi <- function(p, interventions){
       booster_coverage = ifelse(vaccine == 'R21', r21_booster_coverage, rtss_coverage)
     )
   
-  vaccine_profile <- ifelse(
-    unique(interventions$vaccine) == 'R21',
-    list(
-      'initial_profile' = profile$r21_profile,
-      'booster_profile' = profile$r21_booster_profile
-    ),
-    list(
-      'initial_profile' = malariasimulation::rtss_profile,
-      'booster_profile' = malariasimulation::rtss_booster_profile
-    )
-  )
+
+  if (unique(interventions$vaccine)== 'R21'){
+
+    initial_profile<- profile$r21_profile
+    booster_profile<- profile$r21_booster_profile
+
+  }else {
+    
+    initial_profile<- malariasimulation::rtss_profile
+    booster_profile<- malariasimulation::rtss_booster_profile
+  }
+  
+  # specify flat booster coverage scenarios (90% for routine and 100% for blue sky)
+  
+  if(unique(interventions$scenario_type) == 'bluesky'){
+    
+    booster_cov<- 1
+    
+  }else if (interventions$scenario_type) == 'routine'{
+    
+    booster_cov<- 0.9
+  }
   
   p <- malariasimulation::set_pev_epi(
     parameters = p,
-    profile = vaccine_profile$initial_profile,
+    profile = initial_profile,
     timesteps = timesteps,
     coverages = interventions$coverage,
     age = round(6 * month),
     min_wait = 0,
-    booster_timestep = rep(round(12 * month), nrow(interventions)),
-    booster_profile = rep(list(vaccine_profile$booster_profile), nrow(interventions)),
-    booster_coverage = vaccine_profile$booster_coverage # added in to incorporate changing booster coverage over time for GAVI project
+    booster_timestep = round(12 * month),
+    booster_profile = list(booster_profile),
+    booster_coverage = booster_cov
   )
   
 
