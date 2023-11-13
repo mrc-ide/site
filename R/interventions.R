@@ -324,9 +324,10 @@ make_carrying_capacity_matrix <- function(p, interventions){
   cc <- malariasimulation::get_init_carrying_capacity(p)
 
   cc_matrix <- matrix(
-    rep(cc, n_species),
+    cc,
     ncol = n_species,
-    nrow = length(interventions$year)
+    nrow = length(interventions$year),
+    byrow = TRUE
   )
 
   return(cc_matrix)
