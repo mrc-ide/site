@@ -46,7 +46,7 @@ add_interventions <- function(p, interventions, species){
   }
 
 
-  carrying_capacity_matrix <- make_carrying_capacity_matrix(p)
+  carrying_capacity_matrix <- make_carrying_capacity_matrix(p, interventions)
   # LSM
   if(sum(interventions$lsm_cov, na.rm = TRUE) > 0){
     carrying_capacity_matrix <- apply(carrying_capacity_matrix, 2, function(x, y){
@@ -321,7 +321,7 @@ add_pmc <- function(p, interventions){
 make_carrying_capacity_matrix <- function(p, interventions){
 
   n_species <- length(p$species)
-  cc <- get_init_carrying_capacity(p)
+  cc <- malariasimulation::get_init_carrying_capacity(p)
 
   cc_matrix <- matrix(
     rep(cc, n_species),
