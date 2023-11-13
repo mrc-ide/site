@@ -44,16 +44,24 @@ add_interventions <- function(p, interventions, species){
     p <- add_pmc(p = p,
                  interventions = interventions)
   }
+
+
+  carrying_capacity_matrix <- make_carrying_capacity_matrix(p)
   # LSM
   if(sum(interventions$lsm_cov, na.rm = TRUE) > 0){
-    p <- add_lsm(p = p,
-                 interventions = interventions)
+    carrying_capacity_matrix <- apply(carrying_capacity_matrix, 2, function(x, y){
+      x * y
+    }, y = 1 - interventions$lsm_cov)
   }
   # Stephensi
   if(any(interventions$stephensi_scaler > 1)){
-    p <- add_stephensi_invasion(p = p,
-                 interventions = interventions)
+    carrying_capacity_matrix[ , p$species == "stephensi"] <- carrying_capacity_matrix[ , p$species == "stephensi"] * interventions$stephensi_scaler
   }
+  p <- malariasimulation::set_carrying_capacity(
+    parameters = p,
+    timesteps = 1 + (interventions$year - p$baseline_year) * 365,
+    carrying_capacity = carrying_capacity_matrix
+  )
 
   return(p)
 }
@@ -310,45 +318,16 @@ add_pmc <- function(p, interventions){
 #' @inheritParams add_interventions
 #'
 #' @return modified parameter list
-add_stephensi_invasion <- function(p, interventions){
-  month <- 365 / 12
-  timesteps <- 1 + (interventions$year - p$baseline_year) * 365
+make_carrying_capacity_matrix <- function(p, interventions){
 
   n_species <- length(p$species)
-  no_scaling <- rep(1, length(timesteps))
+  cc <- get_init_carrying_capacity(p)
 
-  p <- malariasimulation::set_rescaled_carrying_capacity(
-    parameters = p,
-    timesteps = timesteps,
-    scalers = matrix(
-      c(
-        rep(no_scaling, n_species - 1),
-        interventions$stephensi_scaler
-      ),
-      ncol = n_species)
-  )
-  return(p)
-}
-
-#' Add LSM
-#'
-#' @inheritParams add_interventions
-#'
-#' @return modified parameter list
-add_lsm <- function(p, interventions){
-  month <- 365 / 12
-  timesteps <- 1 + (interventions$year - p$baseline_year) * 365
-
-  n_species <- length(p$species)
-  p <- malariasimulation::set_larval_source_management(
-    parameters = p,
-    timesteps = timesteps,
-    coverages = matrix(
-      rep(interventions$lsm_cov, n_species),
-      ncol = n_species
-    )
+  cc_matrix <- matrix(
+    rep(cc, n_species),
+    ncol = n_species,
+    nrow = length(interventions$year)
   )
 
-  return(p)
+  return(cc_matrix)
 }
-
