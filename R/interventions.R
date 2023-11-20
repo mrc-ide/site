@@ -269,7 +269,7 @@ add_pev_epi <- function(p, interventions){
     
     booster_cov<- 1
     
-  }else if (interventions$scenario_type) == 'routine'{
+  }else if (unique(interventions$scenario_type) == 'routine'){
     
     booster_cov<- 0.9
   }
