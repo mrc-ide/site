@@ -1,7 +1,7 @@
 Package: site
 Type: Package
 Title: Site specific malariasimulation modelling
-Version: 0.2.6
+Version: 0.2.7
 Authors@R: c(
     person("Pete", "Winskill", email = "p.winskill@imperial.ac.uk", role = c("aut", "cre"))
     )
@@ -11,7 +11,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Remotes:
-  mrc-ide/malariasimulation
+  mrc-ide/malariasimulation@carrying_capacity_relative
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3

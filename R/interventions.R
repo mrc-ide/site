@@ -60,7 +60,7 @@ add_interventions <- function(p, interventions, species){
   p <- malariasimulation::set_carrying_capacity(
     parameters = p,
     timesteps = 1 + (interventions$year - p$baseline_year) * 365,
-    carrying_capacity = carrying_capacity_matrix
+    carrying_capacity_scalers = carrying_capacity_matrix
   )
 
   return(p)
@@ -319,12 +319,10 @@ add_pmc <- function(p, interventions){
 #'
 #' @return modified parameter list
 make_carrying_capacity_matrix <- function(p, interventions){
-
   n_species <- length(p$species)
-  cc <- malariasimulation::get_init_carrying_capacity(p)
 
   cc_matrix <- matrix(
-    cc,
+    1,
     ncol = n_species,
     nrow = length(interventions$year),
     byrow = TRUE
