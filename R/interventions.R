@@ -33,9 +33,9 @@ add_interventions <- function(p, interventions, species){
                  interventions = interventions)
   }
   # RTSS
-  if(sum(interventions$rtss_cov, na.rm = TRUE) > 0 &
+  if((sum(interventions$rtss_coverage, na.rm = TRUE) > 0 | sum(interventions$r21_coverage, na.rm = TRUE) > 0) &
      species ==  "pf"){
-    p <- add_rtss(p = p,
+    p <- add_pev_epi(p = p,
                   interventions = interventions)
   }
   # PMC
@@ -233,25 +233,50 @@ add_smc <- function(p, interventions){
   return(p)
 }
 
-#' Add RTS,S
+#' Add pre-erythrocytic vaccine
 #'
 #' @inheritParams add_interventions
 #'
 #' @return modified parameter list
-add_rtss <- function(p, interventions){
+add_pev_epi <- function(p, interventions){
+  
+
   month <- 365 / 12
   timesteps <- 1 + (interventions$year - p$baseline_year) * 365
 
-  p <- malariasimulation::set_rtss_epi(
+  # pull correct coverage values for input parameters depending on vaccine type
+  interventions <- interventions |>
+    dplyr::mutate(
+      coverage = ifelse(vaccine == 'R21', r21_coverage, rtss_coverage),
+      booster_coverage = ifelse(vaccine == 'R21', r21_booster_coverage, rtss_coverage)
+    )
+  
+
+  if (unique(interventions$vaccine)== 'R21'){
+
+    initial_profile<- profile$r21_profile
+    booster_profile<- profile$r21_booster_profile
+
+  }else {
+    
+    initial_profile<- malariasimulation::rtss_profile
+    booster_profile<- malariasimulation::rtss_booster_profile
+  }
+  
+  # specify flat booster coverage scenarios (90% for routine and 100% for blue sky)
+
+  p <- malariasimulation::set_pev_epi(
     parameters = p,
+    profile = initial_profile,
     timesteps = timesteps,
-    coverages = interventions$rtss_cov,
+    coverages = interventions$coverage,
     age = round(6 * month),
     min_wait = 0,
-    boosters = round(18 * month),
-    booster_coverage = 0.8,
-    seasonal_boosters = FALSE
+    booster_spacing = round(12 * month),
+    booster_coverage = matrix(interventions$booster_coverage),
+    booster_profile = list(booster_profile)
   )
+  
 
   return(p)
 }
