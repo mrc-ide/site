@@ -239,7 +239,7 @@ add_smc <- function(p, interventions, smc){
 #'
 #' @return modified parameter list
 add_pev_epi <- function(p, interventions){
-  
+
 
   month <- 365 / 12
   timesteps <- 1 + (interventions$year - p$baseline_year) * 365
@@ -250,19 +250,19 @@ add_pev_epi <- function(p, interventions){
       coverage = ifelse(vaccine == 'R21', r21_coverage, rtss_coverage),
       booster_coverage = ifelse(vaccine == 'R21', r21_booster_coverage, rtss_coverage)
     )
-  
+
 
   if (unique(interventions$vaccine)== 'R21'){
 
-    initial_profile<- profile$r21_profile
-    booster_profile<- profile$r21_booster_profile
+    initial_profile<- r21$r21_profile
+    booster_profile<- r21$r21_booster_profile
 
   }else {
-    
+
     initial_profile<- malariasimulation::rtss_profile
     booster_profile<- malariasimulation::rtss_booster_profile
   }
-  
+
   # specify flat booster coverage scenarios (90% for routine and 100% for blue sky)
 
   p <- malariasimulation::set_pev_epi(
@@ -277,7 +277,7 @@ add_pev_epi <- function(p, interventions){
     booster_profile = list(booster_profile)
 
   )
-  
+
 
   return(p)
 }
