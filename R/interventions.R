@@ -106,8 +106,6 @@ add_drugs <- function(p){
       AL_full_efficacy
     )
   )
-
-
   return(p)
 }
 
