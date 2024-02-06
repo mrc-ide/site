@@ -2,8 +2,8 @@
 #'
 #' @param p parameter list
 #' @param interventions site intervention inputs
-#' @param species Can be falciparum: "pf" or vivax: "pv", for vivax SMC, RTSS
-#'  and PMC are not implemented
+#' @param species Can be falciparum: "pf" or vivax: "pv", for vivax SMC, RTSS,
+#'  R21 and PMC are not implemented
 #'
 #' @return modified parameter list
 add_interventions <- function(p, interventions, species){
@@ -98,11 +98,14 @@ add_drugs <- function(p){
 
   p <- malariasimulation::set_drugs(
     parameters = p,
-    list(tetst = SP_params,
-         malariasimulation::AL_params,
-         malariasimulation::SP_AQ_params,
-         SP_full_efficacy,
-         AL_full_efficacy))
+    list(
+      SP_params,
+      malariasimulation::AL_params,
+      malariasimulation::SP_AQ_params,
+      SP_full_efficacy,
+      AL_full_efficacy
+    )
+  )
 
 
   return(p)
