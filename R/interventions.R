@@ -8,6 +8,7 @@
 #' @return modified parameter list
 add_interventions <- function(p, interventions, species){
 
+  pf <- species ==  "pf"
   # Drug types
   p <- add_drugs(p)
   # Treatment
@@ -27,22 +28,51 @@ add_interventions <- function(p, interventions, species){
       interventions = interventions)
   }
   # SMC
-  if(sum(interventions$smc_cov, na.rm = TRUE) > 0 &
-     species ==  "pf"){
-    p <- add_smc(p = p,
-                 interventions = interventions)
+  if(sum(interventions$smc_cov, na.rm = TRUE) > 0 & pf){
+    p <- add_smc(
+      p = p,
+      interventions = interventions
+    )
   }
   # RTSS
-  if(sum(interventions$rtss_cov, na.rm = TRUE) > 0 &
-     species ==  "pf"){
-    p <- add_rtss(p = p,
-                  interventions = interventions)
+  if(sum(interventions$rtss_cov, na.rm = TRUE) > 0 & pf){
+    p <- add_rtss(
+      p = p,
+      interventions = interventions
+    )
+  }
+  # R21
+  if(sum(interventions$r21_cov, na.rm = TRUE) > 0 & pf){
+    p <- add_r21(
+      p = p,
+      interventions = interventions
+    )
   }
   # PMC
-  if(sum(interventions$pmc_cov, na.rm = TRUE) > 0 &
-     species ==  "pf"){
-    p <- add_pmc(p = p,
-                 interventions = interventions)
+  if(sum(interventions$pmc_cov, na.rm = TRUE) > 0 & pf){
+    p <- add_pmc(
+      p = p,
+      interventions = interventions
+    )
+  }
+  # Interventions that modify the carrying capacity
+  # The combined carrying capacity scaling must be estimated for all
+  # interventions that modify it, before updating. Currently, only LSM is
+  # implemented here. This could included An. stephensi in the future.
+  if(sum(interventions$lsm_cov, na.rm = TRUE) > 0){
+    lsm_impact <- rep(1 - interventions$lsm_cov, each = length(p$species))
+    carrying_capacity_scaler <- matrix(
+      data = lsm_impact,
+      ncol = length(p$species),
+      byrow = TRUE
+    )
+    month <- 365 / 12
+    timesteps <- 1 + (interventions$year - p$baseline_year) * 365
+
+    p <- malariasimulation::set_carrying_capacity(
+      carrying_capacity = carrying_capacity_scaler,
+      timesteps = timesteps
+    )
   }
 
   return(p)
@@ -88,15 +118,19 @@ add_treatment <- function(p, interventions){
   timesteps <- 1 + (interventions$year - p$baseline_year) * 365
 
   # Non ACT (SP)
-  p <- malariasimulation::set_clinical_treatment(parameters = p,
-                                                 drug = 4,
-                                                 timesteps = timesteps,
-                                                 coverages = interventions$tx_cov * (1 - interventions$prop_act))
+  p <- malariasimulation::set_clinical_treatment(
+    parameters = p,
+    drug = 4,
+    timesteps = timesteps,
+    coverages = interventions$tx_cov * (1 - interventions$prop_act)
+  )
   # ACT (AL)
-  p <- malariasimulation::set_clinical_treatment(parameters = p,
-                                                 drug = 5,
-                                                 timesteps = timesteps,
-                                                 coverages = interventions$tx_cov * interventions$prop_act)
+  p <- malariasimulation::set_clinical_treatment(
+    parameters = p,
+    drug = 5,
+    timesteps = timesteps,
+    coverages = interventions$tx_cov * interventions$prop_act
+  )
 
 
   return(p)
@@ -214,7 +248,6 @@ add_smc <- function(p, interventions){
   }
 
   peak <- malariasimulation::peak_season_offset(p)
-  # Note: min age and max age are not currently time-varying
   rounds <- interventions$smc_n_rounds
   year_start_times <-  1 + (interventions$year - p$baseline_year) * 365
   peak_season_times <- peak + year_start_times
@@ -257,15 +290,41 @@ add_rtss <- function(p, interventions){
   month <- 365 / 12
   timesteps <- 1 + (interventions$year - p$baseline_year) * 365
 
-  p <- malariasimulation::set_rtss_epi(
+  p <- malariasimulation::set_pev_epi(
     parameters = p,
+    profile = rtss_profile,
     timesteps = timesteps,
     coverages = interventions$rtss_cov,
     age = round(6 * month),
     min_wait = 0,
-    boosters = round(18 * month),
+    booster_timestep = 12 * month, # The booster is administered 12 months following the third dose.
     booster_coverage = 0.8,
-    seasonal_boosters = FALSE
+    booster_profile = list(rtss_booster_profile) # We will model implementation of the RTSS booster.
+  )
+
+  return(p)
+}
+
+#' Add RTS,S
+#'
+#' @inheritParams add_interventions
+#'
+#' @return modified parameter list
+add_r21 <- function(p, interventions){
+  month <- 365 / 12
+  timesteps <- 1 + (interventions$year - p$baseline_year) * 365
+
+  p <- malariasimulation::set_pev_epi(
+    parameters = p,
+    profile = r21_profile,
+    timesteps = timesteps,
+    coverages = interventions$r21_cov,
+    # TODO: Check R21 timings/ages
+    age = round(6 * month),
+    min_wait = 0,
+    booster_timestep = 12 * month, # The booster is administered 12 months following the third dose.
+    booster_coverage = 0.8,
+    booster_profile = list(r21_booster_profile) # We will model implementation of the RTSS booster.
   )
 
   return(p)
