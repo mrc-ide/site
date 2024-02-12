@@ -34,6 +34,15 @@ add_interventions <- function(p, interventions, species){
       interventions = interventions
     )
   }
+
+  if(
+    sum(interventions$rtss_cov, na.rm = TRUE) > 0 &
+    sum(interventions$r21_cov, na.rm = TRUE) > 0
+  ) {
+    warning("Cannot currently model two vaccine types,
+            defaulting to R21 coverage inputs")
+    interventions$rtss_cov <- 0
+  }
   # RTSS
   if(sum(interventions$rtss_cov, na.rm = TRUE) > 0 & pf){
     p <- add_rtss(
@@ -293,14 +302,14 @@ add_rtss <- function(p, interventions){
 
   p <- malariasimulation::set_pev_epi(
     parameters = p,
-    profile = rtss_profile,
+    profile = malariasimulation::rtss_profile,
     timesteps = timesteps,
     coverages = interventions$rtss_cov,
     age = round(6 * month),
     min_wait = 0,
     booster_timestep = 12 * month, # The booster is administered 12 months following the third dose.
     booster_coverage = 0.8,
-    booster_profile = list(rtss_booster_profile) # We will model implementation of the RTSS booster.
+    booster_profile = list(malariasimulation::rtss_booster_profile) # We will model implementation of the RTSS booster.
   )
 
   return(p)
@@ -314,6 +323,25 @@ add_rtss <- function(p, interventions){
 add_r21 <- function(p, interventions){
   month <- 365 / 12
   timesteps <- 1 + (interventions$year - p$baseline_year) * 365
+
+  r21_profile <- malariasimulation::create_pev_profile(
+    vmax = 0.87,
+    alpha = 0.91,
+    beta = 471,
+    cs = c(9.3199677, 0.8387902),
+    rho = c(0.8071676, 0.6010363),
+    ds = c(3.7996007, 0.1618982),
+    dl =c(6.2820200, 0.4549185)
+  )
+  r21_booster_profile <- malariasimulation::create_pev_profile(
+    vmax = 0.87,
+    alpha = 0.91,
+    beta = 471,
+    cs = c(9.2372858, 0.7188541),
+    rho = c(0.07140337, 0.54175154),
+    ds = c(3.7996007, 0.1618982),
+    dl =c(6.2820200, 0.4549185)
+  )
 
   p <- malariasimulation::set_pev_epi(
     parameters = p,

@@ -1,5 +1,5 @@
 test_that("multiplication works", {
-  example_site <- single_site(example_site, 1)
+  example_site <- subset_site(example_site, example_site$eir[1,])
 
   p0 <- list()
   interventions <- example_site$interventions

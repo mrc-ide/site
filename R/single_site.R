@@ -26,7 +26,7 @@ subset_site <- function(site, site_filter){
     population_total = match(site$population$population_total, sub_site$site),
     population_by_age = match(site$population$population_by_age, sub_site$site)
   )
-  # TODO: demography
+  sub_site$demography <- match(site$demography, sub_site$site)
   sub_site$vectors <-  list(
     vector_species = match(site$vectors$vector_species, sub_site$site),
     pyrethroid_resistance = match(site$vectors$pyrethroid_resistance, sub_site$site)
@@ -49,8 +49,11 @@ subset_site <- function(site, site_filter){
 #'
 #' @return Site file element filtered by y
 match <- function(x, y){
-  by_names = names(y)[names(y) %in% names(x)]
-  y <- y[, by_names]
+  by_names <- names(y)[names(y) %in% names(x)]
+  if(length(by_names) == 0){
+    return(x)
+  }
+  y <- y[, by_names, drop = FALSE]
   y |>
     dplyr::left_join(x, by = by_names)
 }
