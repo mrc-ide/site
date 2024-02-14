@@ -159,7 +159,10 @@ add_itns <- function(p, interventions){
   }
   timesteps <- interventions$itn_distribution_day + (interventions$year - p$baseline_year) * 365
   # Net retention half life does not vary over time (Should match what is used when fitting input dist)
-  retention <- 365 * 5
+  retention <- unique(interventions$mean_retention)
+  if(length(retention) > 1){
+    stop("Time-varying net rentetion is not currently supported")
+  }
   # Net input coverage
   coverages <- interventions$itn_input_dist
   coverages[is.na(coverages)] <- 0
