@@ -19,13 +19,15 @@ add_interventions <- function(p, interventions, species){
   if(sum(interventions$itn_input_dist, na.rm = TRUE) > 0){
     p <- add_itns(
       p = p,
-      interventions = interventions)
+      interventions = interventions
+    )
   }
   # IRS
   if(sum(interventions$irs_cov, na.rm = TRUE) > 0){
     p <- add_irs(
       p = p,
-      interventions = interventions)
+      interventions = interventions
+    )
   }
   # SMC
   if(sum(interventions$smc_cov, na.rm = TRUE) > 0 & pf){
@@ -69,18 +71,9 @@ add_interventions <- function(p, interventions, species){
   # interventions that modify it, before updating. Currently, only LSM is
   # implemented here. This could included An. stephensi in the future.
   if(sum(interventions$lsm_cov, na.rm = TRUE) > 0){
-    lsm_impact <- rep(1 - interventions$lsm_cov, each = length(p$species))
-    carrying_capacity_scaler <- matrix(
-      data = lsm_impact,
-      ncol = length(p$species),
-      byrow = TRUE
-    )
-    month <- 365 / 12
-    timesteps <- 1 + (interventions$year - p$baseline_year) * 365
-
-    p <- malariasimulation::set_carrying_capacity(
-      carrying_capacity = carrying_capacity_scaler,
-      timesteps = timesteps
+    p <- adjust_carrying_capacity(
+      p = p,
+      interventions = interventions
     )
   }
 
@@ -386,3 +379,26 @@ add_pmc <- function(p, interventions){
   return(p)
 }
 
+#' Adjust carrying capacity
+#'
+#' @inheritParams add_interventions
+#'
+#' @return modified parameter list
+adjust_carrying_capacity <- function(p, interventions){
+  lsm_impact <- rep(1 - interventions$lsm_cov, each = length(p$species))
+  carrying_capacity_scaler <- matrix(
+    data = lsm_impact,
+    ncol = length(p$species),
+    byrow = TRUE
+  )
+  month <- 365 / 12
+  timesteps <- 1 + (interventions$year - p$baseline_year) * 365
+
+  p <- malariasimulation::set_carrying_capacity(
+    parameters = p,
+    carrying_capacity = carrying_capacity_scaler,
+    timesteps = timesteps
+  )
+
+  return(p)
+}
