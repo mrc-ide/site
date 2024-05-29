@@ -11,6 +11,6 @@ test_that("Carrying capacity works", {
     )
 
   expect_true(p1$carrying_capacity)
-  expect_equal(p1$carrying_capacity_values, matrix(1 - interventions$lsm_cov, ncol = 1))
+  expect_equal(p1$carrying_capacity_scalers, matrix(1 - interventions$lsm_cov, ncol = 1))
   expect_equal(p1$carrying_capacity_timesteps, 1 + (interventions$year - p1$baseline_year) * 365)
 })

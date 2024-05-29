@@ -11,8 +11,8 @@ test_that("adding rtss works", {
 
   month <- 365 / 12
   expect_equal(p1$pev_epi_age, round(6 * month))
-  expect_equal(p1$pev_epi_booster_coverage, 0.8)
-  expect_equal(p1$pev_epi_booster_timestep, round(12 * month))
+  expect_equal(p1$pev_epi_booster_coverage, matrix(rep(0.8, length(p1$pev_epi_timesteps))))
+  expect_equal(p1$pev_epi_booster_spacing, round(12 * month))
   expect_equal(p1$pev_epi_timesteps, 1 + (365 * (interventions$year - p0$baseline_year)))
   expect_equal(p1$pev_epi_coverages, interventions$rtss_cov)
   expect_equal(p1$pev_epi_min_wait, 0)
@@ -32,8 +32,8 @@ test_that("adding r21 works", {
 
   month <- 365 / 12
   expect_equal(p1$pev_epi_age, round(6 * month))
-  expect_equal(p1$pev_epi_booster_coverage, 0.8)
-  expect_equal(p1$pev_epi_booster_timestep, round(12 * month))
+  expect_equal(p1$pev_epi_booster_coverage, matrix(rep(0.8, length(p1$pev_epi_timesteps))))
+  expect_equal(p1$pev_epi_booster_spacing, round(12 * month))
   expect_equal(p1$pev_epi_timesteps, 1 + (365 * (interventions$year - p0$baseline_year)))
   expect_equal(p1$pev_epi_coverages, interventions$r21_cov)
   expect_equal(p1$pev_epi_min_wait, 0)
