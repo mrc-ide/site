@@ -248,7 +248,7 @@ add_pev_epi <- function(p, interventions){
   interventions <- interventions |>
     dplyr::mutate(
       coverage = ifelse(vaccine == 'R21', r21_coverage, rtss_coverage),
-      booster_coverage = ifelse(vaccine == 'R21', r21_booster_coverage, rtss_coverage)
+      booster_coverage = ifelse(vaccine == 'R21', r21_booster_coverage, rtss_booster_coverage)
     )
 
 
