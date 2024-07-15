@@ -299,6 +299,13 @@ add_rtss <- function(p, interventions){
   month <- 365 / 12
   timesteps <- 1 + (interventions$year - p$baseline_year) * 365
 
+  if("n_doses" %in% colnames(interventions)){
+    booster_cov <- rep(0, length(timesteps))
+    booster_cov[interventions$n_doses == 4] <- 0.8
+  } else {
+    booster_cov <- rep(0.8, length(timesteps))
+  }
+
   p <- malariasimulation::set_pev_epi(
     parameters = p,
     profile = malariasimulation::rtss_profile,
@@ -307,7 +314,7 @@ add_rtss <- function(p, interventions){
     age = round(6 * month),
     min_wait = 0,
     booster_spacing = 12 * month, # The booster is administered 12 months following the third dose.
-    booster_coverage = matrix(rep(0.8, length(timesteps))),
+    booster_coverage = matrix(booster_cov),
     booster_profile = list(malariasimulation::rtss_booster_profile) # We will model implementation of the RTSS booster.
   )
 
@@ -322,6 +329,12 @@ add_rtss <- function(p, interventions){
 add_r21 <- function(p, interventions){
   month <- 365 / 12
   timesteps <- 1 + (interventions$year - p$baseline_year) * 365
+  if("n_doses" %in% colnames(interventions)){
+    booster_cov <- rep(0, length(timesteps))
+    booster_cov[interventions$n_doses == 4] <- 0.8
+  } else {
+    booster_cov <- rep(0.8, length(timesteps))
+  }
 
   r21_profile <- malariasimulation::create_pev_profile(
     vmax = 0.87,
@@ -351,7 +364,7 @@ add_r21 <- function(p, interventions){
     age = round(6 * month),
     min_wait = 0,
     booster_spacing = 12 * month, # The booster is administered 12 months following the third dose.
-    booster_coverage = matrix(rep(0.8, length(timesteps))),
+    booster_coverage = matrix(booster_cov),
     booster_profile = list(r21_booster_profile) # We will model implementation of the RTSS booster.
   )
 
