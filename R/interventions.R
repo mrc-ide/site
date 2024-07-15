@@ -42,7 +42,10 @@ add_interventions <- function(p, interventions, species){
     sum(interventions$r21_cov, na.rm = TRUE) > 0
   ) {
     warning("Cannot currently model two vaccine types,
-            defaulting to R21 coverage inputs")
+            defaulting to R21 vaccine type implemented at
+            the maximum yearly coverage inputs across rtss
+            and r21")
+    interventions$r21_cov <- pmax(interventions$r21_cov, interventions$rtss_cov)
     interventions$rtss_cov <- 0
   }
   # RTSS
