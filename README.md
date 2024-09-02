@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# site <img src="man/figures/site_hex.png" align="right" width=30% height=30% />
+# site <img src="man/figures/Site.png" align="right" width=30% height=30% />
 
 <!-- badges: start -->
 
