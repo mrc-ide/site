@@ -285,7 +285,8 @@ add_smc <- function(p, interventions){
     timesteps = timesteps,
     coverages = coverages,
     min_age = min_age,
-    max_age = max_age)
+    max_age = max_age
+  )
 
   return(p)
 }
