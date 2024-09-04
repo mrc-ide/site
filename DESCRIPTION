@@ -11,7 +11,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Remotes:
-  mrc-ide/malariasimulation@dev
+    mrc-ide/malariasimulation@dev
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
@@ -20,5 +20,5 @@ Depends:
     R (>= 2.10)
 Imports: 
     dplyr,
-    malariasimulation (>= 1.4.1),
+    malariasimulation,
     tidyr
