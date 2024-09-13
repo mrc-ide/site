@@ -11,7 +11,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Remotes:
-    mrc-ide/malariasimulation@dev
+    mrc-ide/malariasimulation
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
