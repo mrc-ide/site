@@ -2,6 +2,5 @@
 
 export(fetch_files)
 export(fetch_site)
-export(single_site)
 export(site_parameters)
 export(subset_site)
