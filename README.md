@@ -12,7 +12,7 @@ public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostat
 <!-- badges: end -->
 
 Site acts as a translational layer between a site file and
-malariasimulation.
+malariasimulation: 🌍 ➡️ 📉
 
 The site file is the file storing all of the context specific
 information for a site, such as historical intervention coverage,
@@ -25,14 +25,16 @@ need to do is create the parameter list and pass that to
 malariasimulation to run:
 
 ``` r
-site <- example_site
+site <- subset_site(example_site, example_site$eir[1,])
 site_par <- site_parameters(
   interventions = site$interventions,
   demography = site$demography,
-  vectors = site$vectors,
-  seasonality = site$seasonality,
-  eir = site$eir,
-  overrides = list(human_population = 10000)
+  vectors = site$vectors$vector_species,
+  seasonality = site$seasonality$seasonality_parameters,
+  eir = site$eir$eir,
+  overrides = list(
+    human_population = 1000
+  )
 )
 site_sim <- malariasimulation::run_simulation(
   timesteps = site_par$timesteps,

@@ -1,13 +1,14 @@
 test_that("adding smc works", {
-  example_site <- single_site(example_site, 1)
-  interventions <- example_site$interventions
+  single_site <- subset_site(example_site, example_site$eir[1,])
+  interventions <- single_site$interventions
   interventions$smc_cov[1:10] <- 0.5
   p0 <- malariasimulation::get_parameters()
 
   p0$baseline_year <- 2000
   p1 <- add_smc(
     p = p0,
-    interventions = interventions)
+    interventions = interventions
+  )
 
   month <- 365 / 12
 

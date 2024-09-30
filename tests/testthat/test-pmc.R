@@ -1,6 +1,6 @@
 test_that("PMC works", {
-  example_site <- single_site(example_site, 1)
-  interventions <- example_site$interventions
+  single_site <- subset_site(example_site, example_site$eir[1,])
+  interventions <- single_site$interventions
   interventions$pmc_cov[1:10] <- 0.5
   p0 <- malariasimulation::get_parameters()
   p0$baseline_year <- 2000

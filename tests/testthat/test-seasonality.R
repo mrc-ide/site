@@ -1,6 +1,6 @@
 test_that("adding seasonality works", {
-  example_site <- single_site(example_site, 1)
-  seasonality <- example_site$seasonality
+  single_site <- subset_site(example_site, example_site$eir[1,])
+  seasonality <- single_site$seasonality$seasonality_parameters
   p0 <- malariasimulation::get_parameters()
   p1 <- add_seasonality(p = p0, seasonality = seasonality)
 

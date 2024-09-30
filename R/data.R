@@ -5,14 +5,20 @@
 #'
 #' @format A list with 10 variables:
 #' \describe{
-#'   \item{country}{The iso3c country code}
-#'   \item{level}{The level of subnational disaggregation}
+#'   \item{country}{The country name}
+#'   \item{version}{Site file version}
+#'   \item{admin_level}{The levels of spatial disaggregation}
 #'   \item{sites}{Unique sites}
-#'   \item{epi}{Epidemiological site data}
+#'   \item{shape}{Sptial boundaries (set to NA in testing shapefile)}
+#'   \item{cases_deaths}{Epidemiological site data}
+#'   \item{prevalence}{Prevalence data}
 #'   \item{interventions}{Intervention coverage and specification}
-#'   \item{population}{Population and population at risk projections}
+#'   \item{population}{Population, population at risk mand age-disaggregated population projections}
 #'   \item{demography}{Demographic projections}
-#'   \item{vectors}{Vector proportions}
-#'   \item{seasonality}{Seasonal profile parameters}
+#'   \item{vectors}{Vector specieis and pyrethroid resistance}
+#'   \item{seasonality}{Seasonal profile parameters, monthly rainfall and fourier predictions}
+#'   \item{blood_disorders}{Blood disorder data}
+#'   \item{accessibility}{Accessibility data}
+#'   \item{eir}{Calibrated eir}
 #' }
 "example_site"

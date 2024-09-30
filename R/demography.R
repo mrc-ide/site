@@ -8,11 +8,8 @@ add_demography <- function(p, demography){
 
   # Age group upper
   ages <- round(unique(demography$age_upper) * 365)
-  # Single demography currently
   timesteps <- 365 * (unique(demography$year) - p$baseline_year)
-  # Take demography is first year as static demography
-  deathrates <- demography$mortality_rate / 365
-  # Create matrix of death rates
+  deathrates <- demography$adjusted_mortality_rates / 365
   deathrates_matrix <- matrix(deathrates, nrow = length(timesteps), byrow = TRUE)
   # Add parameters
   p <- malariasimulation::set_demography(

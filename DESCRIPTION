@@ -1,7 +1,7 @@
 Package: site
 Type: Package
 Title: Site specific malariasimulation modelling
-Version: 0.2.2
+Version: 1.0.4
 Authors@R: c(
     person("Pete", "Winskill", email = "p.winskill@imperial.ac.uk", role = c("aut", "cre"))
     )
@@ -11,14 +11,20 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Remotes:
-  mrc-ide/malariasimulation
-Suggests: 
-    testthat (>= 3.0.0)
+    mrc-ide/malariasimulation,
+    mrc-ide/orderly2
 Config/testthat/edition: 3
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 Depends: 
     R (>= 2.10)
 Imports: 
+    orderly2,
     dplyr,
-    malariasimulation (>= 1.4.1),
-    tidyr
+    malariasimulation,
+    rappdirs,
+    rlang,
+    tidyr,
+    withr
+Suggests:
+    testthat (>= 3.0.0),
+    fs
