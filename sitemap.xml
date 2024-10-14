@@ -10,18 +10,23 @@
 <url><loc>/reference/add_irs.html</loc></url>
 <url><loc>/reference/add_itns.html</loc></url>
 <url><loc>/reference/add_pmc.html</loc></url>
+<url><loc>/reference/add_r21.html</loc></url>
 <url><loc>/reference/add_rtss.html</loc></url>
 <url><loc>/reference/add_seasonality.html</loc></url>
 <url><loc>/reference/add_smc.html</loc></url>
 <url><loc>/reference/add_treatment.html</loc></url>
 <url><loc>/reference/add_vectors.html</loc></url>
+<url><loc>/reference/adjust_carrying_capacity.html</loc></url>
 <url><loc>/reference/burnin_demography.html</loc></url>
 <url><loc>/reference/burnin_interventions.html</loc></url>
 <url><loc>/reference/example_site.html</loc></url>
+<url><loc>/reference/fetch_files.html</loc></url>
+<url><loc>/reference/fetch_site.html</loc></url>
 <url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/match.html</loc></url>
 <url><loc>/reference/set_age_outputs.html</loc></url>
-<url><loc>/reference/single_site.html</loc></url>
 <url><loc>/reference/site-package.html</loc></url>
 <url><loc>/reference/site_parameters.html</loc></url>
+<url><loc>/reference/subset_site.html</loc></url>
 </urlset>
 

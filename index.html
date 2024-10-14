@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">site</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,18 +49,20 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>Site acts as a translational layer between a site file and malariasimulation.</p>
+<p>Site acts as a translational layer between a site file and malariasimulation: 🌍 ➡️ 📉</p>
 <p>The site file is the file storing all of the context specific information for a site, such as historical intervention coverage, seasonality, vectors etc. To simulate a given site, we must convert this information into an input parameter list for malaria simulation. That is what site is here to do!</p>
 <p>If we have a correctly configured site file <code>example_site</code>, then all we need to do is create the parameter list and pass that to malariasimulation to run:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">site</span> <span class="op">&lt;-</span> <span class="va">example_site</span></span>
+<code class="sourceCode R"><span><span class="va">site</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/subset_site.html">subset_site</a></span><span class="op">(</span><span class="va">example_site</span>, <span class="va">example_site</span><span class="op">$</span><span class="va">eir</span><span class="op">[</span><span class="fl">1</span>,<span class="op">]</span><span class="op">)</span></span>
 <span><span class="va">site_par</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/site_parameters.html">site_parameters</a></span><span class="op">(</span></span>
 <span>  interventions <span class="op">=</span> <span class="va">site</span><span class="op">$</span><span class="va">interventions</span>,</span>
 <span>  demography <span class="op">=</span> <span class="va">site</span><span class="op">$</span><span class="va">demography</span>,</span>
-<span>  vectors <span class="op">=</span> <span class="va">site</span><span class="op">$</span><span class="va">vectors</span>,</span>
-<span>  seasonality <span class="op">=</span> <span class="va">site</span><span class="op">$</span><span class="va">seasonality</span>,</span>
-<span>  eir <span class="op">=</span> <span class="va">site</span><span class="op">$</span><span class="va">eir</span>,</span>
-<span>  overrides <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>human_population <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span></span>
+<span>  vectors <span class="op">=</span> <span class="va">site</span><span class="op">$</span><span class="va">vectors</span><span class="op">$</span><span class="va">vector_species</span>,</span>
+<span>  seasonality <span class="op">=</span> <span class="va">site</span><span class="op">$</span><span class="va">seasonality</span><span class="op">$</span><span class="va">seasonality_parameters</span>,</span>
+<span>  eir <span class="op">=</span> <span class="va">site</span><span class="op">$</span><span class="va">eir</span><span class="op">$</span><span class="va">eir</span>,</span>
+<span>  overrides <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    human_population <span class="op">=</span> <span class="fl">1000</span></span>
+<span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">site_sim</span> <span class="op">&lt;-</span> <span class="fu">malariasimulation</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/malariasimulation/man/run_simulation.html" class="external-link">run_simulation</a></span><span class="op">(</span></span>
 <span>  timesteps <span class="op">=</span> <span class="va">site_par</span><span class="op">$</span><span class="va">timesteps</span>,</span>

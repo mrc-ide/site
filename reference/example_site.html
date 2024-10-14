@@ -9,7 +9,7 @@ malariasimulation model run."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">site</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,31 +46,49 @@ malariasimulation model run."></head><body>
     <div class="section level2">
     <h2 id="format">Format<a class="anchor" aria-label="anchor" href="#format"></a></h2>
     <p>A list with 10 variables:</p><dl><dt>country</dt>
-<dd><p>The iso3c country code</p></dd>
+<dd><p>The country name</p></dd>
 
-  <dt>level</dt>
-<dd><p>The level of subnational disaggregation</p></dd>
+  <dt>version</dt>
+<dd><p>Site file version</p></dd>
+
+  <dt>admin_level</dt>
+<dd><p>The levels of spatial disaggregation</p></dd>
 
   <dt>sites</dt>
 <dd><p>Unique sites</p></dd>
 
-  <dt>epi</dt>
+  <dt>shape</dt>
+<dd><p>Sptial boundaries (set to NA in testing shapefile)</p></dd>
+
+  <dt>cases_deaths</dt>
 <dd><p>Epidemiological site data</p></dd>
+
+  <dt>prevalence</dt>
+<dd><p>Prevalence data</p></dd>
 
   <dt>interventions</dt>
 <dd><p>Intervention coverage and specification</p></dd>
 
   <dt>population</dt>
-<dd><p>Population and population at risk projections</p></dd>
+<dd><p>Population, population at risk mand age-disaggregated population projections</p></dd>
 
   <dt>demography</dt>
 <dd><p>Demographic projections</p></dd>
 
   <dt>vectors</dt>
-<dd><p>Vector proportions</p></dd>
+<dd><p>Vector specieis and pyrethroid resistance</p></dd>
 
   <dt>seasonality</dt>
-<dd><p>Seasonal profile parameters</p></dd>
+<dd><p>Seasonal profile parameters, monthly rainfall and fourier predictions</p></dd>
+
+  <dt>blood_disorders</dt>
+<dd><p>Blood disorder data</p></dd>
+
+  <dt>accessibility</dt>
+<dd><p>Accessibility data</p></dd>
+
+  <dt>eir</dt>
+<dd><p>Calibrated eir</p></dd>
 
 
 </dl></div>
