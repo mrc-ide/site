@@ -18,7 +18,6 @@ site_parameters <- function(interventions, demography, vectors, seasonality,
                             eir = NULL, overrides = list(), burnin = 0){
 
   p <- malariasimulation::get_parameters(overrides = overrides)
-  p$individual_mosquitoes <- FALSE
 
   p$burnin <- 0
   if(burnin > 0){

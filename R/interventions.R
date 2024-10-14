@@ -2,12 +2,13 @@
 #'
 #' @param p parameter list
 #' @param interventions site intervention inputs
-#' @param species Can be falciparum: "pf" or vivax: "pv", for vivax SMC, RTSS
-#'  and PMC are not implemented
+#' @param species Can be falciparum: "pf" or vivax: "pv", for vivax SMC, RTSS,
+#'  R21 and PMC are not implemented
 #'
 #' @return modified parameter list
 add_interventions <- function(p, interventions, species){
 
+  pf <- species ==  "pf"
   # Drug types
   p <- add_drugs(p)
   # Treatment
@@ -18,31 +19,65 @@ add_interventions <- function(p, interventions, species){
   if(sum(interventions$itn_input_dist, na.rm = TRUE) > 0){
     p <- add_itns(
       p = p,
-      interventions = interventions)
+      interventions = interventions
+    )
   }
   # IRS
   if(sum(interventions$irs_cov, na.rm = TRUE) > 0){
     p <- add_irs(
       p = p,
-      interventions = interventions)
+      interventions = interventions
+    )
   }
   # SMC
-  if(sum(interventions$smc_cov, na.rm = TRUE) > 0 &
-     species ==  "pf"){
-    p <- add_smc(p = p,
-                 interventions = interventions)
+  if(sum(interventions$smc_cov, na.rm = TRUE) > 0 & pf){
+    p <- add_smc(
+      p = p,
+      interventions = interventions
+    )
+  }
+
+  if(
+    sum(interventions$rtss_cov, na.rm = TRUE) > 0 &
+    sum(interventions$r21_cov, na.rm = TRUE) > 0
+  ) {
+    warning("Cannot currently model two vaccine types,
+            defaulting to R21 vaccine type implemented at
+            the maximum yearly coverage inputs across rtss
+            and r21")
+    interventions$r21_cov <- pmax(interventions$r21_cov, interventions$rtss_cov)
+    interventions$rtss_cov <- 0
   }
   # RTSS
-  if(sum(interventions$rtss_cov, na.rm = TRUE) > 0 &
-     species ==  "pf"){
-    p <- add_rtss(p = p,
-                  interventions = interventions)
+  if(sum(interventions$rtss_cov, na.rm = TRUE) > 0 & pf){
+    p <- add_rtss(
+      p = p,
+      interventions = interventions
+    )
+  }
+  # R21
+  if(sum(interventions$r21_cov, na.rm = TRUE) > 0 & pf){
+    p <- add_r21(
+      p = p,
+      interventions = interventions
+    )
   }
   # PMC
-  if(sum(interventions$pmc_cov, na.rm = TRUE) > 0 &
-     species ==  "pf"){
-    p <- add_pmc(p = p,
-                 interventions = interventions)
+  if(sum(interventions$pmc_cov, na.rm = TRUE) > 0 & pf){
+    p <- add_pmc(
+      p = p,
+      interventions = interventions
+    )
+  }
+  # Interventions that modify the carrying capacity
+  # The combined carrying capacity scaling must be estimated for all
+  # interventions that modify it, before updating. Currently, only LSM is
+  # implemented here. This could included An. stephensi in the future.
+  if(sum(interventions$lsm_cov, na.rm = TRUE) > 0){
+    p <- adjust_carrying_capacity(
+      p = p,
+      interventions = interventions
+    )
   }
 
   return(p)
@@ -68,13 +103,14 @@ add_drugs <- function(p){
 
   p <- malariasimulation::set_drugs(
     parameters = p,
-    list(tetst = SP_params,
-         malariasimulation::AL_params,
-         malariasimulation::SP_AQ_params,
-         SP_full_efficacy,
-         AL_full_efficacy))
-
-
+    list(
+      SP_params,
+      malariasimulation::AL_params,
+      malariasimulation::SP_AQ_params,
+      SP_full_efficacy,
+      AL_full_efficacy
+    )
+  )
   return(p)
 }
 
@@ -88,15 +124,19 @@ add_treatment <- function(p, interventions){
   timesteps <- 1 + (interventions$year - p$baseline_year) * 365
 
   # Non ACT (SP)
-  p <- malariasimulation::set_clinical_treatment(parameters = p,
-                                                 drug = 4,
-                                                 timesteps = timesteps,
-                                                 coverages = interventions$tx_cov * (1 - interventions$prop_act))
+  p <- malariasimulation::set_clinical_treatment(
+    parameters = p,
+    drug = 4,
+    timesteps = timesteps,
+    coverages = interventions$tx_cov * (1 - interventions$prop_act)
+  )
   # ACT (AL)
-  p <- malariasimulation::set_clinical_treatment(parameters = p,
-                                                 drug = 5,
-                                                 timesteps = timesteps,
-                                                 coverages = interventions$tx_cov * interventions$prop_act)
+  p <- malariasimulation::set_clinical_treatment(
+    parameters = p,
+    drug = 5,
+    timesteps = timesteps,
+    coverages = interventions$tx_cov * interventions$prop_act
+  )
 
 
   return(p)
@@ -108,10 +148,17 @@ add_treatment <- function(p, interventions){
 #'
 #' @return modified parameter list
 add_itns <- function(p, interventions){
-  # Assuming net distribution happens on January 1st
-  timesteps <- 1 + (interventions$year - p$baseline_year) * 365
+
+  # If not specified, assume distribution happens January 1st
+  if(!"itn_distribution_day" %in% colnames(interventions)){
+    interventions$itn_distribution_day <- 1
+  }
+  timesteps <- interventions$itn_distribution_day + (interventions$year - p$baseline_year) * 365
   # Net retention half life does not vary over time (Should match what is used when fitting input dist)
-  retention <- 365 * 5
+  retention <- unique(interventions$mean_retention)
+  if(length(retention) > 1){
+    stop("Time-varying net rentetion is not currently supported")
+  }
   # Net input coverage
   coverages <- interventions$itn_input_dist
   coverages[is.na(coverages)] <- 0
@@ -145,17 +192,28 @@ add_irs <- function(p, interventions){
   month <- 365 / 12
   peak <- malariasimulation::peak_season_offset(p)
   year_start_times <-  1 + (interventions$year - p$baseline_year) * 365
-  peak_season_times <- peak + year_start_times
-  # Assume IRS occurs 3 months before seasonal peak
-  irs_spray_times <- round(peak_season_times - 3 * month)
-  coverages <- interventions$irs_cov
-  ls_theta <- interventions$ls_theta
-  ls_gamma <- interventions$ls_gamma
-  ks_theta <- interventions$ks_theta
-  ks_gamma <- interventions$ks_gamma
-  ms_theta <- interventions$ms_theta
-  ms_gamma <- interventions$ms_gamma
 
+  if(any(interventions$irs_spray_rounds > 2)){
+    stop("Maximum of 2 IRS spray rounds per year supported")
+  }
+
+  peak_season_times <- peak + year_start_times
+  peak_season_times <- rep(peak_season_times, interventions$irs_spray_rounds)
+
+  # Assume multiple spray rounds are 6 months apart (First is 3 months prior to peak)
+  offset <- sapply(interventions$irs_spray_rounds, function(x){
+    c(3, -3)[1:x]
+  }) |>
+    unlist()
+  irs_spray_times <- round(peak_season_times - offset * month)
+
+  coverages <- rep(interventions$irs_cov, interventions$irs_spray_rounds)
+  ls_theta <- rep(interventions$ls_theta, interventions$irs_spray_rounds)
+  ls_gamma <- rep(interventions$ls_gamma, interventions$irs_spray_rounds)
+  ks_theta <- rep(interventions$ks_theta, interventions$irs_spray_rounds)
+  ks_gamma <- rep(interventions$ks_gamma, interventions$irs_spray_rounds)
+  ms_theta <- rep(interventions$ms_theta, interventions$irs_spray_rounds)
+  ms_gamma <- rep(interventions$ms_gamma, interventions$irs_spray_rounds)
 
   index <- irs_spray_times <= 0
   if(sum(index) > 0){
@@ -199,7 +257,6 @@ add_smc <- function(p, interventions){
   }
 
   peak <- malariasimulation::peak_season_offset(p)
-  # Note: min age and max age are not currently time-varying
   rounds <- interventions$smc_n_rounds
   year_start_times <-  1 + (interventions$year - p$baseline_year) * 365
   peak_season_times <- peak + year_start_times
@@ -228,7 +285,8 @@ add_smc <- function(p, interventions){
     timesteps = timesteps,
     coverages = coverages,
     min_age = min_age,
-    max_age = max_age)
+    max_age = max_age
+  )
 
   return(p)
 }
@@ -242,15 +300,73 @@ add_rtss <- function(p, interventions){
   month <- 365 / 12
   timesteps <- 1 + (interventions$year - p$baseline_year) * 365
 
-  p <- malariasimulation::set_rtss_epi(
+  if("n_doses" %in% colnames(interventions)){
+    booster_cov <- rep(0, length(timesteps))
+    booster_cov[interventions$n_doses == 4] <- 0.8
+  } else {
+    booster_cov <- rep(0.8, length(timesteps))
+  }
+
+  p <- malariasimulation::set_pev_epi(
     parameters = p,
-    timesteps = timesteps,
+    profile = malariasimulation::rtss_profile,
     coverages = interventions$rtss_cov,
+    timesteps = timesteps,
     age = round(6 * month),
     min_wait = 0,
-    boosters = round(18 * month),
-    booster_coverage = 0.8,
-    seasonal_boosters = FALSE
+    booster_spacing = 12 * month, # The booster is administered 12 months following the third dose.
+    booster_coverage = matrix(booster_cov),
+    booster_profile = list(malariasimulation::rtss_booster_profile) # We will model implementation of the RTSS booster.
+  )
+
+  return(p)
+}
+
+#' Add RTS,S
+#'
+#' @inheritParams add_interventions
+#'
+#' @return modified parameter list
+add_r21 <- function(p, interventions){
+  month <- 365 / 12
+  timesteps <- 1 + (interventions$year - p$baseline_year) * 365
+  if("n_doses" %in% colnames(interventions)){
+    booster_cov <- rep(0, length(timesteps))
+    booster_cov[interventions$n_doses == 4] <- 0.8
+  } else {
+    booster_cov <- rep(0.8, length(timesteps))
+  }
+
+  r21_profile <- malariasimulation::create_pev_profile(
+    vmax = 0.87,
+    alpha = 0.91,
+    beta = 471,
+    cs = c(9.3199677, 0.8387902),
+    rho = c(0.8071676, 0.6010363),
+    ds = c(3.7996007, 0.1618982),
+    dl =c(6.2820200, 0.4549185)
+  )
+  r21_booster_profile <- malariasimulation::create_pev_profile(
+    vmax = 0.87,
+    alpha = 0.91,
+    beta = 471,
+    cs = c(9.2372858, 0.7188541),
+    rho = c(0.07140337, 0.54175154),
+    ds = c(3.7996007, 0.1618982),
+    dl =c(6.2820200, 0.4549185)
+  )
+
+  p <- malariasimulation::set_pev_epi(
+    parameters = p,
+    profile = r21_profile,
+    coverages = interventions$r21_cov,
+    timesteps = timesteps,
+    # TODO: Check R21 timings/ages
+    age = round(6 * month),
+    min_wait = 0,
+    booster_spacing = 12 * month, # The booster is administered 12 months following the third dose.
+    booster_coverage = matrix(booster_cov),
+    booster_profile = list(r21_booster_profile) # We will model implementation of the RTSS booster.
   )
 
   return(p)
@@ -280,3 +396,26 @@ add_pmc <- function(p, interventions){
   return(p)
 }
 
+#' Adjust carrying capacity
+#'
+#' @inheritParams add_interventions
+#'
+#' @return modified parameter list
+adjust_carrying_capacity <- function(p, interventions){
+  lsm_impact <- rep(1 - interventions$lsm_cov, each = length(p$species))
+  carrying_capacity_scaler <- matrix(
+    data = lsm_impact,
+    ncol = length(p$species),
+    byrow = TRUE
+  )
+  month <- 365 / 12
+  timesteps <- 1 + (interventions$year - p$baseline_year) * 365
+
+  p <- malariasimulation::set_carrying_capacity(
+    parameters = p,
+    carrying_capacity = carrying_capacity_scaler,
+    timesteps = timesteps
+  )
+
+  return(p)
+}
