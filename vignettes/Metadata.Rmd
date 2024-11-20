@@ -1,0 +1,50 @@
+---
+title: "Metadata"
+output: rmarkdown::html_vignette
+bibliography: references.bib
+csl: nature.csl
+link-citations: true
+vignette: >
+  %\VignetteIndexEntry{Metadata}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Country
+
+`site_file$country`
+
+The ISO3c code identifying the country. The R package `countrycode` @countrycode
+is useful for converting between ISO3c and country names.
+
+## Version
+
+`site_file$version`
+
+The year and version of the site file.
+
+## Admininstrative level
+
+`site_file$admin_level`
+
+The administrative level (e.g. state, region, province) of the sites within the site file.
+
+## Sites
+
+`site_file$sites`
+
+The sites within the site file. These are the named sites disaggregated to the
+specified administrative level. Further disaggregation may include, for example,
+an [urban rural split](https://mrc-ide.github.io/site/articles/pop_demog.html).
+We use the GADM @GADM 
+version 4.04 administrative boundary simple feature spatial files at the first 
+or second administrative unit level.
+
+## Citations

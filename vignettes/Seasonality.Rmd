@@ -1,0 +1,30 @@
+---
+title: "Seasonality"
+output: rmarkdown::html_vignette
+bibliography: references.bib
+csl: nature.csl
+link-citations: true
+vignette: >
+  %\VignetteIndexEntry{Seasonality}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Seasonality
+
+`site_file$seasonality`
+
+Daily rainfall global rasters for the period 2019-2021 were obtained from 
+CHIRPS @CHIRPS using the 
+[umbrella R package](https://mrc-ide.github.io/umbrella/). For each site we
+estimate the fourier series parameters representing general seasonal profiles. 
+Please see the umbrella website for more information.
+
+## Citations

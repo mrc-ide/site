@@ -1,0 +1,46 @@
+---
+title: "Historical Epidemiological Data"
+output: rmarkdown::html_vignette
+bibliography: references.bib
+csl: nature.csl
+link-citations: true
+vignette: >
+  %\VignetteIndexEntry{Historical Epidemiological Data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Cases and deaths
+
+`site_file$cases_deaths`
+
+Where available this includes the time series of cases and deaths for the country
+as reported in previous editions of the world malaria report. Other useful data
+include the world malaria report @WMR population at risk and uncertainty intervals for
+estimates.
+
+## Prevalence
+
+`site_file$prevalence`
+
+Where available this includes the population at risk weighted average parasite
+prevalence time series from the Malaria Atlas Project @MAP
+
+_Plasmodium falciparuim_ parasite prevalence (`PfPr`) is reported for children aged 
+between 2-10 years, summarized from the malaria atlas project raster entitled:
+"Plasmodium falciparum PR2 - 10 version 2020".
+
+_Plasmodium vivax_ parasite prevalence (`PvPr`) is reported for individuals aged 
+between 1-99 years, summarized from the malaria atlas project raster entitled:
+"Plasmodium vivax PR1-99 version 2020".
+
+Prevalence estimates are used for [calibrating the baseline EIR](https://mrc-ide.github.io/site/articles/Calibration.html).
+
+## Citations

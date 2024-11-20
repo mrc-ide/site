@@ -1,0 +1,63 @@
+---
+title: "Population and Demography"
+output: rmarkdown::html_vignette
+bibliography: references.bib
+csl: nature.csl
+link-citations: true
+vignette: >
+  %\VignetteIndexEntry{Population and Demography}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Population projections
+
+`site_file$population`
+
+Site-level population estimates are extracted at the pixel level from 
+WorldPop @worldpop. We use the "Unconstrained individual 
+countries 2000-2020 UN adjusted ( 1km resolution )" rasters.
+
+### Urban rural 
+
+Urban rural splits within administrative unit are defined using a threshold
+density of 1500 people per square km.
+
+### Population at risk
+
+`site_file$population$par_pf`
+`site_file$population$par_pv`
+`site_file$population$par`
+
+Population at risk from _Plasmodium falciparum_, _Plasmodium vivax_ or both are
+estimated by masking the total population raster by areas with active transmission 
+(prevalence >0%) in year 2000 @MAP.
+
+### Population growth and urbanisation
+
+We provide annual population projections to 2050 using UN data on total population
+growth @unwpp combined with UN projections of 
+the levels of urbanisation @UNWUP.
+We use these projections to produces estimates of the rate of urban and rural
+growth (relative to a baseline year) which are then applied to our spatial-unit
+population estimates. Final estimates are rescaled to ensure that
+population total match UN totals.
+
+## Demography
+
+Population demographics (age structure) are defined over time for each site.
+Demography is obtained using the [peeps R package](https://github.com/mrc-ide/peeps),
+and are based on data from the UN WPP @unwpp.
+
+Mortality rates are specified for neonates (0-30 days), young infants 
+(31 days - 1 year), older infants (1 year - 5 years) and then in five year age 
+bands.
+
+# Citations
