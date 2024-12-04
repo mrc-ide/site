@@ -38,7 +38,7 @@ location_add_or_update <- function(name, type, args, root) {
 
 
 #' Configure the orderly root used to fetch sitefiles.
-#' 
+#'
 #' This creates a folder in the user's home directory used to download and cache
 #' site files. The location of the cache folder is determined by
 #' [rappdirs::user_cache_dir()] and depends on the OS.
@@ -91,19 +91,17 @@ fetch_files <- function(name, parameters, dest, files, expr = NULL) {
     expr <- sprintf("latest(%s)", filter)
   }
 
-  options <- orderly2::orderly_search_options(
-    location = LOCATION_NAME,
-    allow_remote = TRUE,
-    pull_metadata = TRUE)
-
   plan <- orderly2::orderly_copy_files(
     name = name,
     expr = expr,
     parameters = parameters,
     dest = dest,
     files = files,
-    options = options,
-    root = root)
+    location = LOCATION_NAME,
+    allow_remote = TRUE,
+    fetch_metadata = TRUE,
+    root = root
+    )
 
   plan$id
 }

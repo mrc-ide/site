@@ -30,7 +30,7 @@ The site package supports malariaverse users to:
 The site-file is the file storing all of the sub nationally disaggregated 
 information for a country. Components of the site-file include:
 
-1. The [metadata](https://mrc-ide.github.io/site/articles/Metadata.html), with 
+1. The [Metadata](https://mrc-ide.github.io/site/articles/Metadata.html), with 
 high level information about the country and site-file version.
 2. [Historical Epidemiological Data](https://mrc-ide.github.io/site/articles/historical_epi.html)
 with estimates of cases, deaths and parasite prevalence.

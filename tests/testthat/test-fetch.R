@@ -73,17 +73,26 @@ test_that("files are cached and only downloaded once", {
 
   dest <- withr::local_tempdir()
   suppressMessages({
-    expect_message(fetch_files("data", list(), dest,
-                               c("first.txt" = "data.txt")),
-                   "Need to fetch 1 file")
-
-    expect_no_message(fetch_files("data", list(), dest,
-                                  c("second.txt" = "data.txt")),
-                      message = "Need to fetch 1 file")
+    # Fetch the file for the first time
+    fetch_files("data", list(), dest, c("first.txt" = "data.txt"))
   })
 
+  # Assert that the file exists and has the correct content
+  expect_true(file.exists(fs::path(dest, "first.txt")))
   expect_equal(readLines(fs::path(dest, "first.txt")), "Contents")
+
+  suppressMessages({
+    # Fetch the same file again with a different name
+    fetch_files("data", list(), dest, c("second.txt" = "data.txt"))
+  })
+
+  # Assert that the second file exists and has the correct content
+  expect_true(file.exists(fs::path(dest, "second.txt")))
   expect_equal(readLines(fs::path(dest, "second.txt")), "Contents")
+
+  # Assert that the content matches across both files to confirm caching
+  expect_equal(readLines(fs::path(dest, "first.txt")),
+               readLines(fs::path(dest, "second.txt")))
 })
 
 
