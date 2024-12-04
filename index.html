@@ -35,7 +35,8 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/historical_epi.html">Historical Epidemiological Data</a></li>
+<li><a class="dropdown-item" href="articles/Accessing-site-files.html">Accessing site-files</a></li>
+    <li><a class="dropdown-item" href="articles/historical_epi.html">Historical Epidemiological Data</a></li>
     <li><a class="dropdown-item" href="articles/Interventions.html">Interventions</a></li>
     <li><a class="dropdown-item" href="articles/Metadata.html">Metadata</a></li>
     <li><a class="dropdown-item" href="articles/pop_demog.html">Population and Demography</a></li>
@@ -60,11 +61,55 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>Site acts as a translational layer between a site file and malariasimulation: 🌍 ➡️ 📉</p>
-<p>The site file is the file storing all of the context specific information for a site, such as historical intervention coverage, seasonality, vectors etc. To simulate a given site, we must convert this information into an input parameter list for malaria simulation. That is what site is here to do!</p>
-<p>If we have a correctly configured site file <code>example_site</code>, then all we need to do is create the parameter list and pass that to malariasimulation to run:</p>
+<p>The site package supports malariaverse users to:</p>
+<ol style="list-style-type: decimal">
+<li>Access and download the latest country site-files 🌐 ➡️ 💻</li>
+<li>Translate site file information into malariasimulation parameters 🌍 ➡️ 📉</li>
+</ol>
+<div class="section level2">
+<h2 id="the-site-file">The site-file<a class="anchor" aria-label="anchor" href="#the-site-file"></a>
+</h2>
+<p>The site-file is the file storing all of the sub nationally disaggregated information for a country. Components of the site-file include:</p>
+<ol style="list-style-type: decimal">
+<li>The <a href="https://mrc-ide.github.io/site/articles/Metadata.html" class="external-link">metadata</a>, with high level information about the country and site-file version.</li>
+<li>
+<a href="https://mrc-ide.github.io/site/articles/historical_epi.html" class="external-link">Historical Epidemiological Data</a> with estimates of cases, deaths and parasite prevalence.</li>
+<li>
+<a href="https://mrc-ide.github.io/site/articles/pop_demog.html" class="external-link">Population and Demography</a> information.</li>
+<li>Estimates of the <a href="https://mrc-ide.github.io/site/articles/Interventions.html" class="external-link">Historical Intervention Use</a> in the country.</li>
+<li>
+<a href="https://mrc-ide.github.io/site/articles/Seasonality.html" class="external-link">Rainfalll and Seasonality</a> data.</li>
+<li>Information on the <a href="https://mrc-ide.github.io/site/articles/vectors.html" class="external-link">Mosquito Vectors</a>
+</li>
+</ol>
+</div>
+<div class="section level2">
+<h2 id="accessing-and-downloading-site-files">Accessing and downloading site-files<a class="anchor" aria-label="anchor" href="#accessing-and-downloading-site-files"></a>
+</h2>
+<p>Please see <a href="https://mrc-ide.github.io/site/articles/Accessing-site-files.html" class="external-link">this detailed guide</a> for information on how to gain access and download site files.</p>
+</div>
+<div class="section level2">
+<h2 id="translating-site-file-information-to-malariasimulation-parameters">Translating site-file information to malariasimulation parameters<a class="anchor" aria-label="anchor" href="#translating-site-file-information-to-malariasimulation-parameters"></a>
+</h2>
+<p>If we have access a site file, then all we need to do to run the model is</p>
+<ol style="list-style-type: decimal">
+<li>Isolate a single site, this is a single sub-national unit within the country</li>
+<li>Create the parameter list</li>
+<li>Pass that to malariasimulation to run the simulation</li>
+</ol>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">site</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/subset_site.html">subset_site</a></span><span class="op">(</span><span class="va">example_site</span>, <span class="va">example_site</span><span class="op">$</span><span class="va">eir</span><span class="op">[</span><span class="fl">1</span>,<span class="op">]</span><span class="op">)</span></span>
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Pull information for a single sub-national unit from the site-file</span></span>
+<span><span class="va">site</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/subset_site.html">subset_site</a></span><span class="op">(</span></span>
+<span>  site <span class="op">=</span> <span class="va">example_site</span>,</span>
+<span>  site_filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  country <span class="op">=</span> <span class="st">"Burkina Faso"</span>,</span>
+<span>  iso3c <span class="op">=</span> <span class="st">"BFA"</span>,</span>
+<span>  name_1 <span class="op">=</span> <span class="st">"Sahel"</span>,</span>
+<span>  urban_rural <span class="op">=</span> <span class="st">"rural"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Convert site information to malariasimulation parameters</span></span>
 <span><span class="va">site_par</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/site_parameters.html">site_parameters</a></span><span class="op">(</span></span>
 <span>  interventions <span class="op">=</span> <span class="va">site</span><span class="op">$</span><span class="va">interventions</span>,</span>
 <span>  demography <span class="op">=</span> <span class="va">site</span><span class="op">$</span><span class="va">demography</span>,</span>
@@ -75,17 +120,20 @@
 <span>    human_population <span class="op">=</span> <span class="fl">1000</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Run the model!</span></span>
 <span><span class="va">site_sim</span> <span class="op">&lt;-</span> <span class="fu">malariasimulation</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/malariasimulation/man/run_simulation.html" class="external-link">run_simulation</a></span><span class="op">(</span></span>
 <span>  timesteps <span class="op">=</span> <span class="va">site_par</span><span class="op">$</span><span class="va">timesteps</span>,</span>
 <span>  parameters <span class="op">=</span> <span class="va">site_par</span></span>
 <span><span class="op">)</span></span></code></pre></div>
+</div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p>You can install the development version of site from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"mrc-ide/site"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"mrc-ide/site"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="license">

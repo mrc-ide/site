@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Seasonality • site</title>
+<title>Accessing site-files • site</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Seasonality">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Accessing site-files">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -60,35 +60,65 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
-      <h1>Seasonality</h1>
+      <h1>Accessing site-files</h1>
             
       
 
-      <div class="d-none name"><code>Seasonality.Rmd</code></div>
+      <div class="d-none name"><code>Accessing-site-files.Rmd</code></div>
     </div>
 
     
     
 <div class="section level2">
-<h2 id="seasonality">Seasonality<a class="anchor" aria-label="anchor" href="#seasonality"></a>
+<h2 id="downloading-a-site-file">Downloading a site file<a class="anchor" aria-label="anchor" href="#downloading-a-site-file"></a>
 </h2>
-<p><code>site_file$seasonality</code></p>
-<p>Daily rainfall global rasters for the period 2019-2021 were obtained
-from CHIRPS<span class="citation"><sup><a href="#ref-CHIRPS">1</a></sup></span> using the <a href="https://mrc-ide.github.io/umbrella/" class="external-link">umbrella R package</a>. For
-each site we estimate the fourier series parameters representing general
-seasonal profiles. Please see the umbrella website for more
-information.</p>
+<p>To access a site file - a collated set of data for a specific country
+- you will need to follow these steps:</p>
+<ol style="list-style-type: decimal">
+<li><p>Sign up for a <a href="URL">github account</a>, single user
+accounts are free.</p></li>
+<li><p>Send an email to <a href="mailto:malariaverse@imperial.ac.uk" class="email">malariaverse@imperial.ac.uk</a> to ask for site file
+access. Please include the following details:</p></li>
+</ol>
+<ul>
+<li>Your name</li>
+<li>Your institution</li>
+<li>Your github username</li>
+<li>A short description of the project you will use the site files
+for</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>You will then be added to the malariaverse github team.</li>
+</ol>
+<p>When you receive confirmation of this (look out for a notification on
+github), you can then use the <code>site</code> package inbuilt
+functionality to download site files.</p>
+<p>You can call <code><a href="../reference/fetch_site.html">fetch_site()</a></code>, specifying the <a href="URL">ISO3c country code</a> of your country of interest. For
+example, for Nigeria: <code>fetch_site(iso3c = "NGA)</code>.</p>
+<p>The first time you do this, you will see interactive authentication
+instructions asking you to access a github link and providing an
+authentication code. Open the link and copy the code to authorise
+access. This process should cache your credentials so that you don’t
+have to authorise every time.</p>
 </div>
-<div class="section level2 unnumbered">
-<h2 class="unnumbered" id="citations">Citations<a class="anchor" aria-label="anchor" href="#citations"></a>
+<div class="section level2">
+<h2 id="updates-and-versioning">Updates and versioning<a class="anchor" aria-label="anchor" href="#updates-and-versioning"></a>
 </h2>
-<div id="refs" class="references csl-bib-body" entry-spacing="0" line-spacing="2">
-<div id="ref-CHIRPS" class="csl-entry">
-<div class="csl-left-margin">1. </div>
-<div class="csl-right-inline">
-<a href="https://www.chc.ucsb.edu/data/chirps" class="external-link">CHIRPS</a>.</div>
+<p>Site files will be periodically updated. When you call
+<code><a href="../reference/fetch_site.html">fetch_site()</a></code>, by default you will be accessing the most
+recent version of the site file. The version can be identified XXX here
+and you will be able to access older versions of the site files by
+specifying additional arguments (e.g XXXX) when calling
+<code><a href="../reference/fetch_site.html">fetch_site()</a></code>. Older versions may no longer be supported
+with the malariaverse packages.</p>
+<p>News on new updates will be posted <a href="URL">here</a>.</p>
 </div>
-</div>
+<div class="section level2">
+<h2 id="issues">Issues<a class="anchor" aria-label="anchor" href="#issues"></a>
+</h2>
+<p>If you encounter any issues with this process, please post an issue,
+with as much detail as possible on the <a href="URL">site package issue
+page</a>.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
