@@ -41,6 +41,6 @@ _Plasmodium vivax_ parasite prevalence (`PvPr`) is reported for individuals aged
 between 1-99 years, summarized from the malaria atlas project raster entitled:
 "Plasmodium vivax PR1-99 version 2020".
 
-Prevalence estimates are used for [calibrating the baseline EIR](https://mrc-ide.github.io/site/articles/Calibration.html).
+Prevalence estimates are used for calibrating the baseline EIR using the [cali package](https://mrc-ide.github.io/cali/).
 
 ## Citations

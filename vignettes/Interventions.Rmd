@@ -48,10 +48,10 @@ Bertozzi-Villa *et al* @bertozzi
 ITN use is much more heterogeneous outside of SSA and data are less systematically
 collected. As a result, there are strong assumptions associated with the historical
 scale and magnitude of ITN distributions. We make the assumption that any reported
-ITN distributions (as detailed by the world malaria report @WMR) are tarted to areas
-that have > 1% PfPr or > 1% PvPr at baseline. Annual distributions in these regions
-are then scaled so that that number of ITNs distributed is aligned with the 
-world malaria report. 
+ITN distributions (as detailed by the world malaria report @WMR) are targeted such that
+areas with the highest baseline prevalence are prioritised first. Net use is  
+implemented up to a maximum usage of 55% in each area, sequentially working through
+the targeting until the reported total number of bed nets have been allocated.
 
 ### Missing years
 
@@ -74,11 +74,23 @@ pyrethroid_pbo and pyrethroid_pyrrole.
 
 `site_file$interventions$itn_input_dist`
 
-We need to estimate the annual ITN distributions that would cumulatively result
-in our observed timeseries of ITN usage. For the we use the `fit_usage()` 
-function from the [netz R package](https://mrc-ide.github.io/netz/).
-We an impose 3 year cyclical limits to the number of nets that are
-distributed to avoid unrealistic over-distribution.
+Modelling Bed Net Use in the Malaria Model
+
+**Observed data**
+Each year, we obtain an estimate of the population-level usage of bed nets from available data. This time series represents the proportion of the population reported to be using bed nets annually.
+
+**Model requirement**
+To incorporate these observations into the model, we calculate the yearly coverage inputs that align with the observed usage. These inputs represent the distribution of nets that ultimately result in the reported usage levels.
+
+**Accounting for net retention**
+Bed nets distributed in a given year remain in use for multiple years, with their effective coverage diminishing over time. Consequently, the observed usage in any given year reflects not only the nets distributed that year but also the cumulative contribution of nets distributed in previous years.
+
+**Back-calculation of coverage inputs**
+The model uses the observed usage time series to reverse-engineer the yearly net distributions required to produce the observed patterns. This calculation incorporates assumptions about net retention: Hhw long nets are expected to last after being distributed
+
+**Capturing population-level dynamics**
+By combining distribution events from multiple years and their overlapping effects, the model accounts for the cumulative build-up of nets in the population. This ensures that the simulated coverage reflects both current and residual effects of past distributions.
+
 
 ### Pyrethroid resistance
 
@@ -126,10 +138,10 @@ by IRS matches the number reported in the world malaria report @WMR.
 IRS coverage is much more heterogeneous outside of SSA and data are less systematically
 collected. As a result, there are strong assumptions associated with the historical
 scale and magnitude of IRS campaigns. We make the assumption that any reported
-IRS campaigns (as detailed by the world malaria report @WMR) are tarted to areas
-that have > 1% PfPr or > 1% PvPr at baseline. Coverage in these regions
-are then scaled so that that number of persons protected by IRS is aligned with the 
-world malaria report.
+persons protected by IRS (as detailed by the world malaria report @WMR) are targeted such that
+areas with the highest baseline prevalence are prioritised first. IRS coverage  
+implemented up to a maximum usage of80% in each area, sequentially working through
+the targeting until the reported total number of persons protected have been allocated.
 
 ### IRS insecticide
 
