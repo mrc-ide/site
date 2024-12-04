@@ -5,3 +5,4 @@
 .DS_Store
 docs
 add_data_temp.R
+inst/doc

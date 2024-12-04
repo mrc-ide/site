@@ -11,21 +11,65 @@ public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostat
 [![R-CMD-check](https://github.com/mrc-ide/site/workflows/R-CMD-check/badge.svg)](https://github.com/mrc-ide/site/actions)
 <!-- badges: end -->
 
-Site acts as a translational layer between a site file and
-malariasimulation: 🌍 ➡️ 📉
+The site package supports malariaverse users to:
 
-The site file is the file storing all of the context specific
-information for a site, such as historical intervention coverage,
-seasonality, vectors etc. To simulate a given site, we must convert this
-information into an input parameter list for malaria simulation. That is
-what site is here to do!
+1.  Access and download the latest country site-files 🌐 ➡️ 💻
+2.  Translate site file information into malariasimulation parameters 🌍
+    ➡️ 📉
 
-If we have a correctly configured site file `example_site`, then all we
-need to do is create the parameter list and pass that to
-malariasimulation to run:
+## The site-file
+
+The site-file is the file storing all of the sub nationally
+disaggregated information for a country. Components of the site-file
+include:
+
+1.  The
+    [metadata](https://mrc-ide.github.io/site/articles/Metadata.html),
+    with high level information about the country and site-file version.
+2.  [Historical Epidemiological
+    Data](https://mrc-ide.github.io/site/articles/historical_epi.html)
+    with estimates of cases, deaths and parasite prevalence.
+3.  [Population and
+    Demography](https://mrc-ide.github.io/site/articles/pop_demog.html)
+    information.
+4.  Estimates of the [Historical Intervention
+    Use](https://mrc-ide.github.io/site/articles/Interventions.html) in
+    the country.
+5.  [Rainfalll and
+    Seasonality](https://mrc-ide.github.io/site/articles/Seasonality.html)
+    data.
+6.  Information on the [Mosquito
+    Vectors](https://mrc-ide.github.io/site/articles/vectors.html)
+
+## Accessing and downloading site-files
+
+Please see [this detailed
+guide](https://mrc-ide.github.io/site/articles/Accessing-site-files.html)
+for information on how to gain access and download site files.
+
+## Translating site-file information to malariasimulation parameters
+
+If we have access a site file, then all we need to do to run the model
+is
+
+1.  Isolate a single site, this is a single sub-national unit within the
+    country
+2.  Create the parameter list
+3.  Pass that to malariasimulation to run the simulation
 
 ``` r
-site <- subset_site(example_site, example_site$eir[1,])
+
+# Pull information for a single sub-national unit from the site-file
+site <- subset_site(
+  site = example_site,
+  site_filter = data.frame(
+  country = "Burkina Faso",
+  iso3c = "BFA",
+  name_1 = "Sahel",
+  urban_rural = "rural")
+  )
+
+# Convert site information to malariasimulation parameters
 site_par <- site_parameters(
   interventions = site$interventions,
   demography = site$demography,
@@ -36,6 +80,8 @@ site_par <- site_parameters(
     human_population = 1000
   )
 )
+
+# Run the model!
 site_sim <- malariasimulation::run_simulation(
   timesteps = site_par$timesteps,
   parameters = site_par
@@ -48,6 +94,6 @@ You can install the development version of site from
 [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("mrc-ide/site")
+# install.packages("pak")
+pak::pak("mrc-ide/site")
 ```

@@ -1,0 +1,61 @@
+---
+title: "Accessing site-files"
+output: rmarkdown::html_vignette
+bibliography: references.bib
+csl: nature.csl
+link-citations: true
+vignette: >
+  %\VignetteIndexEntry{Accessing-site-files}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Downloading a site file
+
+To access a site file - a collated set of data for a specific country - you will
+need to follow these steps:
+
+1. Sign up for a [github account](URL), single user accounts are free.
+
+2. Send an email to malariaverse@imperial.ac.uk to ask for site file access. 
+Please include the following details:
+
+  * Your name
+  * Your institution
+  * Your github username
+  * A short description of the project you will use the site files for
+  
+3. You will then be added to the malariaverse github team.
+
+When you receive confirmation of this (look out for a notification on github), you
+can then use the `site` package inbuilt functionality to download site files.
+
+You can call `fetch_site()`, specifying the [ISO3c country code](URL) of your
+country of interest. For example, for Nigeria: `fetch_site(iso3c = "NGA)`.
+
+The first time you do this, you will see interactive authentication instructions
+asking you to access a github link and providing an authentication code. Open
+the link and copy the code to authorise access. This process should cache your
+credentials so that you don't have to authorise every time.
+
+## Updates and versioning
+
+Site files will be periodically updated. When you call `fetch_site()`, by default
+you will be accessing the most recent version of the site file. The version can
+be identified XXX here and you will be able to access older versions of the site
+files by specifying additional arguments (e.g XXXX) when calling `fetch_site()`.
+Older versions may no longer be supported with the malariaverse packages.
+
+News on new updates will be posted [here](URL).
+
+## Issues
+
+If you encounter any issues with this process, please post an issue, with as much
+detail as possible on the [site package issue page](URL).
