@@ -100,10 +100,11 @@ on work by Bertozzi-Villa <em>et al</em><span class="citation"><sup><a href="#re
 systematically collected. As a result, there are strong assumptions
 associated with the historical scale and magnitude of ITN distributions.
 We make the assumption that any reported ITN distributions (as detailed
-by the world malaria report<span class="citation"><sup><a href="#ref-WMR">2</a></sup></span>) are tarted to areas that have &gt;
-1% PfPr or &gt; 1% PvPr at baseline. Annual distributions in these
-regions are then scaled so that that number of ITNs distributed is
-aligned with the world malaria report.</p>
+by the world malaria report<span class="citation"><sup><a href="#ref-WMR">2</a></sup></span>) are targeted such that areas with
+the highest baseline prevalence are prioritised first. Net use is<br>
+implemented up to a maximum usage of 55% in each area, sequentially
+working through the targeting until the reported total number of bed
+nets have been allocated.</p>
 </div>
 </div>
 <div class="section level3">
@@ -130,11 +131,30 @@ pyrethroid_pyrrole.</p>
 <h3 id="net-input-distribution">Net input distribution<a class="anchor" aria-label="anchor" href="#net-input-distribution"></a>
 </h3>
 <p><code>site_file$interventions$itn_input_dist</code></p>
-<p>We need to estimate the annual ITN distributions that would
-cumulatively result in our observed timeseries of ITN usage. For the we
-use the <code>fit_usage()</code> function from the <a href="https://mrc-ide.github.io/netz/" class="external-link">netz R package</a>. We an impose
-3 year cyclical limits to the number of nets that are distributed to
-avoid unrealistic over-distribution.</p>
+<p>Modelling Bed Net Use in the Malaria Model</p>
+<p><strong>Observed data</strong> Each year, we obtain an estimate of
+the population-level usage of bed nets from available data. This time
+series represents the proportion of the population reported to be using
+bed nets annually.</p>
+<p><strong>Model requirement</strong> To incorporate these observations
+into the model, we calculate the yearly coverage inputs that align with
+the observed usage. These inputs represent the distribution of nets that
+ultimately result in the reported usage levels.</p>
+<p><strong>Accounting for net retention</strong> Bed nets distributed in
+a given year remain in use for multiple years, with their effective
+coverage diminishing over time. Consequently, the observed usage in any
+given year reflects not only the nets distributed that year but also the
+cumulative contribution of nets distributed in previous years.</p>
+<p><strong>Back-calculation of coverage inputs</strong> The model uses
+the observed usage time series to reverse-engineer the yearly net
+distributions required to produce the observed patterns. This
+calculation incorporates assumptions about net retention: Hhw long nets
+are expected to last after being distributed</p>
+<p><strong>Capturing population-level dynamics</strong> By combining
+distribution events from multiple years and their overlapping effects,
+the model accounts for the cumulative build-up of nets in the
+population. This ensures that the simulated coverage reflects both
+current and residual effects of past distributions.</p>
 </div>
 <div class="section level3">
 <h3 id="pyrethroid-resistance">Pyrethroid resistance<a class="anchor" aria-label="anchor" href="#pyrethroid-resistance"></a>
@@ -188,11 +208,13 @@ world malaria report<span class="citation"><sup><a href="#ref-WMR">2</a></sup></
 <p>IRS coverage is much more heterogeneous outside of SSA and data are
 less systematically collected. As a result, there are strong assumptions
 associated with the historical scale and magnitude of IRS campaigns. We
-make the assumption that any reported IRS campaigns (as detailed by the
-world malaria report<span class="citation"><sup><a href="#ref-WMR">2</a></sup></span>) are tarted to areas that have &gt;
-1% PfPr or &gt; 1% PvPr at baseline. Coverage in these regions are then
-scaled so that that number of persons protected by IRS is aligned with
-the world malaria report.</p>
+make the assumption that any reported persons protected by IRS (as
+detailed by the world malaria report<span class="citation"><sup><a href="#ref-WMR">2</a></sup></span>) are targeted such that areas with
+the highest baseline prevalence are prioritised first. IRS
+coverage<br>
+implemented up to a maximum usage of80% in each area, sequentially
+working through the targeting until the reported total number of persons
+protected have been allocated.</p>
 </div>
 </div>
 <div class="section level3">
