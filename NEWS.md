@@ -1,6 +1,8 @@
-# site malariaverse_01_2025
+# site 1.0.5
 
-## Major changes
+## Sitefile release:  malariaverse_01_2025
+
+### Major changes
 
 * The first full release of site*files, these include latest World Malaria Report 
 2024 data
@@ -15,7 +17,7 @@ to country specific, shorter retentions
 * Inclusion of travel time data
 * Foundation of vaccine (RTS,S and R21) input monitoring
 
-## Minor improvement and bug fixes
+### Minor improvement and bug fixes
 
 * Fixed demography bug that led to misspecified population age-structure
 * Fixed insecticide resistance half life bug
