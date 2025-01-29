@@ -38,7 +38,7 @@ When you receive confirmation of this (look out for a notification on github), y
 can then use the `site` package inbuilt functionality to download site files.
 
 You can call `fetch_site()`, specifying the [ISO3c country code](URL) of your
-country of interest. For example, for Nigeria: `fetch_site(iso3c = "NGA)`.
+country of interest. For example, for Nigeria: `fetch_site(iso3c = "NGA")`.
 
 The first time you do this, you will see interactive authentication instructions
 asking you to access a github link and providing an authentication code. Open
