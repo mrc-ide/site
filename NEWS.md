@@ -1,4 +1,4 @@
-# Site file release: malariaverse_01_2025
+# site malariaverse_01_2025
 
 ## Major changes
 
