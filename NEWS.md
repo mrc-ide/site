@@ -1,8 +1,7 @@
-# site 1.0.5
+# Site file release: malariaverse_01_2025
 
 ## Major changes
 
-* Version name: malariaverse_01_2025
 * The first full release of site*files, these include latest World Malaria Report 
 2024 data
 * Update to most recent available intervention, burden and boundary data
