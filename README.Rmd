@@ -94,4 +94,3 @@ You can install the development version of site from [GitHub](https://github.com
 # install.packages("pak")
 pak::pak("mrc-ide/site")
 ```
-
