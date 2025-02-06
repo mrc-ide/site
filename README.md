@@ -9,6 +9,8 @@
 has not yet been a stable, usable release suitable for the
 public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![R-CMD-check](https://github.com/mrc-ide/site/workflows/R-CMD-check/badge.svg)](https://github.com/mrc-ide/site/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/mrc-ide/site/graph/badge.svg)](https://app.codecov.io/gh/mrc-ide/site)
 <!-- badges: end -->
 
 The site package supports malariaverse users to:
@@ -24,7 +26,7 @@ disaggregated information for a country. Components of the site-file
 include:
 
 1.  The
-    [metadata](https://mrc-ide.github.io/site/articles/Metadata.html),
+    [Metadata](https://mrc-ide.github.io/site/articles/Metadata.html),
     with high level information about the country and site-file version.
 2.  [Historical Epidemiological
     Data](https://mrc-ide.github.io/site/articles/historical_epi.html)

@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![R-CMD-check](https://github.com/mrc-ide/site/workflows/R-CMD-check/badge.svg)](https://github.com/mrc-ide/site/actions)
+[![Codecov test coverage](https://codecov.io/gh/mrc-ide/site/graph/badge.svg)](https://app.codecov.io/gh/mrc-ide/site)
 <!-- badges: end -->
 
 The site package supports malariaverse users to:
