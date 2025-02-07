@@ -46,7 +46,7 @@ estimated by masking the total population raster by areas with active transmissi
 ### Population growth and urbanisation
 
 We provide annual population projections to 2050 using UN data on total population
-growth @unwpp combined with UN projections of 
+growth @UNWPP combined with UN projections of 
 the levels of urbanisation @UNWUP.
 We use these projections to produces estimates of the rate of urban and rural
 growth (relative to a baseline year) which are then applied to our spatial-unit
@@ -57,7 +57,7 @@ population total match UN totals.
 
 Population demographics (age structure) are defined over time for each site.
 Demography is obtained using the [peeps R package](https://github.com/mrc-ide/peeps),
-and are based on data from the UN WPP @unwpp.
+and are based on data from the UN WPP @UNWPP
 
 Mortality rates are specified for neonates (0-30 days), young infants 
 (31 days - 1 year), older infants (1 year - 5 years) and then in five year age 
