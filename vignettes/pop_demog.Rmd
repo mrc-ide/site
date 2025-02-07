@@ -25,6 +25,9 @@ Site-level population estimates are extracted at the pixel level from
 WorldPop @worldpop. We use the "Unconstrained individual 
 countries 2000-2020 UN adjusted ( 1km resolution )" rasters.
 
+Options disaggregated by 1-year age bands (`site_file$population$population_by_age`)
+or total (`site_file$population$population_total`) are provided
+
 ### Urban rural 
 
 Urban rural splits within administrative unit are defined using a threshold

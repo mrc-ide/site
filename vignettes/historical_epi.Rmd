@@ -35,11 +35,11 @@ prevalence time series from the Malaria Atlas Project @MAP
 
 _Plasmodium falciparuim_ parasite prevalence (`PfPr`) is reported for children aged 
 between 2-10 years, summarized from the malaria atlas project raster entitled:
-"Plasmodium falciparum PR2 - 10 version 2020".
+"Malaria__202406_Global_Pf_Parasite_Rate".
 
 _Plasmodium vivax_ parasite prevalence (`PvPr`) is reported for individuals aged 
 between 1-99 years, summarized from the malaria atlas project raster entitled:
-"Plasmodium vivax PR1-99 version 2020".
+"Malaria__202406_Global_Pv_Parasite_Rate".
 
 Prevalence estimates are used for calibrating the baseline EIR using the [cali package](https://mrc-ide.github.io/cali/).
 

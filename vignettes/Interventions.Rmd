@@ -39,7 +39,7 @@ within sub-Saharan Africa differs to countries outside of sub-Saharan Africa:
 
 The population at risk weighted mean ITN use estimates for each site are taken 
 from the malaria atlas project raster entitled:
-"Insecticide treated bednet (ITN) use version 2020". This, and other elements
+"Interventions__202406_Africa_Insecticide_Treated_Net_Use". This, and other elements
 of the [netz R package](https://mrc-ide.github.io/netz/) are based on work by 
 Bertozzi-Villa *et al* @bertozzi
 
@@ -66,9 +66,8 @@ that coverage is constant with respect to 3 years prior. For example if years
 
 `site_file$interventions$net_type`
 
-It is assumed that all nets distributed prior to 2025 are standard pyrethroid 
-(`pyrethroid_only`) bed nets. Current available net types are: pyrethroid_only,
-pyrethroid_pbo and pyrethroid_pyrrole.
+Net type introductions are informed by data from alliance for malaria prevention @alliance.
+Current available net types are: pyrethroid_only, pyrethroid_pbo and pyrethroid_pyrrole.
 
 ### Net input distribution
 
@@ -86,7 +85,9 @@ To incorporate these observations into the model, we calculate the yearly covera
 Bed nets distributed in a given year remain in use for multiple years, with their effective coverage diminishing over time. Consequently, the observed usage in any given year reflects not only the nets distributed that year but also the cumulative contribution of nets distributed in previous years.
 
 **Back-calculation of coverage inputs**
-The model uses the observed usage time series to reverse-engineer the yearly net distributions required to produce the observed patterns. This calculation incorporates assumptions about net retention: Hhw long nets are expected to last after being distributed
+The model uses the observed usage time series to reverse-engineer the yearly net distributions required to produce the observed patterns. This calculation incorporates estimates of net retention (how long nets are expected to last after being distributed) from @bertozzi,
+that are adjusted malariasimulation assumes an exponential decay on net retention, whilst the estimates are from a model
+assuming a sigmoidal decay.
 
 **Capturing population-level dynamics**
 By combining distribution events from multiple years and their overlapping effects, the model accounts for the cumulative build-up of nets in the population. This ensures that the simulated coverage reflects both current and residual effects of past distributions.
@@ -129,7 +130,7 @@ sub-Saharan Africa:
 
 The population at risk weighted mean IRS coverage estimates for each site are 
 taken from the malaria atlas project raster entitled:
-"Indoor Residual Spraying (IRS) coverage version 2020" @MAP. Coverage estimates
+"Interventions__202106_Africa_IRS_Coverage" @MAP. Coverage estimates
 are rescaled such that the country-level estimate of the number of persons protected
 by IRS matches the number reported in the world malaria report @WMR.
 

@@ -47,11 +47,9 @@ credentials so that you don't have to authorise every time.
 
 ## Updates and versioning
 
-Site files will be periodically updated. When you call `fetch_site()`, by default
-you will be accessing the most recent version of the site file. The version can
-be identified here and you will be able to access older versions of the site
-files by specifying additional arguments when calling `fetch_site()`.
-Older versions may no longer be supported with the malariaverse packages.
+Site files will be periodically updated. You can see the version of sitefile
+you have by looking at the site metadata. Calling `available_sites()` provides
+more information about what site files are available on the server.
 
 News on new updates will be posted [here](https://mrc-ide.github.io/site/news/index.html).
 

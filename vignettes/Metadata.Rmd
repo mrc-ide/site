@@ -19,22 +19,33 @@ knitr::opts_chunk$set(
 
 ## Country
 
-`site_file$country`
+`site_file$metadata$country`
+
+Country name
+
+`site_file$metadata$iso3c`
 
 The ISO3c code identifying the country. The R package `countrycode` @countrycode
 is useful for converting between ISO3c and country names.
 
+## Boundary
+
+`site_file$metadata$boundary`
+
+The boundary file version used to create sites
+
+## Resolution
+
+`site_file$metadata$admin_level`
+
+The administrative levels (e.g. state, region, province) of the sites within the site file.
+
 ## Version
 
-`site_file$version`
+`site_file$metadata$version`
 
-The year and version of the site file.
+Site file version name. Please see the (change log)[https://mrc-ide.github.io/site/news/index.html] for version information.
 
-## Admininstrative level
-
-`site_file$admin_level`
-
-The administrative level (e.g. state, region, province) of the sites within the site file.
 
 ## Sites
 
@@ -44,7 +55,7 @@ The sites within the site file. These are the named sites disaggregated to the
 specified administrative level. Further disaggregation may include, for example,
 an [urban rural split](https://mrc-ide.github.io/site/articles/pop_demog.html).
 We use the GADM @GADM 
-version 4.04 administrative boundary simple feature spatial files at the first 
+version 4.1.0 administrative boundary simple feature spatial files at the first 
 or second administrative unit level.
 
 ## Citations
