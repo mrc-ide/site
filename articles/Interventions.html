@@ -89,10 +89,10 @@ sub-Saharan Africa:</p>
 <h4 id="within-sub-saharan-africa">Within sub-Saharan Africa<a class="anchor" aria-label="anchor" href="#within-sub-saharan-africa"></a>
 </h4>
 <p>The population at risk weighted mean ITN use estimates for each site
-are taken from the malaria atlas project raster entitled: “Insecticide
-treated bednet (ITN) use version 2020”. This, and other elements of the
-<a href="https://mrc-ide.github.io/netz/" class="external-link">netz R package</a> are based
-on work by Bertozzi-Villa <em>et al</em><span class="citation"><sup><a href="#ref-bertozzi">1</a></sup></span></p>
+are taken from the malaria atlas project raster entitled:
+“Interventions__202406_Africa_Insecticide_Treated_Net_Use”. This, and
+other elements of the <a href="https://mrc-ide.github.io/netz/" class="external-link">netz R
+package</a> are based on work by Bertozzi-Villa <em>et al</em><span class="citation"><sup><a href="#ref-bertozzi">1</a></sup></span></p>
 </div>
 <div class="section level4">
 <h4 id="outside-of-sub-saharan-africa">Outside of sub-Saharan Africa<a class="anchor" aria-label="anchor" href="#outside-of-sub-saharan-africa"></a>
@@ -123,10 +123,9 @@ missing then 2019 == 2016, 2020 == 2017 and 2021 == 2018.</p>
 <h3 id="net-type">Net type<a class="anchor" aria-label="anchor" href="#net-type"></a>
 </h3>
 <p><code>site_file$interventions$net_type</code></p>
-<p>It is assumed that all nets distributed prior to 2025 are standard
-pyrethroid (<code>pyrethroid_only</code>) bed nets. Current available
-net types are: pyrethroid_only, pyrethroid_pbo and
-pyrethroid_pyrrole.</p>
+<p>Net type introductions are informed by data from alliance for malaria
+prevention<span class="citation"><sup><a href="#ref-alliance">4</a></sup></span>. Current available net types
+are: pyrethroid_only, pyrethroid_pbo and pyrethroid_pyrrole.</p>
 </div>
 <div class="section level3">
 <h3 id="net-input-distribution">Net input distribution<a class="anchor" aria-label="anchor" href="#net-input-distribution"></a>
@@ -149,8 +148,11 @@ cumulative contribution of nets distributed in previous years.</p>
 <p><strong>Back-calculation of coverage inputs</strong> The model uses
 the observed usage time series to reverse-engineer the yearly net
 distributions required to produce the observed patterns. This
-calculation incorporates assumptions about net retention: Hhw long nets
-are expected to last after being distributed</p>
+calculation incorporates estimates of net retention (how long nets are
+expected to last after being distributed) from<span class="citation"><sup><a href="#ref-bertozzi">1</a></sup></span>, that
+are adjusted malariasimulation assumes an exponential decay on net
+retention, whilst the estimates are from a model assuming a sigmoidal
+decay.</p>
 <p><strong>Capturing population-level dynamics</strong> By combining
 distribution events from multiple years and their overlapping effects,
 the model accounts for the cumulative build-up of nets in the
@@ -178,7 +180,7 @@ Churcher.</p>
 <p>Given an ITN type and level of pyrethroid insecticide resistance, we
 can link to the corresponding estimates of the key ITN efficacy
 parameters. These have been estimated by Ellie Sherrard-Smith <em>et
-al</em><span class="citation"><sup><a href="#ref-sherrard2022">4</a></sup></span>. Please note that gamman is
+al</em><span class="citation"><sup><a href="#ref-sherrard2022">5</a></sup></span>. Please note that gamman is
 provided in units of years here, these will need to be converted to days
 for use in malariasimulaiton.</p>
 </div>
@@ -197,8 +199,8 @@ countries outside of sub-Saharan Africa:</p>
 <h4 id="within-sub-saharan-africa-1">Within sub-Saharan Africa<a class="anchor" aria-label="anchor" href="#within-sub-saharan-africa-1"></a>
 </h4>
 <p>The population at risk weighted mean IRS coverage estimates for each
-site are taken from the malaria atlas project raster entitled: “Indoor
-Residual Spraying (IRS) coverage version 2020”<span class="citation"><sup><a href="#ref-MAP">3</a></sup></span>. Coverage
+site are taken from the malaria atlas project raster entitled:
+“Interventions__202106_Africa_IRS_Coverage”<span class="citation"><sup><a href="#ref-MAP">3</a></sup></span>. Coverage
 estimates are rescaled such that the country-level estimate of the
 number of persons protected by IRS matches the number reported in the
 world malaria report<span class="citation"><sup><a href="#ref-WMR">2</a></sup></span>.</p>
@@ -244,7 +246,7 @@ bendiocarb, sumishield.</p>
 <code>site_file$interventions$ms_gamma</code></p>
 <p>Given an IRS insecticide type we can link to the corresponding
 estimates of the key IRS efficacy parameters. These have been estimated
-by Ellie Sherrard-Smith <em>et al</em><span class="citation"><sup><a href="#ref-sherrard2018">5</a></sup></span>.</p>
+by Ellie Sherrard-Smith <em>et al</em><span class="citation"><sup><a href="#ref-sherrard2018">6</a></sup></span>.</p>
 </div>
 <div class="section level3">
 <h3 id="irs-households-sprayed">IRS households sprayed<a class="anchor" aria-label="anchor" href="#irs-households-sprayed"></a>
@@ -252,7 +254,7 @@ by Ellie Sherrard-Smith <em>et al</em><span class="citation"><sup><a href="#ref-
 <p>It is often helpful to convert the number of persons protected by IRS
 into an estimate of the number of households covered. To aid this
 conversion we have included country-levels estimates of the average
-household size obtained from the UN<span class="citation"><sup><a href="#ref-UNHH">6</a></sup></span>.</p>
+household size obtained from the UN<span class="citation"><sup><a href="#ref-UNHH">7</a></sup></span>.</p>
 <p><code>site_file$interventions$hh_size</code></p>
 </div>
 <div class="section level3">
@@ -280,7 +282,7 @@ version 2020”<span class="citation"><sup><a href="#ref-MAP">3</a></sup></span>
 </h3>
 <p><code>site_file$interventions$prop_act</code></p>
 <p>We estimate the proportion of treatments that are with an ACT from
-DHS StatCompiler data<span class="citation"><sup><a href="#ref-DHS">7</a></sup></span>, using the indicator: “Children who
+DHS StatCompiler data<span class="citation"><sup><a href="#ref-DHS">8</a></sup></span>, using the indicator: “Children who
 took any ACT” (ID: ML_AMLD_C_ACT). For SSA estimates by year are
 expanded by linear interpolation between data points and an assumption
 of constant coverage after the most recent data point. We assume that
@@ -295,7 +297,7 @@ from data within SSA.</p>
 <p><code>site_file$interventions$prop_public</code></p>
 <p>We include an estimate of the proportion of treatments that are from
 the public sector <code>prop_public</code>. This is useful for costing.
-We use the DHS StatCompiler<span class="citation"><sup><a href="#ref-DHS">7</a></sup></span> indicator “Children with fever for
+We use the DHS StatCompiler<span class="citation"><sup><a href="#ref-DHS">8</a></sup></span> indicator “Children with fever for
 whom advice or treatment was sought, the source was a public sector
 facility” (ID: ML_FEVA_C_PUB). We assume a constant proportion over time
 by country, estimated as the mean from all country survey estimates
@@ -312,10 +314,10 @@ across all estimates.</p>
 <p><code>site_file$interventions$smc_cov</code></p>
 <p>Historical SMC implementation and coverage estimates are fragmented.
 We identify historical SMC implementation areas from maps presented by
-both Access SMC<span class="citation"><sup><a href="#ref-access_SMC">8</a></sup></span> and more recently SMC
-alliance<span class="citation"><sup><a href="#ref-SMC_alliance">9</a></sup></span>. We assume a linear increase
-in coverage post implementation initiation up to a maximum of 80% to
-capture an increasing number of smaller sub-national units being
+both Access SMC<span class="citation"><sup><a href="#ref-access_SMC">9</a></sup></span> and more recently SMC
+alliance<span class="citation"><sup><a href="#ref-SMC_alliance">10</a></sup></span>. We assume a linear
+increase in coverage post implementation initiation up to a maximum of
+80% to capture an increasing number of smaller sub-national units being
 targeted over time.</p>
 </div>
 <div class="section level3">
@@ -348,7 +350,7 @@ years.</p>
 <p>We include historical RTS,S coverage that has occurred as part of the
 MVIP implementation trial, sub-nationally in Malawi, Ghana and Kenya.
 The spatial distribution is informed from an MVIP briefing
-presentation<span class="citation"><sup><a href="#ref-MVIP">10</a></sup></span></p>
+presentation<span class="citation"><sup><a href="#ref-MVIP">11</a></sup></span></p>
 </div>
 <div class="section level2">
 <h2 id="perennial-malaria-chemoprevention-pmc-">Perennial malaria chemoprevention (PMC).<a class="anchor" aria-label="anchor" href="#perennial-malaria-chemoprevention-pmc-"></a>
@@ -384,49 +386,55 @@ insecticide-treated net access, use, and nets-per-capita in africa from
 <div id="ref-WMR" class="csl-entry">
 <div class="csl-left-margin">2. </div>
 <div class="csl-right-inline">World Health Organization. <em>World malaria
-report</em>. (2021).</div>
+report</em>. (2024).</div>
 </div>
 <div id="ref-MAP" class="csl-entry">
 <div class="csl-left-margin">3. </div>
 <div class="csl-right-inline">
 <a href="https://malariaatlas.org/" class="external-link">Malaria atlas project</a>.</div>
 </div>
-<div id="ref-sherrard2022" class="csl-entry">
+<div id="ref-alliance" class="csl-entry">
 <div class="csl-left-margin">4. </div>
+<div class="csl-right-inline">
+<a href="https://https://allianceformalariaprevention.com/itn-dashboards/mass-campaign-tracker/" class="external-link">Alliance
+for malaria prevention</a>.</div>
+</div>
+<div id="ref-sherrard2022" class="csl-entry">
+<div class="csl-left-margin">5. </div>
 <div class="csl-right-inline">Sherrard-Smith, E. <em>et al.</em> <a href="https://doi.org/10.1016/S2542-5196(21)00296-5" class="external-link">Optimising the
 deployment of vector control tools against malaria: A data-informed
 modelling study</a>. <em>The Lancet Planetary Health</em>
 <strong>6</strong>, e100–e109 (2022).</div>
 </div>
 <div id="ref-sherrard2018" class="csl-entry">
-<div class="csl-left-margin">5. </div>
+<div class="csl-left-margin">6. </div>
 <div class="csl-right-inline">Sherrard-Smith, E. <em>et al.</em> <a href="https://doi.org/10.1038/s41467-018-07357-w" class="external-link">Systematic review of
 indoor residual spray efficacy and effectiveness against plasmodium
 falciparum in africa</a>. <em>Nature Communications</em>
 <strong>9</strong>, 4982 (2018).</div>
 </div>
 <div id="ref-UNHH" class="csl-entry">
-<div class="csl-left-margin">6. </div>
+<div class="csl-left-margin">7. </div>
 <div class="csl-right-inline">United Nations. <a href="https://www.un.org/development/desa/pd/data/household-size-and-composition" class="external-link">Household
 size and composition</a>.</div>
 </div>
 <div id="ref-DHS" class="csl-entry">
-<div class="csl-left-margin">7. </div>
+<div class="csl-left-margin">8. </div>
 <div class="csl-right-inline">USAID. <a href="https://dhsprogram.com/" class="external-link">The
 DHS program</a>.</div>
 </div>
 <div id="ref-access_SMC" class="csl-entry">
-<div class="csl-left-margin">8. </div>
+<div class="csl-left-margin">9. </div>
 <div class="csl-right-inline">
 <a href="https://www.access-smc.org/" class="external-link">Access SMC</a>.</div>
 </div>
 <div id="ref-SMC_alliance" class="csl-entry">
-<div class="csl-left-margin">9. </div>
+<div class="csl-left-margin">10. </div>
 <div class="csl-right-inline">
 <a href="https://www.smc-alliance.org/" class="external-link">SMC alliance</a>.</div>
 </div>
 <div id="ref-MVIP" class="csl-entry">
-<div class="csl-left-margin">10. </div>
+<div class="csl-left-margin">11. </div>
 <div class="csl-right-inline">World Health Organization. <a href="https://www.givewell.org/files/DWDA%202009/PATH/WHO_WHO_Malaria_Vaccine_Implementation_Program_Briefing_2021.pdf" class="external-link">MVIP
 briefing</a>.</div>
 </div>

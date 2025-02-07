@@ -73,23 +73,32 @@
 <div class="section level2">
 <h2 id="country">Country<a class="anchor" aria-label="anchor" href="#country"></a>
 </h2>
-<p><code>site_file$country</code></p>
+<p><code>site_file$metadata$country</code></p>
+<p>Country name</p>
+<p><code>site_file$metadata$iso3c</code></p>
 <p>The ISO3c code identifying the country. The R package
 <code>countrycode</code><span class="citation"><sup><a href="#ref-countrycode">1</a></sup></span> is useful for converting
 between ISO3c and country names.</p>
 </div>
 <div class="section level2">
-<h2 id="version">Version<a class="anchor" aria-label="anchor" href="#version"></a>
+<h2 id="boundary">Boundary<a class="anchor" aria-label="anchor" href="#boundary"></a>
 </h2>
-<p><code>site_file$version</code></p>
-<p>The year and version of the site file.</p>
+<p><code>site_file$metadata$boundary</code></p>
+<p>The boundary file version used to create sites</p>
 </div>
 <div class="section level2">
-<h2 id="admininstrative-level">Admininstrative level<a class="anchor" aria-label="anchor" href="#admininstrative-level"></a>
+<h2 id="resolution">Resolution<a class="anchor" aria-label="anchor" href="#resolution"></a>
 </h2>
-<p><code>site_file$admin_level</code></p>
-<p>The administrative level (e.g. state, region, province) of the sites
+<p><code>site_file$metadata$admin_level</code></p>
+<p>The administrative levels (e.g. state, region, province) of the sites
 within the site file.</p>
+</div>
+<div class="section level2">
+<h2 id="version">Version<a class="anchor" aria-label="anchor" href="#version"></a>
+</h2>
+<p><code>site_file$metadata$version</code></p>
+<p>Site file version name. Please see the (change log)[<a href="https://mrc-ide.github.io/site/news/index.html" class="external-link uri">https://mrc-ide.github.io/site/news/index.html</a>] for
+version information.</p>
 </div>
 <div class="section level2">
 <h2 id="sites">Sites<a class="anchor" aria-label="anchor" href="#sites"></a>
@@ -98,9 +107,9 @@ within the site file.</p>
 <p>The sites within the site file. These are the named sites
 disaggregated to the specified administrative level. Further
 disaggregation may include, for example, an <a href="https://mrc-ide.github.io/site/articles/pop_demog.html" class="external-link">urban
-rural split</a>. We use the GADM<span class="citation"><sup><a href="#ref-GADM">2</a></sup></span> version 4.04 administrative boundary
-simple feature spatial files at the first or second administrative unit
-level.</p>
+rural split</a>. We use the GADM<span class="citation"><sup><a href="#ref-GADM">2</a></sup></span> version 4.1.0 administrative
+boundary simple feature spatial files at the first or second
+administrative unit level.</p>
 </div>
 <div class="section level2 unnumbered">
 <h2 class="unnumbered" id="citations">Citations<a class="anchor" aria-label="anchor" href="#citations"></a>

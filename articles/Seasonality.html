@@ -74,11 +74,17 @@
 <h2 id="seasonality">Seasonality<a class="anchor" aria-label="anchor" href="#seasonality"></a>
 </h2>
 <p><code>site_file$seasonality</code></p>
-<p>Daily rainfall global rasters for the period 2019-2021 were obtained
+<p>Daily rainfall global rasters for the period 2000-2024 were obtained
 from CHIRPS<span class="citation"><sup><a href="#ref-CHIRPS">1</a></sup></span> using the <a href="https://mrc-ide.github.io/umbrella/" class="external-link">umbrella R package</a>. For
 each site we estimate the fourier series parameters representing general
 seasonal profiles. Please see the umbrella website for more
 information.</p>
+<p><code>site_file$seasonality$seasonality_parameters</code> Contains
+the estimated fourier series parameters.</p>
+<p><code>site_file$seasonality$monthly_rainfall</code> Contains the
+extracted rainfall estimate</p>
+<p><code>site_file$seasonality$fourier_prediction</code> Contains a
+prediction of the seasonal curve using the estimated parameters</p>
 </div>
 <div class="section level2 unnumbered">
 <h2 class="unnumbered" id="citations">Citations<a class="anchor" aria-label="anchor" href="#citations"></a>
