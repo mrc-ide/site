@@ -81,7 +81,6 @@ configure_orderly <- function() {
 #'   orderly query, including a literal packet ID. If absent or NULL, the
 #'   specified list of parameters is used and matched exactly.
 #' @return the id of the orderly packet the files were copied from.
-#' @export
 fetch_files <- function(name, parameters, dest, files, expr = NULL) {
   root <- configure_orderly()
 
@@ -101,7 +100,7 @@ fetch_files <- function(name, parameters, dest, files, expr = NULL) {
     allow_remote = TRUE,
     fetch_metadata = TRUE,
     root = root
-    )
+  )
 
   plan$id
 }
@@ -150,12 +149,35 @@ fetch_site <- function(iso3c = NULL, version = NULL,
     expr <- id
   }
 
-  fetch_files(name = "calibration_diagnostics",
-              files = "calibrated_scaled_site.rds",
-              expr = expr,
-              parameters = parameters,
-              dest = dest)
-
+  fetch_files(
+    name = "calibration",
+    files = "calibrated_scaled_site.rds",
+    expr = expr,
+    parameters = parameters,
+    dest = dest
+  )
 
   readRDS(file.path(dest, "calibrated_scaled_site.rds"))
+}
+
+#' View available sites and versions on the server
+#'
+#' Queries the server for available site files. This could be of use if searching
+#' for older site file versions.
+#' @return Version table.
+#' @export
+available_sites <- function(){
+  pulled <- orderly2::orderly_metadata_extract(
+    name = "calibration",
+    extract = c(
+      version = "parameters.version",
+      iso3c = "parameters.iso3c",
+      admin_level = "parameters.admin_level",
+      urban_rural = "parameters.urban_rural",
+      boundary = "parameters.boundary"
+    ),
+    allow_remote = TRUE, fetch_metadata = TRUE, root = configure_orderly()
+  )
+
+  pulled[,c("version", "iso3c", "admin_level", "urban_rural", "boundary", "id", "local")]
 }

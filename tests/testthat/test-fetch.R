@@ -179,7 +179,7 @@ test_that("can fetch site", {
 
   make <- function(iso3c, admin_level, version, value) {
     create_orderly_packet(
-      "calibration_diagnostics",
+      "calibration",
       list("calibrated_scaled_site.rds" = list(value = value)),
       parameters = list(iso3c = iso3c, version = version,
                         admin_level = admin_level),
