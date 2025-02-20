@@ -1,7 +1,7 @@
 Package: site
 Type: Package
 Title: Site specific malariasimulation modelling
-Version: 1.0.6
+Version: 1.0.7
 Authors@R: c(
     person("Pete", "Winskill", email = "p.winskill@imperial.ac.uk", role = c("aut", "cre"))
     )
