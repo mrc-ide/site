@@ -8,6 +8,7 @@
 #' @param species Can be falciparum: "pf" or vivax: "pv", for vivax SMC, RTSS
 #'  and PMC are not implemented
 #' @param eir Site baseline EIR
+#' @param draw malariasimulation parameter draw
 #' @param overrides List of malariasimulation default parameter overrides
 #' @param burnin Number of burn in years
 #'
@@ -15,7 +16,7 @@
 #' @export
 site_parameters <- function(interventions, demography, vectors, seasonality,
                             min_ages = c(0, 5, 15) * 365, species = "pf",
-                            eir = NULL, overrides = list(), burnin = 0){
+                            eir = NULL, draw = NULL, overrides = list(), burnin = 0){
 
   p <- malariasimulation::get_parameters(overrides = overrides)
 
@@ -35,9 +36,16 @@ site_parameters <- function(interventions, demography, vectors, seasonality,
                       species = species) |>
     set_age_outputs(min_ages = min_ages)
 
+  if(species == "pf") {
+    if(!is.null(draw)){
+      p <- malariasimulation::set_parameter_draw(p, draw)
+    }
+  }
+
   if(!is.null(eir)){
     p <- malariasimulation::set_equilibrium(p, init_EIR = eir)
   }
 
   return(p)
 }
+
