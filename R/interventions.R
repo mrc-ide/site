@@ -357,7 +357,7 @@ add_r21 <- function(p, interventions){
     coverages = interventions$r21_cov,
     timesteps = timesteps,
     # TODO: Check R21 timings/ages
-    age = round(unique(interventions$dose1)*month)
+    age = round(unique(interventions$dose1)*month),
     min_wait = 0,
     booster_spacing = round((unique(interventions$dose4) - unique(interventions$dose1)) * month), # The booster is administered 12 months following the third dose.
     booster_coverage = matrix(interventions$r21_booster),
