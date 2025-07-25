@@ -9,7 +9,7 @@ location_configuration <- function() {
   getOption("site.orderly_location", list(
     type = "packit",
     args = list(
-      url = "https://packit.dide.ic.ac.uk/malariaverse-sitefiles",
+      url = "https://malariaverse-sitefiles.packit.dide.ic.ac.uk",
       token = token)
   ))
 }
