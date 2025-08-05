@@ -44,7 +44,7 @@ create_orderly_packet <- function(name, files, parameters = list(), root) {
   withr::defer(fs::dir_delete(src))
 
   args <- paste0(sprintf("%s = NULL", names(parameters)), collapse=",")
-  code <- sprintf("orderly2::orderly_parameters(%s)", args)
+  code <- sprintf("p <- orderly2::orderly_parameters(%s)", args)
   writeLines(code, fs::path(src, sprintf("%s.R", name)))
 
   for (i in seq_along(files)) {
