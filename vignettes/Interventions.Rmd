@@ -114,7 +114,7 @@ Given an ITN type and level of pyrethroid insecticide resistance, we can link to
 corresponding estimates of the key ITN efficacy parameters. These have been 
 estimated by Ellie Sherrard-Smith *et al* @sherrard2022. 
 Please note that gamman is provided in units of years here, these will need to be converted to days for use in 
-malariasimulaiton. 
+malariasimulation (`site_parameters()` does this for you). 
 
 ## IRS
 
