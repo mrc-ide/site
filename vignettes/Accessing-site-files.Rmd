@@ -38,7 +38,8 @@ When you receive confirmation of this (look out for a notification on github), y
 can then use the `site` package inbuilt functionality to download site files.
 
 You can call `fetch_site()`, specifying the [ISO3c country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) of your
-country of interest. For example, for Nigeria: `fetch_site(iso3c = "NGA")`.
+country of interest. For example, for Nigeria: 
+`fetch_site(iso3c = "NGA", admin_level = 1, urban_rural = TRUE)`.
 
 The first time you do this, you will see interactive authentication instructions
 asking you to access a github link and providing an authentication code. Open
@@ -46,10 +47,17 @@ the link and copy the code to authorise access. This process should cache your
 credentials so that you don't have to authorise every time.
 
 ## Updates and versioning
+Site files are periodically updated.
+You can check which version you have by inspecting the site metadata. 
+The function `available_sites()` lists all site files currently available on the server.
 
-Site files will be periodically updated. You can see the version of sitefile
-you have by looking at the site metadata. Calling `available_sites()` provides
-more information about what site files are available on the server.
+By default, `fetch_site(iso3c = ...)` downloads the latest version of a site file.
+For reproducibility, you can also specify admin_level, urban_rural, and version 
+to fetch a particular file.
+
+For stable workflows, we recommend downloading and storing the site files you 
+use once, rather than always pulling the latest version. Otherwise, downstream 
+pipelines may break if new site file options become available.
 
 News on new updates will be posted [here](https://mrc-ide.github.io/site/news/index.html).
 
