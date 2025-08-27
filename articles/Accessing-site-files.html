@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">site</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.9</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -96,7 +96,7 @@ github), you can then use the <code>site</code> package inbuilt
 functionality to download site files.</p>
 <p>You can call <code><a href="../reference/fetch_site.html">fetch_site()</a></code>, specifying the <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3" class="external-link">ISO3c country
 code</a> of your country of interest. For example, for Nigeria:
-<code>fetch_site(iso3c = "NGA")</code>.</p>
+<code>fetch_site(iso3c = "NGA", admin_level = 1, urban_rural = TRUE)</code>.</p>
 <p>The first time you do this, you will see interactive authentication
 instructions asking you to access a github link and providing an
 authentication code. Open the link and copy the code to authorise
@@ -106,10 +106,17 @@ have to authorise every time.</p>
 <div class="section level2">
 <h2 id="updates-and-versioning">Updates and versioning<a class="anchor" aria-label="anchor" href="#updates-and-versioning"></a>
 </h2>
-<p>Site files will be periodically updated. You can see the version of
-sitefile you have by looking at the site metadata. Calling
-<code><a href="../reference/available_sites.html">available_sites()</a></code> provides more information about what site
-files are available on the server.</p>
+<p>Site files are periodically updated. You can check which version you
+have by inspecting the site metadata. The function
+<code><a href="../reference/available_sites.html">available_sites()</a></code> lists all site files currently available
+on the server.</p>
+<p>By default, <code>fetch_site(iso3c = ...)</code> downloads the latest
+version of a site file. For reproducibility, you can also specify
+admin_level, urban_rural, and version to fetch a particular file.</p>
+<p>For stable workflows, we recommend downloading and storing the site
+files you use once, rather than always pulling the latest version.
+Otherwise, downstream pipelines may break if new site file options
+become available.</p>
 <p>News on new updates will be posted <a href="https://mrc-ide.github.io/site/news/index.html" class="external-link">here</a>.</p>
 </div>
 <div class="section level2">
