@@ -24,7 +24,7 @@ test_that("can configure orderly repository", {
 
   root <- suppressMessages(configure_orderly())
   expect_true(fs::dir_exists(root))
-  expect_contains(orderly2::orderly_location_list(root = root), LOCATION_NAME)
+  expect_contains(orderly::orderly_location_list(root = root), LOCATION_NAME)
 })
 
 test_that("can change orderly location", {
@@ -37,7 +37,7 @@ test_that("can change orderly location", {
     args = list(path = upstream1)))
 
   root <- suppressMessages(configure_orderly())
-  res <- orderly2::orderly_location_list(root = root, verbose = TRUE)
+  res <- orderly::orderly_location_list(root = root, verbose = TRUE)
   expect_equal(res[[which(res$name == LOCATION_NAME), "args"]]$path, upstream1)
 
   withr::local_options("site.orderly_location" = list(
@@ -45,7 +45,7 @@ test_that("can change orderly location", {
     args = list(path = upstream2)))
 
   root <- configure_orderly()
-  res <- orderly2::orderly_location_list(root = root, verbose = TRUE)
+  res <- orderly::orderly_location_list(root = root, verbose = TRUE)
 
   expect_equal(res[[which(res$name == LOCATION_NAME), "args"]]$path, upstream2)
 })
