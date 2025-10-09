@@ -21,18 +21,18 @@ location_configuration <- function() {
 #' the new parameters. If it exists and has the same parameters already nothing
 #' happens.
 #'
-#' This functionality could probably be moved to the orderly2 package.
+#' This functionality could probably be moved to the orderly package.
 #' @noRd
 location_add_or_update <- function(name, type, args, root) {
-  locations <- orderly2::orderly_location_list(root = root, verbose = TRUE)
+  locations <- orderly::orderly_location_list(root = root, verbose = TRUE)
   locations <- locations[locations$name == name,]
 
   if (nrow(locations) == 0) {
-    orderly2::orderly_location_add(name, type, args, root = root)
+    orderly::orderly_location_add(name, type, args, root = root)
   } else if (locations[[1, "type"]] != type ||
              !identical(locations[[1, "args"]], args)) {
-    orderly2::orderly_location_remove(name, root = root)
-    orderly2::orderly_location_add(name, type, args, root = root)
+    orderly::orderly_location_remove(name, root = root)
+    orderly::orderly_location_add(name, type, args, root = root)
   }
 }
 
@@ -56,7 +56,7 @@ location_add_or_update <- function(name, type, args, root) {
 configure_orderly <- function() {
   root <- file.path(rappdirs::user_cache_dir("malariaverse-sitefiles"), "store")
 
-  orderly2::orderly_init(root, use_file_store = TRUE)
+  orderly::orderly_init(root, use_file_store = TRUE)
 
   cfg <- location_configuration()
   location_add_or_update(LOCATION_NAME, type = cfg$type, args = cfg$args,
@@ -90,7 +90,7 @@ fetch_files <- function(name, parameters, dest, files, expr = NULL) {
     expr <- sprintf("latest(%s)", filter)
   }
 
-  plan <- orderly2::orderly_copy_files(
+  plan <- orderly::orderly_copy_files(
     name = name,
     expr = expr,
     parameters = parameters,
@@ -172,7 +172,7 @@ fetch_site <- function(iso3c = NULL, version = NULL,
 #' @return Version table.
 #' @export
 available_sites <- function(){
-  pulled <- orderly2::orderly_metadata_extract(
+  pulled <- orderly::orderly_metadata_extract(
     name = "calibration",
     extract = c(
       version = "parameters.version",
