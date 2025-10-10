@@ -27,6 +27,8 @@ We strongly recommend consulting a member of the Imperial College
 modelling team before using these results for science, policy or
 decision-making purposes.
 
+Email: <malariaverse@imperial.ac.uk>
+
 ## The site-file
 
 The site-file is the file storing all of the sub nationally

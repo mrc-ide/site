@@ -33,6 +33,8 @@ malariasimulation model remains very possible. We strongly recommend consulting 
 member of the Imperial College modelling team before using these results for 
 science, policy or decision-making purposes.
 
+Email: malariaverse@imperial.ac.uk
+
 
 ## The site-file
 
