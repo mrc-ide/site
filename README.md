@@ -27,6 +27,16 @@ We strongly recommend consulting a member of the Imperial College
 modelling team before using these results for science, policy or
 decision-making purposes.
 
+<div style="font-weight: bold;">
+
+While every effort has been made to ensure the reliability of the
+package and its outputs, the authors, contributors, and affiliated
+institutions accept no responsibility or liability for any errors,
+omissions, or consequences arising from their use. All results should be
+interpreted with caution and professional judgement.
+
+</div>
+
 Email: <malariaverse@imperial.ac.uk>
 
 ## The site-file
