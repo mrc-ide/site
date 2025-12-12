@@ -19,6 +19,26 @@ The site package supports malariaverse users to:
 2.  Translate site file information into malariasimulation parameters 🌍
     ➡️ 📉
 
+:warning: The site package streamlines model runs for specific
+geographies, but it also encapsulates many underlying assumptions,
+limitations, and uncertainties. Mis-specifying inputs or misinterpreting
+outputs from the complex malariasimulation model remains very possible.
+We strongly recommend consulting a member of the Imperial College
+modelling team before using these results for science, policy or
+decision-making purposes.
+
+<div style="font-weight: bold;">
+
+While every effort has been made to ensure the reliability of the
+package and its outputs, the authors, contributors, and affiliated
+institutions accept no responsibility or liability for any errors,
+omissions, or consequences arising from their use. All results should be
+interpreted with caution and professional judgement.
+
+</div>
+
+Email: <malariaverse@imperial.ac.uk>
+
 ## The site-file
 
 The site-file is the file storing all of the sub nationally

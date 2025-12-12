@@ -1,7 +1,7 @@
 Package: site
 Type: Package
 Title: Site specific malariasimulation modelling
-Version: 1.0.7
+Version: 1.0.9
 Authors@R: c(
     person("Pete", "Winskill", email = "p.winskill@imperial.ac.uk", role = c("aut", "cre"))
     )
@@ -11,15 +11,14 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Remotes:
-    mrc-ide/malariasimulation,
-    mrc-ide/orderly2
+    mrc-ide/malariasimulation
 Config/testthat/edition: 3
 RoxygenNote: 7.3.2
 Depends: 
     R (>= 2.10),
     sf
 Imports: 
-    orderly2,
+    orderly,
     dplyr,
     malariasimulation,
     rappdirs,

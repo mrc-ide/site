@@ -41,7 +41,15 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck
+          extra-packages:
+            # Having malariaEquilibrium listed here makes no sense as it is
+            # already part of malariasimulation's dependencies. However there
+            # is some kind of bug in pkgdepends that triggers if we don't add
+            # it. The bug only happens on Windows.
+            # See comments in https://github.com/mrc-ide/site/pull/44
+            mrc-ide/malariaEquilibrium,
+            any::rcmdcheck
+
           needs: check
 
       - uses: r-lib/actions/check-r-package@v2

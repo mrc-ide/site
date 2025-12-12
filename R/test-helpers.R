@@ -1,6 +1,6 @@
 local_orderly_root <- function(..., .local_envir = parent.frame()) {
   root <- withr::local_tempdir(.local_envir = .local_envir)
-  suppressMessages(orderly2::orderly_init(root, ...))
+  suppressMessages(orderly::orderly_init(root, ...))
   root
 }
 
@@ -44,7 +44,7 @@ create_orderly_packet <- function(name, files, parameters = list(), root) {
   withr::defer(fs::dir_delete(src))
 
   args <- paste0(sprintf("%s = NULL", names(parameters)), collapse=",")
-  code <- sprintf("orderly2::orderly_parameters(%s)", args)
+  code <- sprintf("p <- orderly::orderly_parameters(%s)", args)
   writeLines(code, fs::path(src, sprintf("%s.R", name)))
 
   for (i in seq_along(files)) {
@@ -55,6 +55,6 @@ create_orderly_packet <- function(name, files, parameters = list(), root) {
       writeLines(files[[i]], f)
     }
   }
-  suppressMessages(orderly2::orderly_run(name, parameters, echo = FALSE,
-                                         root = root))
+  suppressMessages(orderly::orderly_run(name, parameters, echo = FALSE,
+                                        root = root))
 }

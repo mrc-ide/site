@@ -30,6 +30,11 @@ The contents of the site file.
 The site file is identified by its country code, and optionally the
 admin_level, urban/rural setting and version of the site files. The latest
 packet from the server matching these parameters is used.
+By default, calling `fetch_site()` with only `iso3c` downloads the latest
+available version. For reproducibility and stable workflows, it is strongly
+recommended to specify `version`, `admin_level`, and `urban_rural` explicitly,
+or to download and store site files locally. Otherwise, downstream pipelines
+may break when new site file versions are released.
 }
 \details{
 Alternatively, a packet ID can be specified in order to pick an exact file
