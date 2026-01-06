@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 
 `site_file$population`
 
-Site-level population distributions are derived at pixel level from WorldPop @worldpop. For 2000 to 2014 we use the “Unconstrained individual countries 2000 to 2020 UN adjusted (1 km resolution)” rasters (alias: wpicuadj1km). For 2015 to 2030 we use the “Individual countries 2015 to 2030 (1 km resolution) R2025A v1” rasters (alias: G2_CN_POP_R25A_1km).
+Site-level population distributions are derived at pixel level from WorldPop @worldpop. For 2000 to 2014 we use the “Unconstrained individual countries 2000 to 2020 UN adjusted (1 km resolution)” rasters (alias: wpicuadj1km). For 2015 to 2030 we use the “Individual countries 2015 to 2030 (1 km resolution) R2025A v1” rasters (alias: G2_CN_POP_R25A_1km) @WorldPop2025.
 
 For each year, pixel values are re-scaled so that the raster sum matches UN WPP country-level population totals @UNWPP.
 
