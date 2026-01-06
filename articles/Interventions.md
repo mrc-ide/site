@@ -1,0 +1,360 @@
+# Interventions
+
+`site_file$interventions`
+
+Interventions contains the historical intervention information for a
+site. It is also the section of the site file that you would modify with
+intervention information for future scenarios. Details, references and
+methods for individual interventions are shown below:
+
+## ITNs
+
+### ITN use
+
+`site_file$interventions$itn_use`
+
+Due to differences in the availability of data sources the approach for
+countries within sub-Saharan Africa differs to countries outside of
+sub-Saharan Africa:
+
+#### Within sub-Saharan Africa
+
+The population at risk weighted mean ITN use estimates for each site are
+taken from the malaria atlas project raster entitled:
+“Interventions\_\_202406_Africa_Insecticide_Treated_Net_Use”. This, and
+other elements of the [netz R package](https://mrc-ide.github.io/netz/)
+are based on work by Bertozzi-Villa *et al*^([1](#ref-bertozzi))
+
+#### Outside of sub-Saharan Africa
+
+ITN use is much more heterogeneous outside of SSA and data are less
+systematically collected. As a result, there are strong assumptions
+associated with the historical scale and magnitude of ITN distributions.
+We make the assumption that any reported ITN distributions (as detailed
+by the world malaria report^([2](#ref-WMR))) are targeted such that
+areas with the highest baseline prevalence are prioritised first. Net
+use is  
+implemented up to a maximum usage of 55% in each area, sequentially
+working through the targeting until the reported total number of bed
+nets have been allocated.
+
+### Missing years
+
+Available data on ITN use (via MAP^([3](#ref-MAP)) or the world malaria
+report @ WMR) will not extend to the present year. Missing ITN use
+estimates to present are filled assuming a constant, continuing level of
+coverage. To respect the multi-year cyclical nature of ITN distribution
+cycles any missing estimates are filled in assuming that coverage is
+constant with respect to 3 years prior. For example if years 2019, 2020
+and 2021 are missing then 2019 == 2016, 2020 == 2017 and 2021 == 2018.
+
+### Net type
+
+`site_file$interventions$net_type`
+
+Net type introductions are informed by data from alliance for malaria
+prevention^([4](#ref-alliance)). Current available net types are:
+pyrethroid_only, pyrethroid_pbo and pyrethroid_pyrrole.
+
+### Net input distribution
+
+`site_file$interventions$itn_input_dist`
+
+Modelling Bed Net Use in the Malaria Model
+
+**Observed data** Each year, we obtain an estimate of the
+population-level usage of bed nets from available data. This time series
+represents the proportion of the population reported to be using bed
+nets annually.
+
+**Model requirement** To incorporate these observations into the model,
+we calculate the yearly coverage inputs that align with the observed
+usage. These inputs represent the distribution of nets that ultimately
+result in the reported usage levels.
+
+**Accounting for net retention** Bed nets distributed in a given year
+remain in use for multiple years, with their effective coverage
+diminishing over time. Consequently, the observed usage in any given
+year reflects not only the nets distributed that year but also the
+cumulative contribution of nets distributed in previous years.
+
+**Back-calculation of coverage inputs** The model uses the observed
+usage time series to reverse-engineer the yearly net distributions
+required to produce the observed patterns. This calculation incorporates
+estimates of net retention (how long nets are expected to last after
+being distributed) from^([1](#ref-bertozzi)), that are adjusted
+malariasimulation assumes an exponential decay on net retention, whilst
+the estimates are from a model assuming a sigmoidal decay.
+
+**Capturing population-level dynamics** By combining distribution events
+from multiple years and their overlapping effects, the model accounts
+for the cumulative build-up of nets in the population. This ensures that
+the simulated coverage reflects both current and residual effects of
+past distributions.
+
+### Pyrethroid resistance
+
+`site_file$interventions$pyrethroid_resistance`
+
+For each site we include an estimated level of pyrethroid insecticide
+resistance. This has been estimated by Tom Churcher and colleagues using
+spatio-temporally distributed bioassay mortality data. This work is not
+yet published. Therefore for attribution/citation and further
+information on the methods used please contact Pete Winskill or Tom
+Churcher.
+
+### ITN efficacy parameters
+
+`site_file$interventions$dn0` `site_file$interventions$rn0`
+`site_file$interventions$gamman` `site_file$interventions$rnm`
+
+Given an ITN type and level of pyrethroid insecticide resistance, we can
+link to the corresponding estimates of the key ITN efficacy parameters.
+These have been estimated by Ellie Sherrard-Smith *et
+al*^([5](#ref-sherrard2022)). Please note that gamman is provided in
+units of years here, these will need to be converted to days for use in
+malariasimulation
+([`site_parameters()`](../reference/site_parameters.md) does this for
+you).
+
+## IRS
+
+### IRS coverage
+
+`site_file$interventions$irs_cov`
+
+As with ITNs, due to differences in the availability of data sources the
+approach for countries within sub-Saharan Africa differs to countries
+outside of sub-Saharan Africa:
+
+#### Within sub-Saharan Africa
+
+The population at risk weighted mean IRS coverage estimates for each
+site are taken from the malaria atlas project raster entitled:
+“Interventions\_\_202106_Africa_IRS_Coverage”^([3](#ref-MAP)). Coverage
+estimates are rescaled such that the country-level estimate of the
+number of persons protected by IRS matches the number reported in the
+world malaria report^([2](#ref-WMR)).
+
+#### Outside of sub-Saharan Africa
+
+IRS coverage is much more heterogeneous outside of SSA and data are less
+systematically collected. As a result, there are strong assumptions
+associated with the historical scale and magnitude of IRS campaigns. We
+make the assumption that any reported persons protected by IRS (as
+detailed by the world malaria report^([2](#ref-WMR))) are targeted such
+that areas with the highest baseline prevalence are prioritised first.
+IRS coverage  
+implemented up to a maximum usage of80% in each area, sequentially
+working through the targeting until the reported total number of persons
+protected have been allocated.
+
+### IRS insecticide
+
+`site_file$interventions$irs_insecticide`
+
+It is assumed that a DDT-type insecticide is used prior to 2017, after
+which there is a switch to an actellic-like insecticide.
+
+Current available IRS insecticide options are: ddt, actellic,
+bendiocarb, sumishield.
+
+### Number of rounds of IRS per year
+
+`site_file$interventions$irs_spray_rounds`
+
+We assume a single IRS spray round per year.
+
+### IRS efficacy parameters
+
+`site_file$interventions$ls_theta` `site_file$interventions$ls_gamma`
+`site_file$interventions$ks_theta` `site_file$interventions$ks_gamma`
+`site_file$interventions$ms_theta` `site_file$interventions$ms_gamma`
+
+Given an IRS insecticide type we can link to the corresponding estimates
+of the key IRS efficacy parameters. These have been estimated by Ellie
+Sherrard-Smith *et al*^([6](#ref-sherrard2018)).
+
+### IRS households sprayed
+
+It is often helpful to convert the number of persons protected by IRS
+into an estimate of the number of households covered. To aid this
+conversion we have included country-levels estimates of the average
+household size obtained from the UN^([7](#ref-UNHH)).
+
+`site_file$interventions$hh_size`
+
+### Missing years
+
+Available data on IRS coverage (via MAP^([3](#ref-MAP)) or the world
+malaria report^([2](#ref-WMR))) will not extend to the present year.
+Missing IRS coverage estimates to present are filled assuming a
+constant, continuing level of coverage.
+
+## Treatment
+
+### Coverage
+
+`site_file$interventions$tx_cov`
+
+The population at risk weighted mean treatment coverage of an effective
+antimalarial for each site are taken from the malaria atlas project
+raster entitled: “Effective treatment with an Antimalarial drug version
+2020”^([3](#ref-MAP)).
+
+### Drug type
+
+`site_file$interventions$prop_act`
+
+We estimate the proportion of treatments that are with an ACT from DHS
+StatCompiler data^([8](#ref-DHS)), using the indicator: “Children who
+took any ACT” (ID: ML_AMLD_C_ACT). For SSA estimates by year are
+expanded by linear interpolation between data points and an assumption
+of constant coverage after the most recent data point. We assume that
+ACT coverage is zero before 2006, when the WHO recommendation was first
+issued. For outside of SSA the DHS indicator is confounded by treatment
+for Plasmodium vivax, and we therefore assume the mean values by year
+from data within SSA.
+
+### Drug provider
+
+`site_file$interventions$prop_public`
+
+We include an estimate of the proportion of treatments that are from the
+public sector `prop_public`. This is useful for costing. We use the DHS
+StatCompiler^([8](#ref-DHS)) indicator “Children with fever for whom
+advice or treatment was sought, the source was a public sector facility”
+(ID: ML_FEVA_C_PUB). We assume a constant proportion over time by
+country, estimated as the mean from all country survey estimates since
+2010. For countries without survey data, we assume the median across all
+estimates.
+
+## Seasonal malaria chemoprevention (SMC)
+
+### SMC coverage
+
+`site_file$interventions$smc_cov`
+
+Historical SMC implementation and coverage estimates are fragmented. We
+identify historical SMC implementation areas from maps presented by both
+Access SMC^([9](#ref-access_SMC)) and more recently SMC
+alliance^([10](#ref-SMC_alliance)). We assume a linear increase in
+coverage post implementation initiation up to a maximum of 80% to
+capture an increasing number of smaller sub-national units being
+targeted over time.
+
+### SMC drug
+
+`site_file$interventions$smc_drug`
+
+We assume that SP-AQ is used for SMC. This is currently the only
+available drug option.
+
+### Number of SMC rounds delivered annualy
+
+`site_file$interventions$smc_n_rounds`
+
+We assumed that historical SMC is delivered over 4 rounds
+`smc_n_rounds`.
+
+### SMC age range
+
+`site_file$interventions$smc_min_age`
+`site_file$interventions$smc_max_age`
+
+We assume SMC is delivered to children aged between 3 months and 5
+years.
+
+## vaccine
+
+`site_file$interventions$rtss_cov` `site_file$interventions$r21_cov`
+
+We include historical RTS,S coverage that has occurred as part of the
+MVIP implementation trial, sub-nationally in Malawi, Ghana and Kenya.
+The spatial distribution is informed from an MVIP briefing
+presentation^([11](#ref-MVIP))
+
+EPI-based vaccine scale up of R21 and RTS,S has been manually collated
+from the UNICEF immunization dashboard^([12](#ref-Unicef))
+
+## Perennial malaria chemoprevention (PMC).
+
+This intervention has been known in the past as intermittent
+preventative treatment of infants (IPTi).
+
+### PMC coverage
+
+`site_file$interventions$pmc_cov`
+
+Due to the very limited (non-trial setting) implementation of PMC
+historically, we assume 0 coverage.
+
+### PMC drug
+
+`site_file$interventions$pmc_drug`
+
+We assume PMC would be implemented with SP. This is currently the only
+available drug option.
+
+## Citations
+
+1\.
+
+Bertozzi-Villa, A. *et al.* [Maps and metrics of insecticide-treated net
+access, use, and nets-per-capita in africa from
+2000-2020](https://doi.org/10.1038/s41467-021-23707-7). *Nature
+Communications* **12**, 1–12 (2021).
+
+2\.
+
+World Health Organization. *World malaria report*. (2024).
+
+3\.
+
+[Malaria atlas project](https://malariaatlas.org/).
+
+4\.
+
+[Alliance for malaria
+prevention](https://https://allianceformalariaprevention.com/itn-dashboards/mass-campaign-tracker/).
+
+5\.
+
+Sherrard-Smith, E. *et al.* [Optimising the deployment of vector control
+tools against malaria: A data-informed modelling
+study](https://doi.org/10.1016/S2542-5196(21)00296-5). *The Lancet
+Planetary Health* **6**, e100–e109 (2022).
+
+6\.
+
+Sherrard-Smith, E. *et al.* [Systematic review of indoor residual spray
+efficacy and effectiveness against plasmodium falciparum in
+africa](https://doi.org/10.1038/s41467-018-07357-w). *Nature
+Communications* **9**, 4982 (2018).
+
+7\.
+
+United Nations. [Household size and
+composition](https://www.un.org/development/desa/pd/data/household-size-and-composition).
+
+8\.
+
+USAID. [The DHS program](https://dhsprogram.com/).
+
+9\.
+
+[Access SMC](https://www.access-smc.org/).
+
+10\.
+
+[SMC alliance](https://www.smc-alliance.org/).
+
+11\.
+
+World Health Organization. [MVIP
+briefing](https://www.givewell.org/files/DWDA%202009/PATH/WHO_WHO_Malaria_Vaccine_Implementation_Program_Briefing_2021.pdf).
+
+12\.
+
+[UNICEF immunization
+dashboard](https://www.unicef.org/supply/immunization-market-dashboard/).

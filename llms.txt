@@ -1,0 +1,151 @@
+# site ![](reference/figures/Site.png)
+
+The site package supports malariaverse users to:
+
+1.  Access and download the latest country site-files 🌐 ➡️ 💻
+2.  Translate site file information into malariasimulation parameters 🌍
+    ➡️ 📉
+
+⚠️ The site package streamlines model runs for specific geographies, but
+it also encapsulates many underlying assumptions, limitations, and
+uncertainties. Mis-specifying inputs or misinterpreting outputs from the
+complex malariasimulation model remains very possible. We strongly
+recommend consulting a member of the Imperial College modelling team
+before using these results for science, policy or decision-making
+purposes.
+
+While every effort has been made to ensure the reliability of the
+package and its outputs, the authors, contributors, and affiliated
+institutions accept no responsibility or liability for any errors,
+omissions, or consequences arising from their use. All results should be
+interpreted with caution and professional judgement.
+
+Email: <malariaverse@imperial.ac.uk>
+
+## The site-file
+
+The site-file is the file storing all of the sub nationally
+disaggregated information for a country. Components of the site-file
+include:
+
+1.  The
+    [Metadata](https://mrc-ide.github.io/site/articles/Metadata.html),
+    with high level information about the country and site-file version.
+2.  [Historical Epidemiological
+    Data](https://mrc-ide.github.io/site/articles/historical_epi.html)
+    with estimates of cases, deaths and parasite prevalence.
+3.  [Population and
+    Demography](https://mrc-ide.github.io/site/articles/pop_demog.html)
+    information.
+4.  Estimates of the [Historical Intervention
+    Use](https://mrc-ide.github.io/site/articles/Interventions.html) in
+    the country.
+5.  [Rainfalll and
+    Seasonality](https://mrc-ide.github.io/site/articles/Seasonality.html)
+    data.
+6.  Information on the [Mosquito
+    Vectors](https://mrc-ide.github.io/site/articles/vectors.html)
+
+## Accessing and downloading site-files
+
+Please see [this detailed
+guide](https://mrc-ide.github.io/site/articles/Accessing-site-files.html)
+for information on how to gain access and download site files.
+
+## Translating site-file information to malariasimulation parameters
+
+If we have access a site file, then all we need to do to run the model
+is
+
+1.  Isolate a single site, this is a single sub-national unit within the
+    country
+2.  Create the parameter list
+3.  Pass that to malariasimulation to run the simulation
+
+``` r
+
+# Pull information for a single sub-national unit from the site-file
+site <- subset_site(
+  site = example_site,
+  site_filter = data.frame(
+  country = "Burkina Faso",
+  iso3c = "BFA",
+  name_1 = "Sahel",
+  urban_rural = "rural")
+  )
+
+# Convert site information to malariasimulation parameters
+site_par <- site_parameters(
+  interventions = site$interventions,
+  demography = site$demography,
+  vectors = site$vectors$vector_species,
+  seasonality = site$seasonality$seasonality_parameters,
+  eir = site$eir$eir,
+  overrides = list(
+    human_population = 1000
+  )
+)
+
+# Run the model!
+site_sim <- malariasimulation::run_simulation(
+  timesteps = site_par$timesteps,
+  parameters = site_par
+)
+```
+
+## Installation
+
+You can install the development version of site from
+[GitHub](https://github.com/) with:
+
+``` r
+# install.packages("pak")
+pak::pak("mrc-ide/site")
+```
+
+# Package index
+
+## All functions
+
+- [`add_demography()`](add_demography.md) : Add demography
+- [`add_drugs()`](add_drugs.md) : Add Drugs
+- [`add_interventions()`](add_interventions.md) : Add all interventions
+- [`add_irs()`](add_irs.md) : Add IRS
+- [`add_itns()`](add_itns.md) : Add ITNs
+- [`add_pmc()`](add_pmc.md) : Add PMC
+- [`add_r21()`](add_r21.md) : Add RTS,S
+- [`add_rtss()`](add_rtss.md) : Add RTS,S
+- [`add_seasonality()`](add_seasonality.md) : Add seasonality
+- [`add_smc()`](add_smc.md) : Add SMC
+- [`add_treatment()`](add_treatment.md) : Add treatment
+- [`add_vectors()`](add_vectors.md) : Add vectors
+- [`adjust_carrying_capacity()`](adjust_carrying_capacity.md) : Adjust
+  carrying capacity
+- [`available_sites()`](available_sites.md) : View available sites and
+  versions on the server
+- [`burnin_demography()`](burnin_demography.md) : Expand demography
+  retrospectively for burn in period
+- [`burnin_interventions()`](burnin_interventions.md) : Expand
+  interventions retrospectively for burn in period
+- [`example_site`](example_site.md) : An example country site file
+- [`fetch_files()`](fetch_files.md) : Get files from the malariaverse
+  sitefile server.
+- [`fetch_site()`](fetch_site.md) : Fetch a site file for a country from
+  the malariaverse sitefile server.
+- [`match()`](match.md) : Matched join
+- [`set_age_outputs()`](set_age_outputs.md) : Set age outputs
+- [`site_parameters()`](site_parameters.md) : Create site parameters
+- [`subset_site()`](subset_site.md) : Extract a subset from a country
+  site file
+
+# Articles
+
+### All vignettes
+
+- [Accessing site-files](Accessing-site-files.md):
+- [Historical Epidemiological Data](historical_epi.md):
+- [Interventions](Interventions.md):
+- [Metadata](Metadata.md):
+- [Population and Demography](pop_demog.md):
+- [Seasonality](Seasonality.md):
+- [Mosquito Vectors](vectors.md):

@@ -1,0 +1,26 @@
+# Seasonality
+
+## Seasonality
+
+`site_file$seasonality`
+
+Daily rainfall global rasters for the period 2000-2024 were obtained
+from CHIRPS^([1](#ref-CHIRPS)) using the [umbrella R
+package](https://mrc-ide.github.io/umbrella/). For each site we estimate
+the fourier series parameters representing general seasonal profiles.
+Please see the umbrella website for more information.
+
+`site_file$seasonality$seasonality_parameters` Contains the estimated
+fourier series parameters.
+
+`site_file$seasonality$monthly_rainfall` Contains the extracted rainfall
+estimate
+
+`site_file$seasonality$fourier_prediction` Contains a prediction of the
+seasonal curve using the estimated parameters
+
+## Citations
+
+1\.
+
+[CHIRPS](https://www.chc.ucsb.edu/data/chirps).

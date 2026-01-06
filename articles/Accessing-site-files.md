@@ -1,0 +1,67 @@
+# Accessing site-files
+
+## Downloading a site file
+
+To access a site file - a collated set of data for a specific country -
+you will need to follow these steps:
+
+1.  Sign up for a [github account](https://github.com/), single user
+    accounts are free.
+
+2.  Send an email to malariaverse@imperial.ac.uk to ask for site file
+    access. Please include the following details:
+
+- Your name
+- Your institution
+- Your github username
+- A short description of the project you will use the site files for
+
+3.  You will then be added to the malariaverse github team.
+
+When you receive confirmation of this (look out for a notification on
+github), you can then use the `site` package inbuilt functionality to
+download site files.
+
+You can call [`fetch_site()`](../reference/fetch_site.md), specifying
+the [ISO3c country
+code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) of your country
+of interest. For example, for Nigeria:
+`fetch_site(iso3c = "NGA", admin_level = 1, urban_rural = TRUE)`.
+
+The first time you do this, you will see interactive authentication
+instructions asking you to access a github link and providing an
+authentication code. Open the link and copy the code to authorise
+access. This process should cache your credentials so that you don’t
+have to authorise every time.
+
+Please make sure you have installed ordely from the r-universe:
+
+    install.packages(
+      "orderly",
+      repos = c("https://mrc-ide.r-universe.dev", "https://cloud.r-project.org")
+    )
+
+## Updates and versioning
+
+Site files are periodically updated. You can check which version you
+have by inspecting the site metadata. The function
+[`available_sites()`](../reference/available_sites.md) lists all site
+files currently available on the server.
+
+By default, `fetch_site(iso3c = ...)` downloads the latest version of a
+site file. For reproducibility, you can also specify admin_level,
+urban_rural, and version to fetch a particular file.
+
+For stable workflows, we recommend downloading and storing the site
+files you use once, rather than always pulling the latest version.
+Otherwise, downstream pipelines may break if new site file options
+become available.
+
+News on new updates will be posted
+[here](https://mrc-ide.github.io/site/news/index.html).
+
+## Issues
+
+If you encounter any issues with this process, please post an issue,
+with as much detail as possible on the [site package issue
+page](https://github.com/mrc-ide/site/issues).
