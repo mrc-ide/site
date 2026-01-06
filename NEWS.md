@@ -1,3 +1,17 @@
+# site 2.0.0
+
+### Sitefile release
+* malariaverse_01_2026
+
+### Major changes
+
+* The second full release of site files, these include latest World Malaria Report 
+2025 data
+* Update of population distributions using new WorldPop rasters that extend up to 2030
+* Update of rainfall data to the new CHIRPS v3.0
+
+### Minor improvement and bug fixes
+
 # site 1.0.5
 
 ### Sitefile release
