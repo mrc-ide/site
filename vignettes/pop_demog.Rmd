@@ -21,17 +21,11 @@ knitr::opts_chunk$set(
 
 `site_file$population`
 
-Site-level population estimates are extracted at the pixel level from 
-WorldPop @worldpop. We use the "Unconstrained individual 
-countries 2000-2020 UN adjusted ( 1km resolution )" rasters.
+Site-level population distributions are derived at pixel level from WorldPop @worldpop. For 2000 to 2014 we use the “Unconstrained individual countries 2000 to 2020 UN adjusted (1 km resolution)” rasters (alias: wpicuadj1km). For 2015 to 2030 we use the “Individual countries 2015 to 2030 (1 km resolution) R2025A v1” rasters (alias: G2_CN_POP_R25A_1km).
 
-Options disaggregated by 1-year age bands (`site_file$population$population_by_age`)
-or total (`site_file$population$population_total`) are provided
+For each year, pixel values are re-scaled so that the raster sum matches UN WPP country-level population totals @UNWPP.
 
-### Urban rural 
-
-Urban rural splits within administrative unit are defined using a threshold
-density of 1500 people per square km.
+We provide population either by 1-year age bands (`site_file$population$population_by_age`) or as a total (`site_file$population$population_total`).
 
 ### Population at risk
 
@@ -39,28 +33,18 @@ density of 1500 people per square km.
 `site_file$population$par_pv`
 `site_file$population$par`
 
-Population at risk from _Plasmodium falciparum_, _Plasmodium vivax_ or both are
-estimated by masking the total population raster by areas with active transmission 
-(prevalence >0%) in year 2000 @MAP.
+Population at risk for Plasmodium falciparum, Plasmodium vivax, or either species is estimated by masking the total population raster using areas with active transmission (prevalence > 0%) in year 2000 @MAP.
 
-### Population growth and urbanisation
+### Urbanisation
 
-We provide annual population projections to 2050 using UN data on total population
-growth @UNWPP combined with UN projections of 
-the levels of urbanisation @UNWUP.
-We use these projections to produces estimates of the rate of urban and rural
-growth (relative to a baseline year) which are then applied to our spatial-unit
-population estimates. Final estimates are rescaled to ensure that
-population total match UN totals.
+We use UN projections of national urbanisation levels @UNWUP to estimate the proportion of the population living in urban areas each year. Pixels are assigned to the “urban” class in descending order of population density until the implied national urban population total for that year is reached. Remaining pixels are classified as rural.
 
 ## Demography
 
-Population demographics (age structure) are defined over time for each site.
-Demography is obtained using the [peeps R package](https://github.com/mrc-ide/peeps),
-and are based on data from the UN WPP @UNWPP
+Population age structure over time is based on UN WPP @UNWPP and is accessible via the age-stratified population (`site_file$population$population_by_age`).
 
-Mortality rates are specified for neonates (0-30 days), young infants 
-(31 days - 1 year), older infants (1 year - 5 years) and then in five year age 
-bands.
+Model-input demography (`site_file$population$demography`) is adjusted because the model population size is constant over time. This adjustment preserves the time-varying age structure implied by UN WPP within a constant-size model population, and is performed using the [peeps R package](https://github.com/mrc-ide/peeps).
+
+Model-input mortality rates are specified for neonates (0 to 30 days), young infants (31 days to 1 year), older infants (1 to 5 years), and then in five-year age bands.
 
 # Citations
