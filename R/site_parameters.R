@@ -5,7 +5,7 @@
 #' @param vectors Site vectors inputs
 #' @param seasonality Site seasonality inputs
 #' @param min_ages Lower age bands for incidence and N age outputs
-#' @param species Can be falciparum: "pf" or vivax: "pv", for vivax SMC, RTSS
+#' @param parasite Can be "falciparum" or "vivax" for vivax SMC, RTSS
 #'  and PMC are not implemented
 #' @param eir Site baseline EIR
 #' @param draw malariasimulation parameter draw. Default NULL is best-fit parameter set
@@ -20,13 +20,16 @@ site_parameters <- function(
   vectors,
   seasonality,
   min_ages = c(0, 5, 15) * 365,
-  species = "pf",
+  parasite = "falciparum",
   eir = NULL,
   draw = NULL,
   overrides = list(),
   burnin = 0
 ) {
-  p <- malariasimulation::get_parameters(overrides = overrides)
+  p <- malariasimulation::get_parameters(
+    overrides = overrides,
+    parasite = parasite
+  )
 
   if (!is.null(draw)) {
     p <- malariasimulation::set_parameter_draw(p, draw)
@@ -44,7 +47,7 @@ site_parameters <- function(
     add_seasonality(seasonality = seasonality) |>
     add_vectors(vectors = vectors) |>
     add_demography(demography = demography) |>
-    add_interventions(interventions = interventions, species = species) |>
+    add_interventions(interventions = interventions) |>
     set_age_outputs(min_ages = min_ages)
 
   if (!is.null(eir)) {

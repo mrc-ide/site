@@ -10,7 +10,7 @@ site_parameters(
   vectors,
   seasonality,
   min_ages = c(0, 5, 15) * 365,
-  species = "pf",
+  parasite = "falciparum",
   eir = NULL,
   draw = NULL,
   overrides = list(),
@@ -28,7 +28,7 @@ site_parameters(
 
 \item{min_ages}{Lower age bands for incidence and N age outputs}
 
-\item{species}{Can be falciparum: "pf" or vivax: "pv", for vivax SMC, RTSS
+\item{parasite}{Can be "falciparum" or "vivax" for vivax SMC, RTSS
 and PMC are not implemented}
 
 \item{eir}{Site baseline EIR}
