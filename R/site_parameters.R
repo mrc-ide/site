@@ -8,7 +8,7 @@
 #' @param species Can be falciparum: "pf" or vivax: "pv", for vivax SMC, RTSS
 #'  and PMC are not implemented
 #' @param eir Site baseline EIR
-#' @param draw malariasimulation parameter draw
+#' @param draw malariasimulation parameter draw. Default NULL is best-fit parameter set
 #' @param overrides List of malariasimulation default parameter overrides
 #' @param burnin Number of burn in years
 #'
