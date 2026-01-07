@@ -33,7 +33,7 @@ and PMC are not implemented}
 
 \item{eir}{Site baseline EIR}
 
-\item{draw}{malariasimulation parameter draw}
+\item{draw}{malariasimulation parameter draw. Default NULL is best-fit parameter set}
 
 \item{overrides}{List of malariasimulation default parameter overrides}
 
