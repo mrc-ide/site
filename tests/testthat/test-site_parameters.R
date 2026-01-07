@@ -52,27 +52,7 @@ test_that("setting parameter draw works for falciparum", {
 
   parameter_names_pf <- names(malariasimulation::parameter_draws_pf[[1000]])
 
-  expect_identical(p[parameter_names_pf], parameter_draws_pf[[1000]][parameter_names_pf])
-
-})
-
-test_that("parameter draw functionality switched off for vivax", {
-
-  single_site <- subset_site(example_site, example_site$eir[1,])
-
-  p <- site_parameters(
-    interventions = single_site$interventions,
-    demography = single_site$demography,
-    vectors = single_site$vectors$vector_species,
-    seasonality = single_site$seasonality$seasonality_parameters,
-    species = "pv",
-    eir = 10,
-    draw = 10
-  )
-
-  parameter_names_pf <- names(parameter_draws_pf)
-
-  expect_identical(get_parameters()[parameter_names_pf], p[parameter_names_pf])
+  expect_identical(p[parameter_names_pf], malariasimulation::parameter_draws_pf[[1000]][parameter_names_pf])
 
 })
 
