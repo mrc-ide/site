@@ -39,7 +39,7 @@ within sub-Saharan Africa differs to countries outside of sub-Saharan Africa:
 
 The population at risk weighted mean ITN use estimates for each site are taken 
 from the malaria atlas project raster entitled:
-"Interventions__202406_Africa_Insecticide_Treated_Net_Use". This, and other elements
+"Interventions__202508_Africa_Insecticide_Treated_Net_Use". This, and other elements
 of the [netz R package](https://mrc-ide.github.io/netz/) are based on work by 
 Bertozzi-Villa *et al* @bertozzi
 
@@ -130,7 +130,7 @@ sub-Saharan Africa:
 
 The population at risk weighted mean IRS coverage estimates for each site are 
 taken from the malaria atlas project raster entitled:
-"Interventions__202106_Africa_IRS_Coverage" @MAP. Coverage estimates
+"Interventions__202508_Africa_IRS_Coverage" @MAP. Coverage estimates
 are rescaled such that the country-level estimate of the number of persons protected
 by IRS matches the number reported in the world malaria report @WMR.
 
