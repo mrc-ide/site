@@ -269,7 +269,7 @@ distribution is informed from an
 MVIP briefing presentation @MVIP
 
 EPI-based vaccine scale up of R21 and RTS,S has been manually collated from
-the UNICEF immunization dashboard @Unicef
+the UNICEF immunization dashboard @Unicef. Absent sub-national data, the total doses delivered is converted into a country-wide coverage.
 
 ## Perennial malaria chemoprevention (PMC).
 
