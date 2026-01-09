@@ -29,7 +29,7 @@ test_that("setting vivax works", {
     demography = single_site$demography,
     vectors = single_site$vectors$vector_species,
     seasonality = single_site$seasonality$seasonality_parameters,
-    species = "pv"
+    parasite = "vivax"
   )
   expect_false(p$pev)
   expect_false(p$smc)
@@ -44,7 +44,7 @@ test_that("setting parameter draw works for falciparum", {
     demography = single_site$demography,
     vectors = single_site$vectors$vector_species,
     seasonality = single_site$seasonality$seasonality_parameters,
-    species = "pf",
+    parasite = "falciparum",
     eir = 10,
     draw = 1000
   )
@@ -64,8 +64,7 @@ test_that("set_equilibrium not called when eir argument left at default", {
     interventions = single_site$interventions,
     demography = single_site$demography,
     vectors = single_site$vectors$vector_species,
-    seasonality = single_site$seasonality$seasonality_parameters,
-    species = "pf"
+    seasonality = single_site$seasonality$seasonality_parameters
   )
 
   expect_null(p$eq_params)
