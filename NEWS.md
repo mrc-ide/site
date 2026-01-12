@@ -9,6 +9,8 @@
 2025 data
 * Update of population distributions using new WorldPop rasters that extend up to 2030
 * Update of rainfall data to the new CHIRPS v3.0
+* Update of Malaria Atlas Project (MAP) P. falciparum and P. Vivax prevalence. ITN usage (Africa), IRS coverage (Africa) and effective treatment coverage input rasters to the latest release (08/2025). Note: new effective treatment covearge maps are at the country-level which constitutes a dimishing of the spatial resolution for this input for many country-year combinations (reason unknown).
+* Update of the malaria vaccine doses delivered data from UNICEF. Note: we still do not have a clear data-source for sub-national targeted or vaccine-type for these delivered doses.
 
 ### Minor improvement and bug fixes
 
