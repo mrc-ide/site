@@ -255,55 +255,6 @@ add_irs <- function(p, interventions) {
   return(p)
 }
 
-#' Add SMC
-#'
-#' @inheritParams add_interventions
-#'
-#' @return modified parameter list
-add_smc <- function(p, interventions) {
-  month <- 365 / 12
-
-  if (!all(interventions$smc_drug == "sp_aq")) {
-    stop("Not currently set up for non SP AQ SMC drug")
-  }
-
-  peak <- malariasimulation::peak_season_offset(p)
-  rounds <- interventions$smc_n_rounds
-  year_start_times <- 1 + (interventions$year - p$baseline_year) * 365
-  peak_season_times <- peak + year_start_times
-  # Assume middle of rounds occurs at peak season:
-  round_relative_time <- as.vector(
-    unlist(
-      sapply(rounds, function(x) {
-        seq(-x * month / 2, x * month / 2, length.out = x)
-      })
-    )
-  )
-  timesteps <- round(round_relative_time) + rep(peak_season_times, rounds)
-  coverages <- rep(interventions$smc_cov, rounds)
-  min_age <- rep(interventions$smc_min_age, rounds)
-  max_age <- rep(interventions$smc_max_age, rounds)
-
-  index <- timesteps <= 0
-  if (sum(index) > 0) {
-    timesteps <- timesteps[!index]
-    coverages <- coverages[!index]
-    min_age <- min_age[!index]
-    max_age <- max_age[!index]
-  }
-
-  p <- malariasimulation::set_smc(
-    parameters = p,
-    drug = 3,
-    timesteps = timesteps,
-    coverages = coverages,
-    min_age = min_age,
-    max_age = max_age
-  )
-
-  return(p)
-}
-
 #' Add RTS,S
 #'
 #' @inheritParams add_interventions
