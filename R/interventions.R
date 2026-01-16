@@ -153,47 +153,6 @@ add_treatment <- function(p, interventions) {
   return(p)
 }
 
-#' Add ITNs
-#'
-#' @inheritParams add_interventions
-#'
-#' @return modified parameter list
-add_itns <- function(p, interventions) {
-  # If not specified, assume distribution happens January 1st
-  if (!"itn_distribution_day" %in% colnames(interventions)) {
-    interventions$itn_distribution_day <- 1
-  }
-  timesteps <- interventions$itn_distribution_day +
-    (interventions$year - p$baseline_year) * 365
-  # Net retention half life does not vary over time (Should match what is used when fitting input dist)
-  retention <- unique(interventions$mean_retention)
-  if (length(retention) > 1) {
-    stop("Time-varying net rentetion is not currently supported")
-  }
-  # Net input coverage
-  coverages <- interventions$itn_input_dist
-  coverages[is.na(coverages)] <- 0
-  # Net efficacy parameters
-  n_species <- length(p$species)
-  dn0 <- matrix(rep(interventions$dn0, n_species), ncol = n_species)
-  rn <- matrix(rep(interventions$rn0, n_species), ncol = n_species)
-  rnm <- matrix(rep(interventions$rnm, n_species), ncol = n_species)
-  gamman <- interventions$gamman * 365
-
-  p <- malariasimulation::set_bednets(
-    parameters = p,
-    timesteps = timesteps,
-    coverages = coverages,
-    retention = retention,
-    dn0 = dn0,
-    rn = rn,
-    rnm = rnm,
-    gamman = gamman
-  )
-
-  return(p)
-}
-
 #' Add IRS
 #'
 #' @inheritParams add_interventions
