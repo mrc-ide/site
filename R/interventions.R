@@ -4,7 +4,7 @@
 #' @param interventions site intervention inputs
 #'
 #' @return modified parameter list
-add_interventions <- function(p, interventions) {
+add_interventions <- function(p, interventionsm, irs_adjust) {
   pf <- p$parasite == "falciparum"
   # Drug types
   p <- add_drugs(p)
@@ -153,66 +153,6 @@ add_treatment <- function(p, interventions) {
   return(p)
 }
 
-#' Add IRS
-#'
-#' @inheritParams add_interventions
-#'
-#' @return modified parameter list
-add_irs <- function(p, interventions) {
-  month <- 365 / 12
-  peak <- malariasimulation::peak_season_offset(p)
-  year_start_times <- 1 + (interventions$year - p$baseline_year) * 365
-
-  if (any(interventions$irs_spray_rounds > 2)) {
-    stop("Maximum of 2 IRS spray rounds per year supported")
-  }
-
-  peak_season_times <- peak + year_start_times
-  peak_season_times <- rep(peak_season_times, interventions$irs_spray_rounds)
-
-  # Assume multiple spray rounds are 6 months apart (First is 3 months prior to peak)
-  offset <- sapply(interventions$irs_spray_rounds, function(x) {
-    c(3, -3)[1:x]
-  }) |>
-    unlist()
-  irs_spray_times <- round(peak_season_times - offset * month)
-
-  coverages <- rep(interventions$irs_cov, interventions$irs_spray_rounds)
-  ls_theta <- rep(interventions$ls_theta, interventions$irs_spray_rounds)
-  ls_gamma <- rep(interventions$ls_gamma, interventions$irs_spray_rounds)
-  ks_theta <- rep(interventions$ks_theta, interventions$irs_spray_rounds)
-  ks_gamma <- rep(interventions$ks_gamma, interventions$irs_spray_rounds)
-  ms_theta <- rep(interventions$ms_theta, interventions$irs_spray_rounds)
-  ms_gamma <- rep(interventions$ms_gamma, interventions$irs_spray_rounds)
-
-  index <- irs_spray_times <= 0
-  if (sum(index) > 0) {
-    irs_spray_times <- irs_spray_times[!index]
-    coverages <- coverages[!index]
-    ls_theta <- ls_theta[!index]
-    ls_gamma <- ls_gamma[!index]
-    ks_theta <- ks_theta[!index]
-    ks_gamma <- ks_gamma[!index]
-    ms_theta <- ms_theta[!index]
-    ms_gamma <- ms_gamma[!index]
-  }
-
-  n_species <- length(p$species)
-
-  p <- malariasimulation::set_spraying(
-    parameters = p,
-    timesteps = irs_spray_times,
-    coverages = coverages,
-    ls_theta = matrix(rep(ls_theta, n_species), ncol = n_species),
-    ls_gamma = matrix(rep(ls_gamma, n_species), ncol = n_species),
-    ks_theta = matrix(rep(ks_theta, n_species), ncol = n_species),
-    ks_gamma = matrix(rep(ks_gamma, n_species), ncol = n_species),
-    ms_theta = matrix(rep(ms_theta, n_species), ncol = n_species),
-    ms_gamma = matrix(rep(ms_gamma, n_species), ncol = n_species)
-  )
-
-  return(p)
-}
 
 #' Add RTS,S
 #'

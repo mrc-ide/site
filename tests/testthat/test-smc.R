@@ -47,10 +47,12 @@ test_that("SPAQ drug check is informative", {
   )
 })
 
+p0 <- malariasimulation::get_parameters()
+
 test_that("Negative round days are appropriately droppped", {
   negative_days_example_smc <- example_smc
   negative_days_example_smc$implementation$round_day[1] <- -1
-  p0 <- malariasimulation::get_parameters()
+
   p1 <- add_smc(
     p = p0,
     smc = negative_days_example_smc

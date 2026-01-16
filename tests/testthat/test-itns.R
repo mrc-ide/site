@@ -44,9 +44,9 @@ example_itns_complete$implementation$itn_input_dist <-
     half_life = example_itns$retention_half_life
   )
 
-test_that("Adding itns works", {
-  p0 <- malariasimulation::get_parameters()
+p0 <- malariasimulation::get_parameters()
 
+test_that("Adding itns works", {
   p1 <- add_itns(
     p = p0,
     itn = example_itns_complete,
