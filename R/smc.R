@@ -6,10 +6,10 @@
 #' @return modified parameter list
 add_smc <- function(p, smc) {
   if (smc$drug != "sp_aq") {
-    stop("smc_drug must be sp_aq")
+    stop("SMC drug must be sp_aq")
   }
 
-  # Check for negative timesteps
+  # Drop negative timesteps
   smc$implementation <- smc$implementation[smc$implementation$round_day > 0, ]
 
   p <- malariasimulation::set_smc(

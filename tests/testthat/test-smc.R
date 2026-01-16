@@ -3,7 +3,7 @@ example_smc <- list(
   implementation = data.frame(
     name = "place",
     year = rep(2000:2002, each = 2),
-    smc_cov = 0,
+    smc_cov = 0.1,
     peak_season = 45,
     smc_min_age = 91,
     smc_max_age = 1825,
@@ -12,7 +12,7 @@ example_smc <- list(
   )
 )
 
-test_that("Adding smc correctly modifies the parameter list", {
+test_that("Adding SMC correctly modifies the parameter list", {
   p0 <- malariasimulation::get_parameters()
   p1 <- add_smc(
     p = p0,
@@ -36,12 +36,6 @@ test_that("Adding smc correctly modifies the parameter list", {
     p1$smc_timesteps,
     example_smc$implementation$round_day
   )
-
-  example_smc$drug <- "n"
-  expect_error(
-    add_smc(p = p0, smc = example_smc),
-    "smc_drug must be sp_aq"
-  )
 })
 
 test_that("SPAQ drug check is informative", {
@@ -49,7 +43,7 @@ test_that("SPAQ drug check is informative", {
   wrong_drug_example_smc$drug <- "n"
   expect_error(
     add_smc(p = p0, smc = wrong_drug_example_smc),
-    "smc_drug must be sp_aq"
+    "SMC drug must be sp_aq"
   )
 })
 

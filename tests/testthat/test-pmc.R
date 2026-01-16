@@ -1,20 +1,58 @@
-test_that("PMC works", {
-  single_site <- subset_site(example_site, example_site$eir[1,])
-  interventions <- single_site$interventions
-  interventions$pmc_cov[1:10] <- 0.5
-  p0 <- malariasimulation::get_parameters()
-  p0$baseline_year <- 2000
+example_pmc <- list(
+  drug = "sp",
+  age = c(60, 90, 270),
+  implementation = data.frame(
+    name = "place",
+    year = 2000:2003,
+    pmc_coverage_timesteps = ((2000:2003) - 2000) * 365 + 1,
+    pmc_cov = 0.1
+  )
+)
 
-  p1 <- p0 |>
-    add_drugs() |>
-    add_pmc(interventions = interventions)
+test_that("Adding PMC correctly modifies the parameter list", {
+  p0 <- malariasimulation::get_parameters() |>
+    add_drugs()
+  p1 <- add_pmc(
+    p = p0,
+    pmc = example_pmc
+  )
 
   expect_true(p1$pmc)
   expect_equal(p1$pmc_drug, 1)
-  expect_equal(p1$pmc_ages, c(2, 3, 9) * 30)
-  expect_equal(p1$pmc_coverages, interventions$pmc_cov)
-  expect_equal(p1$pmc_timesteps, 1 + (interventions$year - p1$baseline_year) * 365)
+  expect_equal(p1$pmc_ages, example_pmc$age)
+  expect_equal(p1$pmc_coverages, example_pmc$implementation$pmc_cov)
+  expect_equal(
+    p1$pmc_timesteps,
+    example_pmc$implementation$pmc_coverage_timesteps
+  )
+})
 
-  interventions$pmc_drug <- "n"
-  expect_error(add_pmc(p = p1, interventions = interventions), "Not currently set up for non SP PMC drug")
+test_that("SP drug check is informative", {
+  wrong_drug_example_pmc <- example_pmc
+  wrong_drug_example_pmc$drug <- "n"
+  expect_error(
+    add_pmc(p = p0, pmc = wrong_drug_example_pmc),
+    "PMC drug must be sp"
+  )
+})
+
+test_that("Negative timesteps are appropriately droppped", {
+  negative_days_example_pmc <- example_pmc
+  negative_days_example_pmc$implementation$pmc_coverage_timesteps[1] <- -1
+  p1 <- add_pmc(
+    p = p0,
+    pmc = negative_days_example_pmc
+  )
+
+  expect_true(p1$pmc)
+  expect_equal(p1$pmc_drug, 1)
+  expect_equal(p1$pmc_ages, negative_days_example_pmc$age)
+  expect_equal(
+    p1$pmc_coverages,
+    negative_days_example_pmc$implementation$pmc_cov[-1]
+  )
+  expect_equal(
+    p1$pmc_timesteps,
+    negative_days_example_pmc$implementation$pmc_coverage_timesteps[-1]
+  )
 })

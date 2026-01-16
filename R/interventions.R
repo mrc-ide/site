@@ -27,10 +27,10 @@ add_interventions <- function(p, interventions) {
     )
   }
   # SMC
-  if (sum(interventions$smc_cov, na.rm = TRUE) > 0 & pf) {
+  if (sum(interventions$smc$implementation$smc_cov, na.rm = TRUE) > 0 & pf) {
     p <- add_smc(
       p = p,
-      interventions = interventions
+      smc = interventions$smc
     )
   }
 
@@ -312,30 +312,6 @@ add_r21 <- function(p, interventions) {
     booster_spacing = 12 * month, # The booster is administered 12 months following the third dose.
     booster_coverage = matrix(booster_cov),
     booster_profile = list(malariasimulation::r21_booster_profile)
-  )
-
-  return(p)
-}
-
-#' Add PMC
-#'
-#' @inheritParams add_interventions
-#'
-#' @return modified parameter list
-add_pmc <- function(p, interventions) {
-  month <- 365 / 12
-  timesteps <- 1 + (interventions$year - p$baseline_year) * 365
-
-  if (!all(interventions$pmc_drug == "sp")) {
-    stop("Not currently set up for non SP PMC drug")
-  }
-
-  p <- malariasimulation::set_pmc(
-    parameters = p,
-    drug = 1,
-    timesteps = timesteps,
-    coverages = interventions$pmc_cov,
-    ages = c(2, 3, 9) * 30
   )
 
   return(p)
