@@ -6,10 +6,11 @@ example_irs <- list(
     peak_season = 100,
     insecticide = c("ddt", "actellic", "sumishield"),
     round = 1,
-    spray_day = (2000:2002 - 2000) * 365 + 70
+    spray_day_of_year = 70
   )
 )
 p0 <- malariasimulation::get_parameters()
+p0$start_year <- 2000
 
 test_that("adding irs works", {
   p1 <- add_irs(
@@ -19,8 +20,15 @@ test_that("adding irs works", {
   )
 
   expect_equal(p1$spraying, TRUE)
-  expect_equal(p1$spraying_timesteps, example_irs$implementation$spray_day)
   expect_equal(p1$spraying_coverages, example_irs$implementation$irs_cov)
+  expect_equal(
+    p1$spraying_timesteps,
+    calendar_to_timestep(
+      year = example_irs$implementation$year,
+      day_of_year = example_irs$implementation$spray_day_of_year,
+      start_year = p0$start_year
+    )
+  )
 })
 
 test_that("IRS insecticide is checked", {
@@ -38,21 +46,6 @@ test_that("IRS insecticide is checked", {
   )
 })
 
-test_that("Negative spray days are appropriately droppped", {
-  negative_example_irs <- example_irs
-  negative_example_irs$implementation$spray_day[1] <- -1
-  p0 <- malariasimulation::get_parameters()
-  p1 <- add_irs(
-    p = p0,
-    irs = negative_example_irs,
-    irs_adjust = 1
-  )
-
-  expect_equal(p1$spraying, TRUE)
-  expect_equal(p1$spraying_timesteps, example_irs$implementation$spray_day[-1])
-  expect_equal(p1$spraying_coverages, example_irs$implementation$irs_cov[-1])
-})
-
 test_that("IRS adjustment works", {
   p1 <- add_irs(
     p = p0,
@@ -61,8 +54,15 @@ test_that("IRS adjustment works", {
   )
 
   expect_equal(p1$spraying, TRUE)
-  expect_equal(p1$spraying_timesteps, example_irs$implementation$spray_day)
   expect_equal(p1$spraying_coverages, example_irs$implementation$irs_cov * 0.5)
+  expect_equal(
+    p1$spraying_timesteps,
+    calendar_to_timestep(
+      year = example_irs$implementation$year,
+      day_of_year = example_irs$implementation$spray_day_of_year,
+      start_year = p0$start_year
+    )
+  )
 })
 
 test_that("IRS adjustment errors if out of bounds", {

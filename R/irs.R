@@ -27,10 +27,13 @@ add_irs <- function(p, irs, irs_adjust = 1) {
   # Join to insecticide parameters
   irs$implementation <- irs$implementation |>
     dplyr::left_join(site::irs_efficacy, by = "insecticide")
-  # Drop negative spray times
-  irs$implementation <- irs$implementation[irs$implementation$spray_day > 0, ]
-
   check_for_nas(irs$implementation)
+
+  timesteps <- calendar_to_timestep(
+    year = irs$implementation$year,
+    day_of_year = irs$implementation$spray_day_of_year,
+    start_year = p0$start_year
+  )
 
   n_species <- length(p$species)
   ls_theta <- matrix(
@@ -60,7 +63,7 @@ add_irs <- function(p, irs, irs_adjust = 1) {
 
   p <- malariasimulation::set_spraying(
     parameters = p,
-    timesteps = irs$implementation$spray_day,
+    timesteps = timesteps,
     coverages = irs$implementation$irs_cov,
     ls_theta = ls_theta,
     ls_gamma = ls_gamma,
