@@ -9,13 +9,16 @@ add_smc <- function(p, smc) {
     stop("SMC drug must be sp_aq")
   }
 
-  # Drop negative timesteps
-  smc$implementation <- smc$implementation[smc$implementation$round_day > 0, ]
+  timesteps <- calendar_to_timestep(
+    year = smc$implementation$year,
+    day_of_year = smc$implementation$round_day_of_year,
+    start_year = p$start_year
+  )
 
   p <- malariasimulation::set_smc(
     parameters = p,
     drug = 3,
-    timesteps = smc$implementation$round_day,
+    timesteps = timesteps,
     coverages = smc$implementation$smc_cov,
     min_age = smc$implementation$smc_min_age,
     max_age = smc$implementation$smc_max_age

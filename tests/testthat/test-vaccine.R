@@ -1,3 +1,15 @@
+example_vaccine <- list(
+  schedule = c(180, 210, 240, 540),
+  delivery = "age_based",
+  implementation = data.frame(
+    name = "place",
+    year = 2000:2002,
+    vaccine_coverage_timesteps = (2000:2002 - 2000) * 365 + 1,
+    rtss_primary_cov = 0.8,
+    rtss_booster_cov1 = 0.4
+  )
+)
+
 test_that("adding rtss works", {
   single_site <- subset_site(example_site, example_site$eir[1, ])
   interventions <- single_site$interventions

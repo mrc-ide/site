@@ -43,6 +43,7 @@ site_parameters <- function(
   }
 
   p <- p |>
+    # TODO: now calculate_total_timesteps
     add_time(interventions) |>
     add_seasonality(seasonality = seasonality) |>
     add_vectors(vectors = vectors) |>

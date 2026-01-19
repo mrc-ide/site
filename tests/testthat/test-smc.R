@@ -8,12 +8,14 @@ example_smc <- list(
     smc_min_age = 91,
     smc_max_age = 1825,
     round = rep(1:2, 3),
-    round_day = (rep(2000:2002, each = 2) - 2000) * 365 + rep(c(30, 60), 3)
+    round_day_of_year = rep(c(30, 60), 3)
   )
 )
 
+p0 <- malariasimulation::get_parameters()
+p0$start_year <- 2000
+
 test_that("Adding SMC correctly modifies the parameter list", {
-  p0 <- malariasimulation::get_parameters()
   p1 <- add_smc(
     p = p0,
     smc = example_smc
@@ -34,7 +36,11 @@ test_that("Adding SMC correctly modifies the parameter list", {
   )
   expect_equal(
     p1$smc_timesteps,
-    example_smc$implementation$round_day
+    calendar_to_timestep(
+      year = example_smc$implementation$year,
+      day_of_year = example_smc$implementation$round_day_of_year,
+      start_year = p0$start_year
+    )
   )
 })
 
@@ -44,35 +50,5 @@ test_that("SPAQ drug check is informative", {
   expect_error(
     add_smc(p = p0, smc = wrong_drug_example_smc),
     "SMC drug must be sp_aq"
-  )
-})
-
-p0 <- malariasimulation::get_parameters()
-
-test_that("Negative round days are appropriately droppped", {
-  negative_days_example_smc <- example_smc
-  negative_days_example_smc$implementation$round_day[1] <- -1
-
-  p1 <- add_smc(
-    p = p0,
-    smc = negative_days_example_smc
-  )
-  expect_equal(p1$smc, TRUE)
-  expect_equal(
-    p1$smc_coverages,
-    example_smc$implementation$smc_cov[-1]
-  )
-  expect_equal(p1$smc_drug, 3)
-  expect_equal(
-    p1$smc_min_age,
-    example_smc$implementation$smc_min_age[-1]
-  )
-  expect_equal(
-    p1$smc_max_age,
-    example_smc$implementation$smc_max_age[-1]
-  )
-  expect_equal(
-    p1$smc_timesteps,
-    example_smc$implementation$round_day[-1]
   )
 })
