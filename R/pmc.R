@@ -9,15 +9,16 @@ add_pmc <- function(p, pmc) {
     stop("PMC drug must be sp")
   }
 
-  # Drop negative timesteps
-  pmc$implementation <- pmc$implementation[
-    pmc$implementation$pmc_coverage_timesteps > 0,
-  ]
+  timesteps <- calendar_to_timestep(
+    year = pmc$implementation$year,
+    day_of_year = rep(1, nrow(pmc$implementation)),
+    start_year = p0$start_year
+  )
 
   p <- malariasimulation::set_pmc(
     parameters = p,
     drug = 1,
-    timesteps = pmc$implementation$pmc_coverage_timesteps,
+    timesteps = timesteps,
     coverages = pmc$implementation$pmc_cov,
     ages = pmc$age
   )
