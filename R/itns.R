@@ -24,8 +24,13 @@ add_itns <- function(p, itn, resistance) {
       site::net_efficacy,
       by = c("net_type", "pyrethroid_resistance")
     )
-
   check_for_nas(itn$implementation)
+
+  timesteps <- calendar_to_timestep(
+    year = itn$implementation$year,
+    day_of_year = itn$implementation$distribution_day_of_year,
+    start_year = p0$start_year
+  )
 
   # Net efficacy parameters
   n_species <- length(p$species)
@@ -36,7 +41,7 @@ add_itns <- function(p, itn, resistance) {
 
   p <- malariasimulation::set_bednets(
     parameters = p,
-    timesteps = itn$implementation$distribution_timestep,
+    timesteps = timesteps,
     coverages = itn$implementation$itn_input_dist,
     dn0 = dn0,
     rn = rn,

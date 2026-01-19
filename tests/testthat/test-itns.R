@@ -4,7 +4,7 @@ example_itns <- list(
     name = "place",
     year = 2000:2002,
     itn_use = c(0.1, 0.2, 0.5),
-    usage_timestep = (2000:2002 - 2000) * 365 + 1
+    usage_day_of_year = 1
   ),
   implementation = data.frame(
     name = "place",
@@ -16,15 +16,24 @@ example_itns <- list(
     distribution_type = rep(c("mass", rep("routine", 4)), 3),
     distribution_lower = 0,
     distribution_upper = rep(c(1, rep(0.01, 4)), 3),
-    distribution_timestep = (rep(2000:2002, each = 5) - 2000) *
-      365 +
-      rep(c(1, 2, 90, 180, 270), 3)
+    distribution_day_of_year = rep(c(1, 2, 90, 180, 270), 3)
   )
 )
-example_itns$implementation <- example_itns$implementation[
-  example_itns$implementation$distribution_timestep <=
-    max(example_itns$use$usage_timestep),
-]
+
+implementation_time_step <- calendar_to_timestep(
+  example_itns$implementation$year,
+  example_itns$implementation$distribution_day_of_year,
+  start_year = 2000
+)
+usage_timestep <- calendar_to_timestep(
+  example_itns$use$year,
+  example_itns$use$usage_day_of_year,
+  start_year = 2000
+)
+
+index <- implementation_time_step <= max(usage_timestep)
+example_itns$implementation <- example_itns$implementation[index, ]
+implementation_time_step <- implementation_time_step[index]
 
 example_resistance <- data.frame(
   name = "place",
@@ -36,8 +45,8 @@ example_itns_complete <- example_itns
 example_itns_complete$implementation$itn_input_dist <-
   netz::usage_to_model_distribution(
     usage = example_itns$use$itn_use,
-    usage_timesteps = example_itns$use$usage_timestep,
-    distribution_timesteps = example_itns$implementation$distribution_timestep,
+    usage_timesteps = usage_timestep,
+    distribution_timesteps = implementation_time_step,
     distribution_lower = example_itns$implementation$distribution_lower,
     distribution_upper = example_itns$implementation$distribution_upper,
     net_loss_function = netz::net_loss_map,
@@ -45,6 +54,7 @@ example_itns_complete$implementation$itn_input_dist <-
   )
 
 p0 <- malariasimulation::get_parameters()
+p0$start_year <- 2000
 
 test_that("Adding itns works", {
   p1 <- add_itns(
@@ -56,7 +66,11 @@ test_that("Adding itns works", {
   expect_equal(p1$bednets, TRUE)
   expect_equal(
     p1$bednet_timesteps,
-    example_itns_complete$implementation$distribution_timestep
+    calendar_to_timestep(
+      year = example_itns_complete$implementation$year,
+      day_of_year = example_itns_complete$implementation$distribution_day_of_year,
+      start_year = p0$start_year
+    )
   )
   expect_equal(
     p1$bednet_coverages,
