@@ -49,10 +49,6 @@ test_that("adding rtss, age based no booster works", {
     p1$pev_epi_timesteps,
     calendar_to_timestep(
       year = example_rtss_age_based_no_boost$implementation$year,
-      day_of_year = rep(
-        1,
-        nrow(example_rtss_age_based_no_boost$implementation)
-      ),
       start_year = p0$start_year
     )
   )
@@ -113,10 +109,6 @@ test_that("adding rtss, age based single booster works", {
     p1$pev_epi_timesteps,
     calendar_to_timestep(
       year = example_rtss_age_based_single_boost$implementation$year,
-      day_of_year = rep(
-        1,
-        nrow(example_rtss_age_based_single_boost$implementation)
-      ),
       start_year = p0$start_year
     )
   )
@@ -189,10 +181,6 @@ test_that("adding rtss, age based multiple booster works", {
     p1$pev_epi_timesteps,
     calendar_to_timestep(
       year = example_rtss_age_based_multiple_boost$implementation$year,
-      day_of_year = rep(
-        1,
-        nrow(example_rtss_age_based_multiple_boost$implementation)
-      ),
       start_year = p0$start_year
     )
   )
@@ -255,10 +243,6 @@ test_that("adding rtss, hybird single booster works", {
     p1$pev_epi_timesteps,
     calendar_to_timestep(
       year = example_rtss_hybrid_single_boost$implementation$year,
-      day_of_year = rep(
-        1,
-        nrow(example_rtss_hybrid_single_boost$implementation)
-      ),
       start_year = p0$start_year
     )
   )
@@ -332,10 +316,6 @@ test_that("adding rtss, hybird multiple booster works", {
     p1$pev_epi_timesteps,
     calendar_to_timestep(
       year = example_rtss_hybrid_multiple_boost$implementation$year,
-      day_of_year = rep(
-        1,
-        nrow(example_rtss_hybrid_multiple_boost$implementation)
-      ),
       start_year = p0$start_year
     )
   )
@@ -403,10 +383,6 @@ test_that("adding r21, age based no booster works", {
     p1$pev_epi_timesteps,
     calendar_to_timestep(
       year = example_r21_age_based_no_boost$implementation$year,
-      day_of_year = rep(
-        1,
-        nrow(example_r21_age_based_no_boost$implementation)
-      ),
       start_year = p0$start_year
     )
   )
@@ -467,10 +443,6 @@ test_that("adding r21, age based single booster works", {
     p1$pev_epi_timesteps,
     calendar_to_timestep(
       year = example_r21_age_based_single_boost$implementation$year,
-      day_of_year = rep(
-        1,
-        nrow(example_r21_age_based_single_boost$implementation)
-      ),
       start_year = p0$start_year
     )
   )
@@ -553,10 +525,6 @@ test_that("adding rtss and r21 togther warns and reverts to r21", {
     p1$pev_epi_timesteps,
     calendar_to_timestep(
       year = example_rtss_r21_age_based_single_boost$implementation$year,
-      day_of_year = rep(
-        1,
-        nrow(example_rtss_r21_age_based_single_boost$implementation)
-      ),
       start_year = p0$start_year
     )
   )

@@ -27,7 +27,6 @@ test_that("Adding PMC correctly modifies the parameter list", {
     p1$pmc_timesteps,
     calendar_to_timestep(
       year = example_pmc$implementation$year,
-      day_of_year = rep(1, nrow(example_pmc$implementation)),
       start_year = p0$start_year
     )
   )

@@ -11,7 +11,6 @@ add_pmc <- function(p, pmc) {
 
   timesteps <- calendar_to_timestep(
     year = pmc$implementation$year,
-    day_of_year = rep(1, nrow(pmc$implementation)),
     start_year = p0$start_year
   )
 

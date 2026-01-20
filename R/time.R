@@ -77,7 +77,11 @@ calculate_total_timesteps <- function(start_year, end_year, burnin = 0) {
 #' )
 #'
 #' @export
-calendar_to_timestep <- function(year, day_of_year, start_year) {
+calendar_to_timestep <- function(
+  year,
+  day_of_year = rep(1, length(year)),
+  start_year
+) {
   # Input validation
   if (
     !is.numeric(year) || !is.numeric(day_of_year) || !is.numeric(start_year)

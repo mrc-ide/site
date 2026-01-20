@@ -41,6 +41,13 @@ test_that("calendar_to_timestep works correctly", {
   expect_equal(calendar_to_timestep(2001, 1, 2000), 366) # First day of next year
   expect_equal(calendar_to_timestep(2000, 1, 1980), 7301) # 20 years later
 
+  # First day inferred
+  expect_equal(calendar_to_timestep(year = 2000, start_year = 2000), 1) # Day 1 of start year
+  expect_equal(
+    calendar_to_timestep(year = 2000:2001, start_year = 2000),
+    c(1, 366)
+  ) # Day 1 of start year
+
   # Vectorized input
   result <- calendar_to_timestep(c(2000, 2001), c(1, 100), 2000)
   expect_equal(result, c(1, 465))
