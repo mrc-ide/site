@@ -58,37 +58,12 @@ add_interventions <- function(p, interventions, resistance, irs_adjust) {
   # The combined carrying capacity scaling must be estimated for all
   # interventions that modify it, before updating. Currently, only LSM is
   # implemented here. This could included An. stephensi in the future.
-  if (sum(interventions$lsm_cov, na.rm = TRUE) > 0) {
+  if (sum(interventions$lsm$implementation$lsm_cov, na.rm = TRUE) > 0) {
     p <- adjust_carrying_capacity(
       p = p,
-      interventions = interventions
+      lsm = interventions$lsm
     )
   }
-
-  return(p)
-}
-
-
-#' Adjust carrying capacity
-#'
-#' @inheritParams add_interventions
-#'
-#' @return modified parameter list
-adjust_carrying_capacity <- function(p, interventions) {
-  lsm_impact <- rep(1 - interventions$lsm_cov, each = length(p$species))
-  carrying_capacity_scaler <- matrix(
-    data = lsm_impact,
-    ncol = length(p$species),
-    byrow = TRUE
-  )
-  month <- 365 / 12
-  timesteps <- 1 + (interventions$year - p$baseline_year) * 365
-
-  p <- malariasimulation::set_carrying_capacity(
-    parameters = p,
-    carrying_capacity = carrying_capacity_scaler,
-    timesteps = timesteps
-  )
 
   return(p)
 }
