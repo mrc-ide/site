@@ -20,13 +20,13 @@
 #' # Returns: 2190 (6 years * 365 days)
 #'
 #' @export
-calculate_total_timesteps <- function(start_year, end_year, burnin = 0) {
+calculate_total_timesteps <- function(start_year, end_year) {
   # Input validation
-  if (!is.numeric(start_year) || !is.numeric(end_year) || !is.numeric(burnin)) {
+  if (!is.numeric(start_year) || !is.numeric(end_year)) {
     stop("All inputs must be numeric")
   }
 
-  if (length(start_year) != 1 || length(end_year) != 1 || length(burnin) != 1) {
+  if (length(start_year) != 1 || length(end_year) != 1) {
     stop("All inputs must be scalars (length 1)")
   }
 
@@ -34,17 +34,12 @@ calculate_total_timesteps <- function(start_year, end_year, burnin = 0) {
     stop("end_year must be >= start_year")
   }
 
-  if (burnin < 0) {
-    stop("burnin must be >= 0")
-  }
-
-  if (any(!is.finite(c(start_year, end_year, burnin)))) {
+  if (any(!is.finite(c(start_year, end_year)))) {
     stop("All inputs must be finite (no NA, NaN, or Inf values)")
   }
 
   # Calculate total years
-  intervention_years <- end_year - start_year + 1 # +1 because end_year is inclusive
-  total_years <- burnin + intervention_years
+  total_years <- end_year - start_year + 1
 
   # Convert to timesteps (days)
   total_timesteps <- total_years * 365

@@ -5,7 +5,6 @@
 #'
 #' @return modified parameter list
 add_interventions <- function(p, interventions, resistance, irs_adjust) {
-  pf <- p$parasite == "falciparum"
   # Drug types
   p <- add_drugs(p)
   # Treatment
@@ -29,7 +28,10 @@ add_interventions <- function(p, interventions, resistance, irs_adjust) {
     )
   }
   # SMC
-  if (sum(interventions$smc$implementation$smc_cov, na.rm = TRUE) > 0 & pf) {
+  if (
+    sum(interventions$smc$implementation$smc_cov, na.rm = TRUE) > 0 &
+      p$parasite == "falciparum"
+  ) {
     p <- add_smc(
       p = p,
       smc = interventions$smc
@@ -48,7 +50,10 @@ add_interventions <- function(p, interventions, resistance, irs_adjust) {
     )
   }
   # PMC
-  if (sum(interventions$pmc$implementation$pmc_cov, na.rm = TRUE) > 0 & pf) {
+  if (
+    sum(interventions$pmc$implementation$pmc_cov, na.rm = TRUE) > 0 &
+      p$parasite == "falciparum"
+  ) {
     p <- add_pmc(
       p = p,
       pmc = interventions$pmc
