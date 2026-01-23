@@ -32,7 +32,7 @@ add_irs <- function(p, irs, irs_adjust = 1) {
   timesteps <- calendar_to_timestep(
     year = irs$implementation$year,
     day_of_year = irs$implementation$spray_day_of_year,
-    start_year = p0$start_year
+    start_year = p$start_year
   )
 
   n_species <- length(p$species)

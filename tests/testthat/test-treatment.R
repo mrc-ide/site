@@ -56,14 +56,7 @@ test_that("adding drugs works for vivax", {
   )
 })
 
-example_treatment <- list(
-  implementation = data.frame(
-    name = "place",
-    year = 2000:2002,
-    tx_cov = 0.1,
-    prop_act = 0.2
-  )
-)
+example_treatment <- create_example_treatment()
 
 test_that("Setting treatment works", {
   p1 <- add_drugs(p0) |>

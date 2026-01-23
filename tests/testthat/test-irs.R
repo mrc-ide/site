@@ -1,14 +1,4 @@
-example_irs <- list(
-  implementation = data.frame(
-    name = "place",
-    year = 2000:2002,
-    irs_cov = 0.1,
-    peak_season = 100,
-    insecticide = c("ddt", "actellic", "sumishield"),
-    round = 1,
-    spray_day_of_year = 70
-  )
-)
+example_irs <- create_example_irs()
 p0 <- malariasimulation::get_parameters()
 p0$start_year <- 2000
 

@@ -1,10 +1,4 @@
-example_lsm <- list(
-  implementation = data.frame(
-    name = "place",
-    year = 2000:2002,
-    lsm_cov = 0.2
-  )
-)
+example_lsm <- create_lsm_example()
 p0 <- malariasimulation::get_parameters()
 p0$start_year <- 2000
 

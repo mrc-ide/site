@@ -1,16 +1,4 @@
-example_smc <- list(
-  drug = "sp_aq",
-  implementation = data.frame(
-    name = "place",
-    year = rep(2000:2002, each = 2),
-    smc_cov = 0.1,
-    peak_season = 45,
-    smc_min_age = 91,
-    smc_max_age = 1825,
-    round = rep(1:2, 3),
-    round_day_of_year = rep(c(30, 60), 3)
-  )
-)
+example_smc <- create_example_smc()
 
 p0 <- malariasimulation::get_parameters()
 p0$start_year <- 2000
