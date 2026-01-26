@@ -1,6 +1,7 @@
 #' Adjust carrying capacity
 #'
 #' @inheritParams add_interventions
+#' @param lsm larval source management intervention data including coverage over time
 #'
 #' @return modified parameter list
 adjust_carrying_capacity <- function(p, lsm) {

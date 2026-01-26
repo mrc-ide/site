@@ -45,6 +45,7 @@ add_drugs <- function(p) {
 #' Add treatment
 #'
 #' @inheritParams add_interventions
+#' @param treatment treatment intervention data including coverage and drug type proportions
 #'
 #' @return modified parameter list
 add_treatment <- function(p, treatment) {

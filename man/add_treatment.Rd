@@ -8,6 +8,8 @@ add_treatment(p, treatment)
 }
 \arguments{
 \item{p}{parameter list}
+
+\item{treatment}{treatment intervention data including coverage and drug type proportions}
 }
 \value{
 modified parameter list

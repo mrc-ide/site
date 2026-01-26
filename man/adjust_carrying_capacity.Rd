@@ -8,6 +8,8 @@ adjust_carrying_capacity(p, lsm)
 }
 \arguments{
 \item{p}{parameter list}
+
+\item{lsm}{larval source management intervention data including coverage over time}
 }
 \value{
 modified parameter list

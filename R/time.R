@@ -1,22 +1,21 @@
 #' Calculate total model timesteps
 #'
-#' @param start_year Numeric scalar. First year of the intervention/data period
-#' @param end_year Numeric scalar. Last year of the intervention/data period (inclusive)
-#' @param burnin Numeric scalar. Number of years to run before start_year for equilibration
+#' @param start_year Numeric scalar. First year of the model period
+#' @param end_year Numeric scalar. Last year of the model period (inclusive)
 #'
 #' @return Numeric scalar. Total number of timesteps (days) for the model run
 #'
 #' @details
-#' Total runtime = burnin years + (end_year - start_year + 1) years.
+#' Total runtime = (end_year - start_year + 1) years.
 #' All years are treated as 365 days (no leap year adjustment).
 #'
 #' @examples
-#' # Data from 2000-2020 with 20 year burnin
-#' calculate_total_timesteps(start_year = 2000, end_year = 2020, burnin = 20)
-#' # Returns: 14965 (41 years * 365 days)
+#' # Data from 2000-2020
+#' calculate_total_timesteps(start_year = 2000, end_year = 2020)
+#' # Returns: 7665 (21 years * 365 days)
 #'
-#' # No burnin
-#' calculate_total_timesteps(start_year = 2000, end_year = 2005, burnin = 0)
+#' # Short period
+#' calculate_total_timesteps(start_year = 2000, end_year = 2005)
 #' # Returns: 2190 (6 years * 365 days)
 #'
 #' @export

@@ -1,6 +1,7 @@
 #' Add vaccine
 #'
 #' @inheritParams add_interventions
+#' @param vaccine vaccine intervention data including coverage, delivery mode, and booster schedules
 #'
 #' @return modified parameter list
 add_vaccine <- function(p, vaccine) {

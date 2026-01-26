@@ -8,6 +8,8 @@ add_vaccine(p, vaccine)
 }
 \arguments{
 \item{p}{parameter list}
+
+\item{vaccine}{vaccine intervention data including coverage, delivery mode, and booster schedules}
 }
 \value{
 modified parameter list

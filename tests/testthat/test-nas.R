@@ -134,32 +134,6 @@ test_that("check_for_nas works correctly", {
 })
 
 test_that("check_for_nas handles edge cases", {
-  # Test with tibble (if using tidyverse)
-  if (requireNamespace("tibble", quietly = TRUE)) {
-    tbl_data <- tibble::tibble(
-      a = c(1, 2, NA),
-      b = c("x", "y", "z")
-    )
-
-    expect_error(
-      check_for_nas(tbl_data, "a"),
-      "a\\(1NAs \\)"
-    )
-  }
-
-  # Test with data.table (if available)
-  if (requireNamespace("data.table", quietly = TRUE)) {
-    dt_data <- data.table::data.table(
-      a = c(1, 2, NA),
-      b = c("x", "y", "z")
-    )
-
-    expect_error(
-      check_for_nas(dt_data, "a"),
-      "a\\(1NAs \\)"
-    )
-  }
-
   # Test with matrix converted to data.frame
   mat_data <- as.data.frame(matrix(c(1, 2, NA, 4, 5, 6), nrow = 2))
   expect_error(

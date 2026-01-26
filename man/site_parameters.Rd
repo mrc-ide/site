@@ -9,14 +9,17 @@ site_parameters(
   demography,
   vectors,
   seasonality,
-  min_ages = c(0, 5, 15) * 365,
+  age_group = c(0, 5, 15, 100) * 365,
+  clinical_incidence = c(0, 5, 15, 100) * 365,
+  severe_incidence = c(0, 5, 15, 100) * 365,
+  prevalence = c(2, 10) * 365,
   parasite = "falciparum",
   eir = NULL,
   draw = NULL,
   overrides = list(),
   start_year,
   end_year,
-  irs_adjust
+  irs_adjust = 0.75
 )
 }
 \arguments{
@@ -28,7 +31,13 @@ site_parameters(
 
 \item{seasonality}{Site seasonality inputs}
 
-\item{min_ages}{Lower age bands for incidence and N age outputs}
+\item{age_group}{Age breaks for population size outputs in days; default = c(0, 5, 15, 100) * 365}
+
+\item{clinical_incidence}{Age breaks for clinical incidence outputs in days; default = c(0, 5, 15, 100) * 365}
+
+\item{severe_incidence}{Age breaks for severe incidence outputs in days (pf only); default = c(0, 5, 15, 100) * 365}
+
+\item{prevalence}{Age breaks for prevalence outputs in days; default = c(2, 10) * 365}
 
 \item{parasite}{Can be "falciparum" or "vivax" for vivax SMC, RTSS
 and PMC are not implemented}
@@ -39,7 +48,15 @@ and PMC are not implemented}
 
 \item{overrides}{List of malariasimulation default parameter overrides}
 
-\item{start_year}{}
+\item{start_year}{The year the simulation starts. This should be inclusive of any burnin
+(which is reccommended). For example, if the site file data started in year 2000 and I wanted to
+specify a 20 year burnin I would set start_year to 1980. Interventions prior to the site file start year are assumed to be 0 coverage, and
+demography set to the same profile as the first site file entry.}
+
+\item{end_year}{The end year (inclusive) of the simulation}
+
+\item{irs_adjust}{A scaler adjustment to IRS coverage inputs to account for observed discrepancies
+between IRS impact in trial versus real-world implementation.}
 }
 \value{
 A malariasimulation parameter list

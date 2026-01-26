@@ -10,6 +10,10 @@ add_interventions(p, interventions, resistance, irs_adjust)
 \item{p}{parameter list}
 
 \item{interventions}{site intervention inputs}
+
+\item{resistance}{pyrethroid resistance data for ITN efficacy calculations}
+
+\item{irs_adjust}{scalar adjustment factor to IRS coverage inputs to account for observed discrepancies between trial and real-world implementation}
 }
 \value{
 modified parameter list

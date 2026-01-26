@@ -2,6 +2,8 @@
 #'
 #' @param p parameter list
 #' @param interventions site intervention inputs
+#' @param resistance pyrethroid resistance data for ITN efficacy calculations
+#' @param irs_adjust scalar adjustment factor to IRS coverage inputs to account for observed discrepancies between trial and real-world implementation
 #'
 #' @return modified parameter list
 add_interventions <- function(p, interventions, resistance, irs_adjust) {
