@@ -1,37 +1,31 @@
 test_that("calculate_total_timesteps works correctly", {
   # Basic functionality
-  expect_equal(calculate_total_timesteps(2000, 2000, 0), 365)
-  expect_equal(calculate_total_timesteps(2000, 2001, 0), 730)
-  expect_equal(calculate_total_timesteps(2000, 2020, 20), 14965) # 41 years * 365
-  expect_equal(calculate_total_timesteps(2000, 2005, 10), 5840) # 16 years * 365
+  expect_equal(calculate_total_timesteps(2000, 2000), 365) # 1 year
+  expect_equal(calculate_total_timesteps(2000, 2001), 730) # 2 years
+  expect_equal(calculate_total_timesteps(2000, 2020), 7665) # 21 years * 365
+  expect_equal(calculate_total_timesteps(2000, 2005), 2190) # 6 years * 365
 
   # Edge cases
-  expect_equal(calculate_total_timesteps(2000, 2000, 0), 365) # Single year, no burnin
-  expect_equal(calculate_total_timesteps(1980, 1980, 50), 18615) # Single year, long burnin
+  expect_equal(calculate_total_timesteps(2000, 2000), 365) # Single year
+  expect_equal(calculate_total_timesteps(1980, 2030), 18615) # 51 years * 365
 
   # Input validation - should error
-  expect_error(calculate_total_timesteps("2000", 2001, 0), "must be numeric")
-  expect_error(calculate_total_timesteps(2000, "2001", 0), "must be numeric")
-  expect_error(calculate_total_timesteps(2000, 2001, "0"), "must be numeric")
+  expect_error(calculate_total_timesteps("2000", 2001), "must be numeric")
+  expect_error(calculate_total_timesteps(2000, "2001"), "must be numeric")
   expect_error(
-    calculate_total_timesteps(c(2000, 2001), 2002, 0),
+    calculate_total_timesteps(c(2000, 2001), 2002),
     "must be scalars"
   )
   expect_error(
-    calculate_total_timesteps(2000, c(2001, 2002), 0),
+    calculate_total_timesteps(2000, c(2001, 2002)),
     "must be scalars"
   )
   expect_error(
-    calculate_total_timesteps(2000, 2001, c(0, 1)),
-    "must be scalars"
-  )
-  expect_error(
-    calculate_total_timesteps(2001, 2000, 0),
+    calculate_total_timesteps(2001, 2000),
     "end_year must be >= start_year"
   )
-  expect_error(calculate_total_timesteps(2000, 2001, -1), "burnin must be >= 0")
-  expect_error(calculate_total_timesteps(NA, 2001, 0), "must be numeric")
-  expect_error(calculate_total_timesteps(2000, Inf, 0), "must be finite")
+  expect_error(calculate_total_timesteps(NA, 2001), "must be numeric")
+  expect_error(calculate_total_timesteps(2000, Inf), "must be finite")
 })
 
 test_that("calendar_to_timestep works correctly", {
@@ -81,31 +75,29 @@ test_that("functions work together correctly", {
   # Integration test: total timesteps should accommodate converted dates
   start_year <- 2000
   end_year <- 2020
-  burnin <- 20
-  model_start_year <- start_year - burnin
 
-  total_steps <- calculate_total_timesteps(start_year, end_year, burnin)
+  total_steps <- calculate_total_timesteps(start_year, end_year)
 
-  # First intervention timestep
-  first_intervention <- calendar_to_timestep(start_year, 1, model_start_year)
-  expect_equal(first_intervention, burnin * 365 + 1)
+  # First timestep
+  first_timestep <- calendar_to_timestep(start_year, 1, start_year)
+  expect_equal(first_timestep, 1)
 
   # Last possible timestep
-  last_timestep <- calendar_to_timestep(end_year, 365, model_start_year)
+  last_timestep <- calendar_to_timestep(end_year, 365, start_year)
   expect_equal(last_timestep, total_steps)
 
   # Timesteps should be within valid range
-  expect_true(first_intervention <= total_steps)
+  expect_true(first_timestep <= total_steps)
   expect_true(last_timestep <= total_steps)
 })
 
 test_that("edge cases and boundary conditions", {
-  # Zero burnin
-  expect_equal(calculate_total_timesteps(2000, 2000, 0), 365)
+  # Single year
+  expect_equal(calculate_total_timesteps(2000, 2000), 365)
   expect_equal(calendar_to_timestep(2000, 1, 2000), 1)
 
   # Large numbers
-  expect_equal(calculate_total_timesteps(2000, 2000, 100), 36865) # 101 years
+  expect_equal(calculate_total_timesteps(2000, 2100), 36865) # 101 years
   expect_equal(calendar_to_timestep(2100, 1, 2000), 36501) # 100 years later
 
   # Boundary day values

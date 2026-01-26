@@ -1,10 +1,4 @@
-example_demography <- data.frame(
-  name = "place",
-  year = rep(2000:2002, each = 2),
-  age_lower = rep(c(0, 10), 3),
-  age_upper = rep(c(10, 100), 3),
-  adjusted_mortality_rates = rep(c(0.01, 0.001), 3)
-)
+example_demography <- create_example_demography()
 p0 <- malariasimulation::get_parameters()
 p0$start_year <- 2000
 

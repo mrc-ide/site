@@ -9,7 +9,10 @@ add_interventions <- function(p, interventions, resistance, irs_adjust) {
   p <- add_drugs(p)
   # Treatment
   if (sum(interventions$treatment$implementation$tx_cov) > 0) {
-    p <- add_treatment(p, interventions)
+    p <- add_treatment(
+      p = p,
+      treatment = interventions$treatment
+    )
   }
   # ITNs
   if (sum(interventions$itn$use$itn_use, na.rm = TRUE) > 0) {
@@ -29,7 +32,7 @@ add_interventions <- function(p, interventions, resistance, irs_adjust) {
   }
   # SMC
   if (
-    sum(interventions$smc$implementation$smc_cov, na.rm = TRUE) > 0 &
+    sum(interventions$smc$implementation$smc_cov, na.rm = TRUE) > 0 &&
       p$parasite == "falciparum"
   ) {
     p <- add_smc(
@@ -39,10 +42,11 @@ add_interventions <- function(p, interventions, resistance, irs_adjust) {
   }
   # Vaccine
   if (
-    sum(interventions$vaccine$implementation$rtss_primary_cov, na.rm = TRUE) >
+    (sum(interventions$vaccine$implementation$rtss_primary_cov, na.rm = TRUE) >
       0 ||
       sum(interventions$vaccine$implementation$r21_primary_cov, na.rm = TRUE) >
-        0
+        0) &&
+      p$parasite == "falciparum"
   ) {
     p <- add_vaccine(
       p = p,
@@ -51,7 +55,7 @@ add_interventions <- function(p, interventions, resistance, irs_adjust) {
   }
   # PMC
   if (
-    sum(interventions$pmc$implementation$pmc_cov, na.rm = TRUE) > 0 &
+    sum(interventions$pmc$implementation$pmc_cov, na.rm = TRUE) > 0 &&
       p$parasite == "falciparum"
   ) {
     p <- add_pmc(

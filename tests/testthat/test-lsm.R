@@ -1,4 +1,4 @@
-example_lsm <- create_lsm_example()
+example_lsm <- create_example_lsm()
 p0 <- malariasimulation::get_parameters()
 p0$start_year <- 2000
 

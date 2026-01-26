@@ -26,7 +26,7 @@ site_parameters <- function(
   overrides = list(),
   start_year,
   end_year,
-  irs_adjust
+  irs_adjust = 0.75
 ) {
   # Baseline parameters
   p <- malariasimulation::get_parameters(
@@ -45,9 +45,13 @@ site_parameters <- function(
   # Site inputs
   p <- p |>
     add_seasonality(seasonality = seasonality) |>
-    add_vectors(vectors = vectors) |>
+    add_vectors(vectors = vectors$vector_species) |>
     add_demography(demography = demography) |>
-    add_interventions(interventions = interventions) |>
+    add_interventions(
+      interventions = interventions,
+      resistance = vectors$pyrethroid_resistance,
+      irs_adjust = irs_adjust
+    ) |>
     set_age_outputs(min_ages = min_ages)
 
   # Transmission level

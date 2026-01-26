@@ -236,7 +236,7 @@ create_example_vaccine <- function(
 #'
 #' @return A list containing an `implementation` data frame with columns:
 #'   name, year, lsm_cov
-create_lsm_example <- function() {
+create_example_lsm <- function() {
   list(
     implementation = data.frame(
       name = "place",
@@ -290,5 +290,56 @@ create_example_interventions <- function() {
     pmc = create_example_pmc(),
     vaccine = create_example_vaccine(),
     lsm = create_example_lsm()
+  )
+}
+
+create_example_demography <- function() {
+  data.frame(
+    name = "place",
+    year = rep(2000:2002, each = 2),
+    age_lower = rep(c(0, 10), 3),
+    age_upper = rep(c(10, 100), 3),
+    adjusted_mortality_rates = rep(c(0.01, 0.001), 3)
+  )
+}
+
+create_example_seasonality_parameters <- function() {
+  data.frame(
+    name = "place",
+    g0 = 88,
+    g1 = -60,
+    g2 = -10,
+    g3 = 1.5,
+    h1 = -6,
+    h2 = -4,
+    h3 = -10
+  )
+}
+
+create_example_vector_species <- function() {
+  data.frame(
+    name = "place",
+    species = c("gambiae", "arabiensis", "funestus"),
+    prop = c(0.1, 0.2, 0.7),
+    blood_meal_rates = 0.333,
+    foraging_time = 0.69,
+    Q0 = c(0.92, 0.71, 0.94),
+    phi_bednets = c(0.85, 0.8, 0.78),
+    phi_indoors = c(0.9, 0.86, 0.87),
+    mum = c(0.132, 0.132, 0.112)
+  )
+}
+
+create_example_site <- function() {
+  list(
+    interventions = create_example_interventions(),
+    demography = create_example_demography(),
+    vectors = list(
+      vector_species = create_example_vector_species(),
+      pyrethroid_resistance = create_example_resistance()
+    ),
+    seasonality = list(
+      seasonality_parameters = create_example_seasonality_parameters()
+    )
   )
 }

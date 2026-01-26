@@ -11,18 +11,25 @@ usage_timestep <- calendar_to_timestep(
   start_year = 2000
 )
 
-#index <- implementation_time_step <= max(usage_timestep)
-#example_itns$implementation <- example_itns$implementation[index, ]
-#implementation_time_step <- implementation_time_step[index]
-
 example_resistance <- create_example_resistance()
 
 example_itns_complete <- create_example_itn()
+
+usage_timestep <- calendar_to_timestep(
+  year = example_itns_complete$use$year,
+  day_of_year = example_itns_complete$use$usage_day_of_year,
+  start_year = 2000
+)
+implementation_timestep <- calendar_to_timestep(
+  year = example_itns_complete$implementation$year,
+  day_of_year = example_itns_complete$implementation$distribution_day_of_year,
+  start_year = 2000
+)
 example_itns_complete$implementation$itn_input_dist <-
   netz::usage_to_model_distribution(
     usage = example_itns_complete$use$itn_use,
     usage_timesteps = usage_timestep,
-    distribution_timesteps = implementation_time_step,
+    distribution_timesteps = implementation_timestep,
     distribution_lower = example_itns_complete$implementation$distribution_lower,
     distribution_upper = example_itns_complete$implementation$distribution_upper,
     net_loss_function = netz::net_loss_map,

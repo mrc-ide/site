@@ -5,8 +5,8 @@ test_that("age outputs work", {
   p0 <- malariasimulation::get_parameters()
   p1 <- set_age_outputs(
     p = p0,
-                        min_ages = min_ages
-    )
+    min_ages = min_ages
+  )
 
   expect_equal(p1$clinical_incidence_rendering_min_ages, min_ages)
   expect_equal(p1$clinical_incidence_rendering_max_ages, max_ages)
