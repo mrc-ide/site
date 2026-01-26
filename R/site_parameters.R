@@ -4,7 +4,10 @@
 #' @param demography Site demography inputs
 #' @param vectors Site vectors inputs
 #' @param seasonality Site seasonality inputs
-#' @param min_ages Lower age bands for incidence and N age outputs
+#' @param age_group Age breaks for population size outputs in days; default = c(0, 5, 15, 100) * 365
+#' @param clinical_incidence Age breaks for clinical incidence outputs in days; default = c(0, 5, 15, 100) * 365
+#' @param severe_incidence Age breaks for severe incidence outputs in days (pf only); default = c(0, 5, 15, 100) * 365
+#' @param prevalence Age breaks for prevalence outputs in days; default = c(2, 10) * 365
 #' @param parasite Can be "falciparum" or "vivax" for vivax SMC, RTSS
 #'  and PMC are not implemented
 #' @param eir Site baseline EIR
@@ -19,7 +22,10 @@ site_parameters <- function(
   demography,
   vectors,
   seasonality,
-  min_ages = c(0, 5, 15) * 365,
+  age_group = c(0, 5, 15, 100) * 365,
+  clinical_incidence = c(0, 5, 15, 100) * 365,
+  severe_incidence = c(0, 5, 15, 100) * 365,
+  prevalence = c(2, 10) * 365,
   parasite = "falciparum",
   eir = NULL,
   draw = NULL,
@@ -51,8 +57,25 @@ site_parameters <- function(
       interventions = interventions,
       resistance = vectors$pyrethroid_resistance,
       irs_adjust = irs_adjust
-    ) |>
-    set_age_outputs(min_ages = min_ages)
+    )
+
+  # Set epidemiological outputs
+  if (p$parasite == "falciparum") {
+    p <- malariasimulation::set_epi_outputs(
+      parameters = p,
+      age_group = age_group,
+      clinical_incidence = clinical_incidence,
+      severe_incidence = severe_incidence,
+      prevalence = prevalence
+    )
+  } else if (p$parasite == "vivax") {
+    p <- malariasimulation::set_epi_outputs(
+      parameters = p,
+      age_group = age_group,
+      clinical_incidence = clinical_incidence,
+      prevalence = prevalence
+    )
+  }
 
   # Transmission level
   if (!is.null(eir)) {
