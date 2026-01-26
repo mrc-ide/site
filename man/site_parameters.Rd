@@ -14,7 +14,9 @@ site_parameters(
   eir = NULL,
   draw = NULL,
   overrides = list(),
-  burnin = 0
+  start_year,
+  end_year,
+  irs_adjust
 )
 }
 \arguments{
@@ -37,7 +39,7 @@ and PMC are not implemented}
 
 \item{overrides}{List of malariasimulation default parameter overrides}
 
-\item{burnin}{Number of burn in years}
+\item{start_year}{}
 }
 \value{
 A malariasimulation parameter list

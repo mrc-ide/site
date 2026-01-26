@@ -1,3 +1,10 @@
+#' Create example IRS intervention data
+#'
+#' Creates a simple IRS (Indoor Residual Spraying) intervention list for testing
+#' purposes with basic implementation parameters.
+#'
+#' @return A list containing an `implementation` data frame with columns:
+#'   name, year, irs_cov, peak_season, insecticide, round, spray_day_of_year
 create_example_irs <- function() {
   list(
     implementation = data.frame(
@@ -12,6 +19,17 @@ create_example_irs <- function() {
   )
 }
 
+#' Create example ITN intervention data
+#'
+#' Creates an ITN (Insecticide Treated Nets) intervention list for testing with
+#' retention parameters, usage data, and multiple distribution events including
+#' mass and routine distributions across different net types.
+#'
+#' @return A list containing:
+#'   - `retention_half_life`: Numeric half-life of net retention
+#'   - `use`: Data frame with name, year, itn_use, usage_day_of_year
+#'   - `implementation`: Data frame with distribution details including net_type,
+#'     distribution_type, distribution bounds, and distribution_day_of_year
 create_example_itn <- function() {
   example_itns <- list(
     retention_half_life = 600,
@@ -43,6 +61,12 @@ create_example_itn <- function() {
   return(example_itns)
 }
 
+#' Create example resistance data
+#'
+#' Creates a simple pyrethroid resistance data frame for testing with resistance
+#' levels varying over time.
+#'
+#' @return A data frame with columns: name, year, pyrethroid_resistance
 create_example_resistance <- function() {
   data.frame(
     name = "place",
@@ -51,6 +75,15 @@ create_example_resistance <- function() {
   )
 }
 
+#' Create example SMC intervention data
+#'
+#' Creates an SMC (Seasonal Malaria Chemoprevention) intervention list for testing
+#' with drug type and implementation parameters including multiple rounds per year.
+#'
+#' @return A list containing:
+#'   - `drug`: Character drug combination identifier
+#'   - `implementation`: Data frame with name, year, smc_cov, peak_season,
+#'     age limits (smc_min_age, smc_max_age), round, and round_day_of_year
 create_example_smc <- function() {
   list(
     drug = "sp_aq",
@@ -67,6 +100,15 @@ create_example_smc <- function() {
   )
 }
 
+#' Create example PMC intervention data
+#'
+#' Creates a PMC (Perennial Malaria Chemoprevention) intervention list for testing
+#' with drug type, target ages, and coverage implementation over multiple years.
+#'
+#' @return A list containing:
+#'   - `drug`: Character drug identifier
+#'   - `age`: Numeric vector of target ages in days
+#'   - `implementation`: Data frame with name, year, pmc_coverage_timesteps, pmc_cov
 create_example_pmc <- function() {
   list(
     drug = "sp",
@@ -187,6 +229,13 @@ create_example_vaccine <- function(
   )
 }
 
+#' Create example LSM intervention data
+#'
+#' Creates a simple LSM (Larval Source Management) intervention list for testing
+#' with basic implementation parameters.
+#'
+#' @return A list containing an `implementation` data frame with columns:
+#'   name, year, lsm_cov
 create_lsm_example <- function() {
   list(
     implementation = data.frame(
@@ -197,6 +246,13 @@ create_lsm_example <- function() {
   )
 }
 
+#' Create example treatment intervention data
+#'
+#' Creates a treatment intervention list for testing with coverage and ACT
+#' (Artemisinin-based Combination Therapy) proportion parameters.
+#'
+#' @return A list containing an `implementation` data frame with columns:
+#'   name, year, tx_cov, prop_act
 create_example_treatment <- function() {
   list(
     implementation = data.frame(
@@ -208,6 +264,23 @@ create_example_treatment <- function() {
   )
 }
 
+#' Create complete set of example interventions
+#'
+#' Creates a comprehensive list containing all intervention types (treatment, ITNs,
+#' IRS, SMC, PMC, vaccine, and LSM) using default example parameters. Useful for
+#' testing functions that require a full intervention specification.
+#'
+#' @return A named list with elements: treatment, itns, irs, smc, pmc, vaccine, lsm.
+#'   Each element contains the output from the corresponding `create_example_*` function.
+#' @keywords internal
+#' Create complete set of example interventions
+#'
+#' Creates a comprehensive list containing all intervention types (treatment, ITNs,
+#' IRS, SMC, PMC, vaccine, and LSM) using default example parameters. Useful for
+#' testing functions that require a full intervention specification.
+#'
+#' @return A named list with elements: treatment, itns, irs, smc, pmc, vaccine, lsm.
+#'   Each element contains the output from the corresponding `create_example_*` function.
 create_example_interventions <- function() {
   list(
     treatment = create_example_treatment(),

@@ -4,7 +4,7 @@
 \alias{add_interventions}
 \title{Add all interventions}
 \usage{
-add_interventions(p, interventions)
+add_interventions(p, interventions, resistance, irs_adjust)
 }
 \arguments{
 \item{p}{parameter list}
