@@ -15,12 +15,12 @@ subset_site <- function(site, site_filter){
   sub_site$sites <- site_filter[ , sub_site$admin_level]
   sub_site$shape <- lapply(
     site$shape,
-    match,
+    match_by_names,
     y = site_filter
   )
   names(sub_site$shape) <- names(site$shape)
-  sub_site$cases_deaths <- match(site$cases_deaths, site_filter)
-  sub_site$prevalence <- match(site$prevalence, site_filter)
+  sub_site$cases_deaths <- match_by_names(site$cases_deaths, site_filter)
+  sub_site$prevalence <- match_by_names(site$prevalence, site_filter)
   sub_site$interventions <- match(site$interventions, sub_site$site)
   sub_site$population <- list(
     population_total = match(site$population$population_total, sub_site$site),
@@ -38,7 +38,7 @@ subset_site <- function(site, site_filter){
   )
   sub_site$blood_disorders <- match(site$blood_disorders, sub_site$site)
   sub_site$accessibility <- match(site$accessibility, sub_site$site)
-  sub_site$eir <- match(site$eir, site_filter)
+  sub_site$eir <- match_by_names(site$eir, site_filter)
   return(sub_site)
 }
 
@@ -48,7 +48,7 @@ subset_site <- function(site, site_filter){
 #' @param y Data.frame to match for
 #'
 #' @return Site file element filtered by y
-match <- function(x, y){
+match_by_names <- function(x, y){
   by_names <- names(y)[names(y) %in% names(x)]
   if(length(by_names) == 0){
     return(x)

@@ -11,7 +11,7 @@ add_pmc <- function(p, pmc) {
 
   timesteps <- calendar_to_timestep(
     year = pmc$implementation$year,
-    start_year = p0$start_year
+    start_year = p$start_year
   )
 
   p <- malariasimulation::set_pmc(

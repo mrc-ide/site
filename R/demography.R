@@ -17,7 +17,7 @@ add_demography <- function(p, demography) {
     byrow = TRUE
   )
 
-  # Spcify baseline demogrpahy
+  # Specify baseline demography
   timesteps <- c(0, timesteps)
   deathrates_matrix <- rbind(deathrates_matrix[1, ], deathrates_matrix)
 

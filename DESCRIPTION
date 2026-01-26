@@ -17,12 +17,14 @@ RoxygenNote: 7.3.3
 Depends: 
     R (>= 3.5),
     sf
-Imports: 
+Imports:
     orderly,
+    cli,
     dplyr,
     malariasimulation,
     rappdirs,
     rlang,
+    stringr,
     tidyr,
     withr
 Suggests:

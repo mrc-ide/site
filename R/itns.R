@@ -29,7 +29,7 @@ add_itns <- function(p, itn, resistance) {
   timesteps <- calendar_to_timestep(
     year = itn$implementation$year,
     day_of_year = itn$implementation$distribution_day_of_year,
-    start_year = p0$start_year
+    start_year = p$start_year
   )
 
   # Net efficacy parameters

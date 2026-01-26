@@ -76,12 +76,12 @@ add_irs <- function(p, irs, irs_adjust = 1) {
   return(p)
 }
 
-wrong_irs_type <- function(supported_insecticde, unsupported) {
+wrong_irs_type <- function(supported_insecticide, unsupported) {
   cli::cli_abort(c(
     "!" = "Unsupported insecticide{?s} found: {.val {unsupported}}",
     " " = "",
     "i" = "Supported insecticides are:",
-    "*" = "{.val {supported_insecticde}}",
+    "*" = "{.val {supported_insecticide}}",
     " " = "",
     "x" = "Please check your {.field insecticide} column in {.code irs$implementation}"
   ))
