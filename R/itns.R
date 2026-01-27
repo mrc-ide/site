@@ -56,63 +56,62 @@ add_itns <- function(p, itn, resistance) {
 
 stop_missing_itn_input_dist <- function() {
   cli::cli_abort(c(
-    "x" = "Missing required column: {.field itn_input_dist} in {.code itns$implementation}",
+    "x" = "Missing required column: {.field itn_input_dist} in {.code itn$implementation}",
     " " = "",
-    "i" = "The {.field itn_input_dist} column specifies the timing and magnitude of ITN 
+    "i" = "The {.field itn_input_dist} column specifies the timing and magnitude of ITN
     distributions in the model.",
     " " = "",
     "i" = "{.strong Why is this needed?}",
-    " " = "The {.field itn_use} column we want to match represents the cumulative results of the
-     multiple ITN distributions over time and how long nets are retained for.
-      To accurately match ITN use in the model, we need to infer the 
-    modelled ITN distributions (when they occur and their size). This is what 
-    the {.field itn_input_dist} column specifies.",
+    " " = "The {.field itn_use} column we want to match represents the cumulative result of
+    multiple ITN distributions over time and how long nets are retained for. To accurately
+    match ITN use in the model, we need to infer the modelled ITN distributions (when they
+    occur and their size). This is what the {.field itn_input_dist} column specifies.",
     " " = "",
     "v" = "{.strong How to create this column:}",
     " " = "",
-    "1" = "{.strong First, convert calendar dates to timesteps:}",
-    " " = "If your data has {.field year} and {.field usage_day_of_year} or
-    {.field distribution_day_of_year} columns, convert them to timesteps:",
+    "1" = "{.strong Convert calendar dates to timesteps:}",
+    " " = "{.code usage_timesteps <- site::calendar_to_timestep(}",
+    " " = "{.code   year = site$interventions$itn$use$year,}",
+    " " = "{.code   day_of_year = site$interventions$itn$use$usage_day_of_year,}",
+    " " = "{.code   start_year = site$metadata$start_year)}",
     " " = "",
-    " " = "{.code usage_timestep <- calendar_to_timestep(}",
-    " " = "{.code   year = interventions$itn$use$year,}",
-    " " = "{.code   day_of_year = interventions$itn$use$usage_day_of_year,}",
-    " " = "{.code   start_year = <your_start_year>}",
-    " " = "{.code )}",
+    " " = "{.code distribution_timesteps <- site::calendar_to_timestep(}",
+    " " = "{.code   year = site$interventions$itn$implementation$year,}",
+    " " = "{.code   day_of_year = site$interventions$itn$implementation$distribution_day_of_year,}",
+    " " = "{.code   start_year = site$metadata$start_year)}",
     " " = "",
-    " " = "{.code distribution_timestep <- calendar_to_timestep(}",
-    " " = "{.code   year = interventions$itn$implementation$year,}",
-    " " = "{.code   day_of_year = interventions$itn$implementation$distribution_day_of_year,}",
-    " " = "{.code   start_year = <your_start_year>}",
-    " " = "{.code )}",
-    " " = "",
-    "2" = "{.strong Then, use {.fn netz::usage_to_model_distribution}:}",
-    "*" = "{.code usage = interventions$itn$use$itn_use}",
-    "*" = "{.code usage_timesteps = usage_timestep}",
-    "*" = "{.code distribution_timesteps = distribution_timestep}",
-    "*" = "{.code distribution_lower = interventions$itn$implementation$distribution_lower}",
-    "*" = "{.code distribution_upper = interventions$itn$implementation$distribution_upper}",
-    "*" = "{.code net_loss_function = netz::net_loss_map}",
-    "*" = "{.code half_life = interventions$itn$retention_half_life}",
-    " " = "",
-    "3" = "{.strong Finally, assign the result:}",
-    " " = "{.code interventions$itn$implementation$itn_input_dist <- <result_from_step_2>}",
+    "2" = "{.strong Calculate input distributions with {.fn netz::usage_to_model_distribution}:}",
+    " " = "{.code site$interventions$itn$implementation$itn_input_dist <- netz::usage_to_model_distribution(}",
+    " " = "{.code   usage = site$interventions$itn$use$itn_use,}",
+    " " = "{.code   usage_timesteps = usage_timesteps,}",
+    " " = "{.code   distribution_timesteps = distribution_timesteps,}",
+    " " = "{.code   distribution_lower = site$interventions$itn$implementation$distribution_lower,}",
+    " " = "{.code   distribution_upper = site$interventions$itn$implementation$distribution_upper,}",
+    " " = "{.code   net_loss_function = netz::net_loss_map,}",
+    " " = "{.code   half_life = site$interventions$itn$retention_half_life)}",
     " " = "",
     "!" = "{.strong Important:}",
-    " " = "Pay strict attention to your {.field distribution_upper} 
-    specification.",
-    " " = "This determines how regularly large distributions can occur. For example, for a 
-    regular 3-yearly mass distribution cycle, {.code distribution_upper = 1} should only be 
-    specified every 3 years, with other timesteps set to 0.",
+    " " = "Pay strict attention to your {.field distribution_upper} specification. This determines
+    how regularly large distributions can occur. For example, for a regular 3-yearly mass
+    distribution cycle, {.code distribution_upper = 1} should only be specified every 3 years,
+    with other timesteps set to 0.",
     " " = "",
     "!" = "{.strong Recommended validation step:}",
-    " " = "Running {.fn netz::model_distribution_to_usage} does
-    not guarantee that you will have captured {.code interventions$itn$use$itn_use} well, or
-    realistically. For example, you may not match {.code interventions$itn$use$itn_use} closely,
-    or you might be distributing and replacing ITNs too frequently.
-    Check your predicted usage against target usage using 
-    {.fn netz::model_distribution_to_usage} with the same arguments plus 
-    {.code distribution = itn_input_dist}."
+    " " = "Check your predicted usage against target usage using {.fn netz::model_distribution_to_usage}:",
+    " " = "",
+    " " = "{.code site$interventions$itn$use$expected_use <- netz::model_distribution_to_usage(}",
+    " " = "{.code   distribution = site$interventions$itn$implementation$itn_input_dist,}",
+    " " = "{.code   usage_timesteps = usage_timesteps,}",
+    " " = "{.code   distribution_timesteps = distribution_timesteps,}",
+    " " = "{.code   net_loss_function = netz::net_loss_map,}",
+    " " = "{.code   half_life = site$interventions$itn$retention_half_life)}",
+    " " = "",
+    " " = "Then plot to compare usage:",
+    " " = "{.code plot(itn_use ~ year, data = site$interventions$itn$use)}",
+    " " = "{.code lines(expected_use ~ year, data = site$interventions$itn$use, col = \"darkred\")}",
+    " " = "",
+    " " = "And check the distribution timing and magnitude looks sensible:",
+    " " = "{.code plot(itn_input_dist ~ year, data = site$interventions$itn$implementation, type = \"h\")}"
   ))
 }
 
