@@ -89,6 +89,9 @@ stop_missing_itn_input_dist <- function() {
     "!" = "{.strong Important:}",
     " " = "Pay strict attention to your {.field distribution_upper} specification. This determines how regularly large distributions can occur. For example, for a regular 3-yearly mass distribution cycle, {.code distribution_upper = 1} should only be specified every 3 years, with other timesteps set to 0.",
     " " = "",
+    "!" = "{.strong Important:}",
+    " " = "Do this for one location at a time (times/years must be monotonically increasing)",
+    " " = "",
     "!" = "{.strong Recommended validation step:}",
     " " = "Check your predicted usage against target usage using {.fn netz::model_distribution_to_usage}:",
     " " = "",
@@ -103,8 +106,10 @@ stop_missing_itn_input_dist <- function() {
     " " = "  plot(itn_use ~ year, data = site$interventions$itn$use)",
     " " = "  lines(expected_use ~ year, data = site$interventions$itn$use, col = \"darkred\")",
     " " = "",
-    " " = "And check the distribution timing and magnitude looks sensible:",
-    " " = "  plot(itn_input_dist ~ year, data = site$interventions$itn$implementation, type = \"h\")"
+    "!" = "{.strong Recommended validation step:}",
+    " " = "Check the distribution timing and magnitude looks sensible:",
+    " " = "",
+    " " = "  plot(site$interventions$itn$implementation$itn_input_dist ~ distribution_timesteps, type = \"h\")"
   ))
 }
 
