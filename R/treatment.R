@@ -49,7 +49,7 @@ add_drugs <- function(p) {
 #'
 #' @return modified parameter list
 add_treatment <- function(p, treatment) {
-  # Assuming treatent changes happen on January 1st
+  # Assuming treatment changes happen on January 1st
   timesteps <- calendar_to_timestep(
     year = treatment$implementation$year,
     start_year = p$start_year

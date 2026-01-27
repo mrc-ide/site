@@ -56,7 +56,7 @@ site_parameters <- function(
 
   # Site inputs
   p <- p |>
-    add_seasonality(seasonality = seasonality) |>
+    add_seasonality(seasonality = seasonality$seasonality_parameters) |>
     add_vectors(vectors = vectors$vector_species) |>
     add_demography(demography = demography) |>
     add_interventions(

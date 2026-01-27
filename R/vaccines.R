@@ -50,13 +50,24 @@ add_vaccine <- function(p, vaccine) {
 
   n_boosters <- length(vaccine$booster_spacing)
   booster_spacing <- vaccine$booster_spacing
+  # Ensure all required booster coverage columns exist (default to 0 if missing)
+  for (i in seq_len(n_boosters)) {
+    col_name <- paste0("vaccine_booster", i, "_cov")
+    if (!col_name %in% names(vaccine$implementation)) {
+      vaccine$implementation[[col_name]] <- 0
+    }
+  }
   # Booster coverage is input realative to primary series coverage
   booster_coverage <- as.matrix(vaccine$implementation[, paste0(
     "vaccine_booster",
     1:n_boosters,
     "_cov"
-  )]) |>
-    sweep(1, vaccine$implementation$vaccine_primary_cov, "/")
+  )])
+  for (j in 1:ncol(booster_coverage)) {
+    booster_coverage[, j] <- booster_coverage[, j] /
+      vaccine$implementation$vaccine_primary_cov
+    booster_coverage[vaccine$implementation$vaccine_primary_cov == 0, j] <- 0
+  }
 
   booster_profile_list <- lapply(1:n_boosters, function(x) {
     booster_profile
