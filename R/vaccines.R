@@ -61,7 +61,7 @@ add_vaccine <- function(p, vaccine) {
   booster_coverage <- as.matrix(vaccine$implementation[, paste0(
     "vaccine_booster",
     1:n_boosters,
-    "_cov"
+      "_cov"
   )])
   for (j in 1:ncol(booster_coverage)) {
     booster_coverage[, j] <- booster_coverage[, j] /
