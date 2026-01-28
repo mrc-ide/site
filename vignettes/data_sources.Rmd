@@ -21,32 +21,42 @@ library(site)
 
 # `r un_badge()`
 
-## UNWPP@UNWPP
-- **Dataset name:** WPP2022_Population1JanuaryBySingleAgeSex_Medium_1950-2021
-- **Accessed via:** Webpage
-- **Last updated:**
+### UNWPP @UNWPP
+**Dataset** Historical population estimates  
+**Dataset name:** WPP2022_Population1JanuaryBySingleAgeSex_Medium_1950-2021  
+**Accessed via:** Webpage  
+**Last updated:**  
 
-- **Dataset name:** WPP2022_Population1JanuaryBySingleAgeSex_Medium_2022-2100
-- **Accessed via:** Webpage
-- **Last updated:**
+**Dataset** Future population projections  
+**Dataset name:** WPP2022_Population1JanuaryBySingleAgeSex_Medium_2022-2100  
+**Accessed via:** Webpage  
+**Last updated:**
 
-## UNWUP@UNWUP
-- **Dataset name:**
-- **Accessed via:**
-- **Last updated:**
+### UNWUP @UNWUP
+**Dataset name:**  
+**Accessed via:**  
+**Last updated:**
 
 ---
 
 # `r worldpop_badge()`
 
-## Population spatial distribution @WorldPop2025
-- **Raster alias:** G2_CN_POP_R25A_1km 
-- **Raster name:** Individual countries 2015-2030 ( 1km resolution ) R2025A v1
-- **Accessed via:** API
-- vLast updated:** 06/01/2026
+### Population spatial distribution @WorldPop2025
 
-# Malaria Atlas Project (MAP)
-- **Raster name:**
-- **Last updated**
+**Dataset** Individual countries 2015-2030 ( 1km resolution ) R2025A v1  
+**Dataset name:** G2_CN_POP_R25A_1km  
+**Accessed via:** API  
+**Last updated:** 06/01/2026
+
+---
+
+# `r map_badge()`
+
+### Prevalence estimates @MAP_package
+
+**Dataset**  
+**Dataset name:** 
+**Accessed via:**  
+**Last updated:**
 
 # Citations
