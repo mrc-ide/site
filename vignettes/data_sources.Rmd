@@ -22,41 +22,47 @@ library(site)
 # `r un_badge()`
 
 ### UNWPP @UNWPP
-**Dataset** Historical population estimates  
+**Dataset:** Historical population estimates  
 **Dataset name:** WPP2022_Population1JanuaryBySingleAgeSex_Medium_1950-2021  
 **Accessed via:** Webpage  
-**Last updated:**  
+**Last accessed:** 30/08/2023
 
-**Dataset** Future population projections  
+**Dataset:** Future population projections  
 **Dataset name:** WPP2022_Population1JanuaryBySingleAgeSex_Medium_2022-2100  
 **Accessed via:** Webpage  
-**Last updated:**
+**Last accessed:** 30/08/2023
 
 ### UNWUP @UNWUP
-**Dataset name:**  
-**Accessed via:**  
-**Last updated:**
+**Dataset:** Urban population estimates  
+**Dataset name:** WUP2018-F02-Proportion_Urban  
+**Accessed via:** Webpage  
+**Last accessed:** 30/08/2023
 
 ---
 
 # `r worldpop_badge()`
 
 ### Population spatial distribution @WorldPop2025
-
 **Dataset** Individual countries 2015-2030 ( 1km resolution ) R2025A v1  
 **Dataset name:** G2_CN_POP_R25A_1km  
 **Accessed via:** API  
-**Last updated:** 06/01/2026
+**Last accessed:** 06/01/2026
 
 ---
 
 # `r map_badge()`
 
 ### Prevalence estimates @MAP_package
+**Dataset** Plasmodium falciparum prevalence in 2 to 10 year olds  
+**Dataset name:** Malaria__202508_Global_Pf_Parasite_Rate_  
+**Accessed via:** R-package  
+**Last accessed:** 06/01/2026
 
-**Dataset**  
-**Dataset name:** 
-**Accessed via:**  
-**Last updated:**
+**Dataset** Plasmodium vivax prevalence in 0 to 100 year olds  
+**Dataset name:** Malaria__202508_Global_Pv_Parasite_Rate  
+**Accessed via:** R-package  
+**Last accessed:** 06/01/2026
+
+### Intervention coverage estimates @MAP_package
 
 # Citations
