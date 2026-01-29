@@ -28,16 +28,11 @@ Single-year age disggregated population and population at risk estimates.
 
 ### Variables
 
-`pop` Total population
-
-`par` Total population at risk.
-
-`par_pf` Total population at risk.
-
-`par_pv` Total population at risk.
-
-`age_lower` Age lower bound (years)
-
+`pop` Total population  
+`par` Total population at risk  
+`par_pf` Total population at risk  
+`par_pv` Total population at risk  
+`age_lower` Age lower bound (years)  
 `age_upper` Age upper bound (years)
 
 ### Description
@@ -57,17 +52,12 @@ Model input demography parameters
 
 ### Variables
 
-`age_lower` Age lower bound (years)
-
-`age_upper` Age upper bound (years)
-
-`qx` The probability that an individual aged x dies before reaching age x
-
-`population` Population
-
-`population_proportion` Proportion of the total population in the designated age group.
-
-`adjusted_mortality_rates` Mortality rates adjusted to retain age-structure in a modelled population of constant size.
+`age_lower` Age lower bound (years)  
+`age_upper` Age upper bound (years)  
+`qx` The probability that an individual aged x dies before reaching age x  
+`population` Population  
+`population_proportion` Proportion of the total population in the designated age group  
+`adjusted_mortality_rates` Mortality rates adjusted to retain age-structure in a modelled population of constant size  
 
 ### Description
 

@@ -58,7 +58,7 @@ library(site)
 **Accessed via:** R-package  
 **Last accessed:** 06/01/2026
 
-**Dataset** Plasmodium vivax prevalence in 0 to 100 year olds  
+**Dataset** Plasmodium vivax prevalence in 1 to 99 year olds  
 **Dataset name:** Malaria__202508_Global_Pv_Parasite_Rate  
 **Accessed via:** R-package  
 **Last accessed:** 06/01/2026
@@ -166,7 +166,7 @@ library(site)
 
 ### Pyrethroid resistance
 **Dataset** Pyrethroid resistance 
-**Dataset name:** COuntry level historical and future pyrethroid resistance projections  
+**Dataset name:** Country level historical and future pyrethroid resistance projections  
 **Accessed via:** Personal correspondence with Thom Churcher  
 **Last accessed:** 30/08/2023
 
