@@ -66,7 +66,7 @@ chirps_badge <- function() {
 #' @export
 who_badge <- function() {
   badge(
-    "❤️‍🩹 | WHO",
+    "⚕️ | WHO",
     "#ACCFDF",
     "https://mrc-ide.github.io/site/articles/data-sources.html#WHO"
   )
@@ -99,5 +99,25 @@ dhs_badge <- function() {
     "📋 | DHS",
     "#C606B4",
     "https://mrc-ide.github.io/site/articles/data-sources.html#DHS"
+  )
+}
+
+#' SMC badge
+#' @export
+smc_badge <- function() {
+  badge(
+    "💊 | SMC",
+    "#385B1F",
+    "https://mrc-ide.github.io/site/articles/data-sources.html#SMC"
+  )
+}
+
+#' UNICEF badge
+#' @export
+unicef_badge <- function() {
+  badge(
+    "🚸 | UNICEF",
+    "#4DC7F4",
+    "https://mrc-ide.github.io/site/articles/data-sources.html#UNICEF"
   )
 }

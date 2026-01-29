@@ -62,4 +62,16 @@ directly if using these estimates.
 The blood_meal_rates, foraging_time and mum parameters are assumed fixed at 
 previously fitted values.
 
+
+
+### Pyrethroid resistance
+
+`site_file$interventions$pyrethroid_resistance`
+
+For each site we include an estimated level of pyrethroid insecticide resistance.
+This has been estimated by Tom Churcher and colleagues using spatio-temporally
+distributed bioassay mortality data. This work is not yet published. Therefore
+for attribution/citation and further information on the methods used please contact
+Pete Winskill or Tom Churcher.
+
 ## Citations

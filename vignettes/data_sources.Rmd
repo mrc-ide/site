@@ -142,6 +142,24 @@ library(site)
 **Accessed via:** Website  
 **Last accessed:** 06/01/2026
 
+### MVIP @MVIP
+**Dataset** MVIP vaccine trial
+**Dataset name:** WHO_Malaria_Vaccine_Implementation_Program_Briefing_2021  
+**Accessed via:** Online report  
+**Last accessed:** 01/10/2022
+
+### Vaccine dashboard @WHO_malaria_vaccine_dashboard_2025
+**Dataset** Malaria vaccine introduction status  
+**Dataset name:** Malaria vaccine introduction status  
+**Accessed via:** Online dashboard  
+**Last accessed:** 06/01/2026 
+
+### MagicAPP @WHO_malaria_MAGICapp_guideline_2025
+**Dataset** WHO malaria guidelines  
+**Dataset name:** MagiApp
+**Accessed via:** Online resouce  
+**Last accessed:** 06/01/2026 
+
 ---
 
 # `r vectors_badge()`
@@ -156,50 +174,83 @@ library(site)
 **Dataset** Dominant malaria vectors  
 **Dataset name:** A global map of dominant malaria vectors 
 **Accessed via:** Website/Paper 
-**Last accessed:** 06/01/2026
+**Last accessed:** 06/01/2026  
 
 ### Vector bionomics
 **Dataset** Vector bionomics 
 **Dataset name:** A review of malaria vector bionomics 
 **Accessed via:** Personal correspondence with Arran Hamlet  
-**Last accessed:** 30/08/2023
+**Last accessed:** 30/08/2023  
 
 ### Pyrethroid resistance
 **Dataset** Pyrethroid resistance 
 **Dataset name:** Country level historical and future pyrethroid resistance projections  
 **Accessed via:** Personal correspondence with Thom Churcher  
-**Last accessed:** 30/08/2023
+**Last accessed:** 30/08/2023  
 
 ### Vector control parmeters @sherrard2018 @sherrard2022
-**Dataset** Vector control efficiacy parameters 
-**Dataset name:** ITN and IRS efficacy parameters for multiple products in the presence of resistance
-**Accessed via:** Papers
-**Last accessed:** 30/08/2023
+**Dataset** Vector control efficiacy parameters  
+**Dataset name:** ITN and IRS efficacy parameters for multiple products in the presence of resistance  
+**Accessed via:** Papers  
+**Last accessed:** 30/08/2023  
+
+### Net type @alliance
+**Dataset** Bednet product introduction dates  
+**Dataset name:** itn-dashboards/mass-campaign-tracker/?_sfm_mc_date_of_import=20221201  
+**Accessed via:** Webpage  
+**Last accessed:** 04/01/2024  
+
+### Net retention @bertozzi
+**Dataset** Bednet retention half life
+**Dataset name:** Bednet retention half life 
+**Accessed via:** Paper  
+**Last accessed:** 05/03/2024  
 
 ---
 
 # `r gadm_badge()`
 
 ### Spatial boundaries @GADM
-**Dataset** Country and sub-national spatial boundaries
-**Dataset name:** GADM version 4.1.0
-**Accessed via:** Website
-**Last accessed:** 22/11/2023
+**Dataset** Country and sub-national spatial boundaries  
+**Dataset name:** GADM version 4.1.0  
+**Accessed via:** Website  
+**Last accessed:** 22/11/2023  
 
 --- 
 
 # `r dhs_badge()`
 
 ### Proportion ACT @DHS
-**Dataset** ACT use
-**Dataset name:** DHS proportion of treatments that are ACT
-**Accessed via:** Website/StatCompiler
-**Last accessed:** 19/07/2022
+**Dataset** ACT use  
+**Dataset name:** Children who took any ACT" (ID: ML_AMLD_C_ACT)  
+**Accessed via:** Website/StatCompiler  
+**Last accessed:** 19/07/2022  
 
 ### Proportion public @DHS
-**Dataset** Public sector treatment coverage
-**Dataset name:** DHS proportion of treatments that are from a public provider
-**Accessed via:** Website/StatCompiler
-**Last accessed:** 19/07/2022
+**Dataset** Public sector treatment coverage  
+**Dataset name:** Children with fever for whom advice or treatment was sought, 
+the source was a public sector facility" (ID: ML_FEVA_C_PUB)  
+**Accessed via:** Website/StatCompiler  
+**Last accessed:** 19/07/2022  
+
+---
+
+# `r smc_badge()`
+
+# SMC coverage @access_SMC @SMC_alliance  
+**Dataset** SMC implementation areas  
+**Dataset name:** SMC implementation areas  
+**Accessed via:** Website/Grey literature  
+**Last accessed:** 10/01/2025
+
+---
+
+# `r unicef_badge()`
+
+# Vaccine deliveries @UNICEF_immunization_market_dashboard_2026
+**Dataset** Malaria vaccine deliveries  
+**Dataset name:** Malaria vaccine deliveries  
+**Accessed via:** Website/dashboard  
+**Last accessed:** 06/01/2026
 
 # Citations

@@ -215,11 +215,6 @@ create_example_vaccine <- function(
     )
   }
 
-  # Add hybrid booster day column for age-based delivery
-  if (delivery == "age-based") {
-    implementation$hybrid_booster_day_of_year <- NA
-  }
-
   # Return the list
   list(
     delivery = delivery,
