@@ -37,7 +37,7 @@ World Malaria Report cases and deaths estimates.
 `wmr_incidence_u` WMR case incidence estimate, upper bound  
 `wmr_mortality_l` WMR malaria mortality rate estimate, lower bound  
 `wmr_mortality` WMR malaria mortality rate point estimate  
-`wmr_mortality_u` WMR malaria mortality rateestimate, upper bound  
+`wmr_mortality_u` WMR malaria mortality rate estimate, upper bound  
 
 ### Description
 
@@ -58,7 +58,7 @@ Plasmodium falciparum and Plasmodium vivax prevalence estimates
 
 ### Description
 
-Pixel-level estimates of prevalence indicators are agregated at the site-level by taking the population at risk weighted average.
+Pixel-level estimates of prevalence indicators are aggregated at the site-level by taking the population at risk weighted average.
 
 Prevalence estimates are used for calibrating the baseline EIR using the [cali package](https://mrc-ide.github.io/cali/).
 

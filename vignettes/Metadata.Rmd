@@ -44,7 +44,7 @@ The administrative levels (e.g. state, region, province) of the sites within the
 
 `site_file$metadata$version`
 
-Site file version name. Please see the (change log)[https://mrc-ide.github.io/site/news/index.html] for version information.
+Site file version name. Please see the [change log](https://mrc-ide.github.io/site/news/index.html) for version information.
 
 
 ## Sites

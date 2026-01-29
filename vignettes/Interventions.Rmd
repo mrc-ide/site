@@ -109,7 +109,7 @@ sub-Saharan Africa:
 scale and magnitude of IRS campaigns. We make the assumption that any reported
 persons protected by IRS (as detailed by the world malaria report) are targeted such that
 areas with the highest baseline prevalence are prioritised first. IRS coverage  
-implemented up to a maximum usage of80% in each area, sequentially working through
+implemented up to a maximum usage of 80% in each area, sequentially working through
 the targeting until the reported total number of persons protected have been allocated.
 
 It is assumed that a DDT-type insecticide is used prior to 2017, after which

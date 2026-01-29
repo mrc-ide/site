@@ -38,7 +38,7 @@ You can call `fetch_site()`, specifying the [ISO3c country code](https://en.wiki
 
 The first time you do this, you will see interactive authentication instructions asking you to access a github link and providing an authentication code. Open the link and copy the code to authorise access. This process should cache your credentials so that you don't have to authorise every time.
 
-Please make sure you have installed ordely from the r-universe:
+Please make sure you have installed orderly from the r-universe:
 
 ```         
 install.packages(

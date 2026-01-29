@@ -23,9 +23,9 @@ knitr::opts_chunk$set(
 ## Within sub-Saharan Africa
 
 For countries in sub-Saharan Africa a statistical model of relative abundance of
-major vectors has been produced 
-Sinka *et al* @Sinka2016 
-For countries we extract the relative abundance of 
+major vectors has been produced by
+Sinka *et al* @Sinka2016.
+For these countries we extract the relative abundance of 
 arabiensis, funestus and gambiae using the malaria atlas project
 "Anopheles arabiensis Patton, 1905", "Anopheles funestus" and 
 "Anopheles gambiae Giles, 1902" rasters.
@@ -52,7 +52,7 @@ equally weighted relative abundance.
 
 The bionomics parameters for vectors in sub-Saharan Africa are parameterised 
 using the fitted parameters in
-[malarisimulation](https://mrc-ide.github.io/malariasimulation/).
+[malariasimulation](https://mrc-ide.github.io/malariasimulation/).
 
 All other vectors are parameterised from an (unpublished) literature review
 by Arran Hamlet. Any unknown species are assigned the median vector bionomics

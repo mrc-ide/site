@@ -26,11 +26,11 @@ Monthly rainfall estimates
 `month` Month integer
 `month_name` Month
 `t` Mid point of month
-`rainfall` Montly rainfall estimate (mm)
+`rainfall` Monthly rainfall estimate (mm)
 
 ### Description
 
-Montly rainfall global rasters aggregated to the site by taking the population at risk weighted mean rainfall across the region.
+Monthly rainfall global rasters aggregated to the site by taking the population at risk weighted mean rainfall across the region.
 
 ### Sources
 `r chirps_badge()`
@@ -73,5 +73,5 @@ Peak rainfall day
 `peak_season` Day of the year with peak rainfall (from fitted fourier)
 
 ### Description
-Peak rainfall season is used to estimate timing of seasonally targetted interventions such as SMC and IRS.
+Peak rainfall season is used to estimate timing of seasonally targeted interventions such as SMC and IRS.
 

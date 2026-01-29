@@ -24,7 +24,7 @@ Total population and population at risk estimates.
 
 `site_file$population$population_by_age`
 
-Single-year age disggregated population and population at risk estimates.
+Single-year age disaggregated population and population at risk estimates.
 
 ### Variables
 
@@ -37,7 +37,7 @@ Single-year age disggregated population and population at risk estimates.
 
 ### Description
 
-Population total and age-disaggregated estimates by year for the country are sourced from the UN WPP. The spatial distribution of the population is informed using WorldPop population rasters. The spatial distribution pre-2015 and post-2026 is assumed to be that of 2015 and 2026 respectively. If the sitefile contains the urban-rural disaggregation, this is informed from UN WUP estimate of the proportion of the population living in urban areas. Pixels are assigned to be “urban” in descending order of population density until the implied national urban population total for that year is reached. Remaining pixels are classified as rural. Population at risk variables are defined as the population in areas with Plasmodium falciparum, Plamodium vivax or either prevalence >0% in year 2000.
+Population total and age-disaggregated estimates by year for the country are sourced from the UN WPP. The spatial distribution of the population is informed using WorldPop population rasters. The spatial distribution pre-2015 and post-2026 is assumed to be that of 2015 and 2026 respectively. If the sitefile contains the urban-rural disaggregation, this is informed from UN WUP estimate of the proportion of the population living in urban areas. Pixels are assigned to be “urban” in descending order of population density until the implied national urban population total for that year is reached. Remaining pixels are classified as rural. Population at risk variables are defined as the population in areas with Plasmodium falciparum, Plasmodium vivax or either prevalence >0% in year 2000.
 
 ### Sources
 `r un_badge()`
