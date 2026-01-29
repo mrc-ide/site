@@ -11,7 +11,7 @@ badge(label, colour, link)
 
 \item{colour}{Background color (hex code or CSS color name)}
 
-\item{link}{URL or anchor link (e.g., "data-sources.html#un")}
+\item{link}{URL or anchor link (e.g., "https://mrc-ide.github.io/site/articles/data-sources.html#un")}
 }
 \value{
 HTML string for the badge

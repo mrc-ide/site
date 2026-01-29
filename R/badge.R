@@ -2,7 +2,7 @@
 #'
 #' @param label Text to display in the badge
 #' @param colour Background color (hex code or CSS color name)
-#' @param link URL or anchor link (e.g., "data-sources.html#un")
+#' @param link URL or anchor link (e.g., "https://mrc-ide.github.io/site/articles/data-sources.html#un")
 #'
 #' @return HTML string for the badge
 #' @export
@@ -25,17 +25,79 @@ badge <- function(label, colour, link) {
 #' UN badge
 #' @export
 un_badge <- function() {
-  badge("🌐 | UN", "#5B92E5", "data-sources.html#UN")
+  badge(
+    "🌐 | UN",
+    "#5B92E5",
+    "https://mrc-ide.github.io/site/articles/data-sources.html#UN"
+  )
 }
 
 #' WorldPop badge
 #' @export
 worldpop_badge <- function() {
-  badge("👥 | WorldPop", "#1E4A8B", "data-sources.html#WorldPop")
+  badge(
+    "👥 | WorldPop",
+    "#1E4A8B",
+    "https://mrc-ide.github.io/site/articles/data-sources.html#WorldPop"
+  )
 }
 
 #' MAP badge
 #' @export
 map_badge <- function() {
-  badge("🌍 | MAP", "#EBBC40", "data-sources.html#MAP")
+  badge(
+    "🌍 | MAP",
+    "#EBBC40",
+    "https://mrc-ide.github.io/site/articles/data-sources.html#MAP"
+  )
+}
+
+#' CHIRPS badge
+#' @export
+chirps_badge <- function() {
+  badge(
+    "☔ | CHIRPS",
+    "#407E1B",
+    "https://mrc-ide.github.io/site/articles/data-sources.html#CHIRPS"
+  )
+}
+
+#' WHO badge
+#' @export
+who_badge <- function() {
+  badge(
+    "❤️‍🩹 | WHO",
+    "#ACCFDF",
+    "https://mrc-ide.github.io/site/articles/data-sources.html#WHO"
+  )
+}
+
+#' Vectors badge
+#' @export
+vectors_badge <- function() {
+  badge(
+    "🦟 | Vectors",
+    "#dbc8adff",
+    "https://mrc-ide.github.io/site/articles/data-sources.html#vectors"
+  )
+}
+
+#' GADM badge
+#' @export
+gadm_badge <- function() {
+  badge(
+    "📍 | GADM",
+    "#FFAD00",
+    "https://mrc-ide.github.io/site/articles/data-sources.html#GADM"
+  )
+}
+
+#' DHS badge
+#' @export
+dhs_badge <- function() {
+  badge(
+    "📋 | DHS",
+    "#C606B4",
+    "https://mrc-ide.github.io/site/articles/data-sources.html#DHS"
+  )
 }
