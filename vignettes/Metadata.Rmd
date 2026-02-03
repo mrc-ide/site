@@ -23,7 +23,7 @@ Country name
 
 `site_file$metadata$iso3c`
 
-The ISO3c code identifying the country. The R package `countrycode` @countrycode
+The ISO3c code identifying the country. The R package [countrycode](https://cran.r-project.org/web/packages/countrycode/index.html)
 is useful for converting between ISO3c and country names.
 
 ## Boundary

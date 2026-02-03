@@ -30,13 +30,13 @@ create_example_irs <- function() {
 #'   - `use`: Data frame with name, year, itn_use, usage_day_of_year
 #'   - `implementation`: Data frame with distribution details including net_type,
 #'     distribution_type, distribution bounds, and distribution_day_of_year
-create_example_itn <- function() {
+create_example_itn <- function(itn_use = c(0.1, 0.2, 0.5)) {
   example_itns <- list(
     retention_half_life = 600,
     use = data.frame(
       name = "place",
       year = 2000:2002,
-      itn_use = c(0.1, 0.2, 0.5),
+      itn_use = itn_use,
       usage_day_of_year = 1
     ),
     implementation = data.frame(
@@ -276,10 +276,10 @@ create_example_treatment <- function() {
 #'
 #' @return A named list with elements: treatment, itns, irs, smc, pmc, vaccine, lsm.
 #'   Each element contains the output from the corresponding `create_example_*` function.
-create_example_interventions <- function() {
+create_example_interventions <- function(itn_use = itn_use) {
   list(
     treatment = create_example_treatment(),
-    itns = create_example_itn(),
+    itns = create_example_itn(itn_use),
     irs = create_example_irs(),
     smc = create_example_smc(),
     pmc = create_example_pmc(),
@@ -346,9 +346,9 @@ create_example_vector_species <- function() {
 #' Create a skeleton example site
 #' @return Skeleton example single site
 #' @export
-create_example_site <- function() {
+create_example_site <- function(itn_use = c(0.1, 0.2, 0.5)) {
   list(
-    interventions = create_example_interventions(),
+    interventions = create_example_interventions(itn_use = itn_use),
     demography = create_example_demography(),
     vectors = list(
       vector_species = create_example_vector_species(),
@@ -356,6 +356,9 @@ create_example_site <- function() {
     ),
     seasonality = list(
       seasonality_parameters = create_example_seasonality_parameters()
+    ),
+    eir = list(
+      data.frame(eir = 10)
     )
   )
 }

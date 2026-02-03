@@ -16,6 +16,7 @@ granular breakdown of intervention implmentation in `site_file$interventions`. F
 * Switch to use the MAP-style logistic retention curve for bed nets. This replaces the previous exponential retention curve. 
 * More flexible specification of age ranges for rates outputs.
 * Documentation updated to include descriptions of every element in the site-file, and better tracking of which data inputs where used.
+* Includes a default parameterisation to convert IRS trial impact to implementation impact.
 
 ### Minor improvement and bug fixes
 

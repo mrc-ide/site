@@ -82,18 +82,20 @@ do to run the model is
 ```{r, eval=FALSE}
 
 # Pull information for a single sub-national unit from the site-file
-site <- create_example_site()
+site <- create_example_site(itn_use = 0)
 
 # Convert site information to malariasimulation parameters
 site_par <- site_parameters(
   interventions = site$interventions,
   demography = site$demography,
-  vectors = site$vectors$vector_species,
-  seasonality = site$seasonality$seasonality_parameters,
+  vectors = site$vectors,
+  seasonality = site$seasonality,
   eir = site$eir$eir,
   overrides = list(
     human_population = 1000
-  )
+  ),
+  start_year = 2000,
+  end_year = 2002
 )
 
 # Run the model!
