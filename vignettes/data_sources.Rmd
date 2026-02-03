@@ -26,11 +26,13 @@ library(site)
 **Dataset name:** WPP2022_Population1JanuaryBySingleAgeSex_Medium_1950-2021  
 **Accessed via:** Webpage  
 **Last accessed:** 30/08/2023
+**Data range:** 1950-2021
 
 **Dataset:** Future population projections  
 **Dataset name:** WPP2022_Population1JanuaryBySingleAgeSex_Medium_2022-2100  
 **Accessed via:** Webpage  
 **Last accessed:** 30/08/2023
+**Data range:** 2022-20100
 
 ### UNWUP @UNWUP
 **Dataset:** Urban population estimates  
@@ -47,6 +49,7 @@ library(site)
 **Dataset name:** G2_CN_POP_R25A_1km  
 **Accessed via:** API  
 **Last accessed:** 06/01/2026
+**Data range:** 2015-2030 (2015-2026 used)
 
 ---
 
@@ -57,64 +60,76 @@ library(site)
 **Dataset name:** Malaria__202508_Global_Pf_Parasite_Rate_  
 **Accessed via:** R-package  
 **Last accessed:** 06/01/2026
+**Data range:** 
 
 **Dataset** Plasmodium vivax prevalence in 1 to 99 year olds  
 **Dataset name:** Malaria__202508_Global_Pv_Parasite_Rate  
 **Accessed via:** R-package  
 **Last accessed:** 06/01/2026
+**Data range:** 
 
 ### Intervention coverage estimates @MAP_package
 **Dataset** ITN use in Africa  
 **Dataset name:** Interventions__202508_Africa_Insecticide_Treated_Net_Use  
 **Accessed via:** R-package  
 **Last accessed:** 06/01/2026
+**Data range:** 
 
 **Dataset** IRS coverage in Africa  
 **Dataset name:** Interventions__202508_Africa_IRS_Coverage  
 **Accessed via:** R-package  
 **Last accessed:** 06/01/2026
+**Data range:** 
 
 **Dataset** Effective treatment coverage  
 **Dataset name:** Interventions__202508_Global_Antimalarial_Effective_Treatment  
 **Accessed via:** R-package  
 **Last accessed:** 06/01/2026
+**Data range:** 
 
 ### Access and travel time @MAP_package
-**Dataset** Travel time to cities (2015) 
+**Dataset** Travel time to cities
 **Dataset name:** 201501_Global_Travel_Time_to_Cities_2015  
 **Accessed via:** R-package  
 **Last accessed:** 30/11/2023
+**Data range:** 2015
 
-**Dataset** Motorised travel time to healthcare (2019) 
+**Dataset** Motorised travel time to healthcare
 **Dataset name:** 202001_Global_Motorized_Travel_Time_to_Healthcare_2019  
 **Accessed via:** R-package  
 **Last accessed:** 30/11/2023
+**Data range:** 2019
 
-**Dataset** Walking travel time to healthcare (2019) 
+**Dataset** Walking travel time to healthcare
 **Dataset name:** 202001_Global_Walking_Only_Travel_Time_To_Healthcare_2019  
 **Accessed via:** R-package  
 **Last accessed:** 30/11/2023
+**Data range:** 2019
 
 ### Blood disorders @MAP_package
 **Dataset** HbC Allele frequency
 **Dataset name:** 201201_Africa_HbC_Allele_Frequency_2010  
 **Accessed via:** R-package  
 **Last accessed:** 30/11/2023
+**Data range:** 2010
 
 **Dataset** Duffy negativity phenotype frequency
 **Dataset name:** 201201_Global_Duffy_Negativity_Phenotype_Frequency_2010  
 **Accessed via:** R-package  
 **Last accessed:** 30/11/2023
+**Data range:** 2010
 
 **Dataset** G6PD Allele frequency
 **Dataset name:** 201201_Global_G6PDd_Allele_Frequency_2010  
 **Accessed via:** R-package  
 **Last accessed:** 30/11/2023
+**Data range:** 2010
 
 **Dataset** HbS Allele frequency
 **Dataset name:** 201201_Global_Sickle_Haemoglobin_HbS_Allele_Frequency_2010  
 **Accessed via:** R-package  
 **Last accessed:** 30/11/2023
+**Data range:** 2010
 
 ---
 
@@ -125,6 +140,7 @@ library(site)
 **Dataset name:** Monthly global raster dataset  
 **Accessed via:** Website  
 **Last accessed:** 06/01/2026
+**Data range:** 2000:2025
 
 ---
 
@@ -135,12 +151,14 @@ library(site)
 **Dataset name:** Annex 4h  
 **Accessed via:** Website  
 **Last accessed:** 06/01/2026
+**Data range:** 2022-2024
 
 ### Intervention commodities
 **Dataset** Commodities distribjution and coverage
 **Dataset name:** Annex 4g  
 **Accessed via:** Website  
 **Last accessed:** 06/01/2026
+**Data range:** 2022-2024
 
 ### MVIP @MVIP
 **Dataset** MVIP vaccine trial
@@ -188,7 +206,7 @@ library(site)
 **Accessed via:** Personal correspondence with Thom Churcher  
 **Last accessed:** 30/08/2023  
 
-### Vector control parmeters @sherrard2018 @sherrard2022
+### Vector control parameters @sherrard2018 @sherrard2022
 **Dataset** Vector control efficiacy parameters  
 **Dataset name:** ITN and IRS efficacy parameters for multiple products in the presence of resistance  
 **Accessed via:** Papers  

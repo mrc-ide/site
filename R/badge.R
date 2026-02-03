@@ -26,7 +26,7 @@ badge <- function(label, colour, link) {
 #' @export
 un_badge <- function() {
   badge(
-    "🌐 | UN",
+    "\U0001F1FA\U0001F1F3 | UN",
     "#5B92E5",
     "https://mrc-ide.github.io/site/articles/data-sources.html#UN"
   )
@@ -36,7 +36,7 @@ un_badge <- function() {
 #' @export
 worldpop_badge <- function() {
   badge(
-    "👥 | WorldPop",
+    "\U0001F465 | WorldPop",
     "#1E4A8B",
     "https://mrc-ide.github.io/site/articles/data-sources.html#WorldPop"
   )
@@ -46,7 +46,7 @@ worldpop_badge <- function() {
 #' @export
 map_badge <- function() {
   badge(
-    "🌍 | MAP",
+    "\U0001F30D | MAP",
     "#EBBC40",
     "https://mrc-ide.github.io/site/articles/data-sources.html#MAP"
   )
@@ -56,7 +56,7 @@ map_badge <- function() {
 #' @export
 chirps_badge <- function() {
   badge(
-    "☔ | CHIRPS",
+    "\U00002614\U0000FE0F | CHIRPS",
     "#407E1B",
     "https://mrc-ide.github.io/site/articles/data-sources.html#CHIRPS"
   )
@@ -66,7 +66,7 @@ chirps_badge <- function() {
 #' @export
 who_badge <- function() {
   badge(
-    "⚕️ | WHO",
+    "\U00002695\U0000FE0F | WHO",
     "#ACCFDF",
     "https://mrc-ide.github.io/site/articles/data-sources.html#WHO"
   )
@@ -76,7 +76,7 @@ who_badge <- function() {
 #' @export
 vectors_badge <- function() {
   badge(
-    "🦟 | Vectors",
+    "\U0001F99F | Vectors",
     "#dbc8adff",
     "https://mrc-ide.github.io/site/articles/data-sources.html#vectors"
   )
@@ -86,7 +86,7 @@ vectors_badge <- function() {
 #' @export
 gadm_badge <- function() {
   badge(
-    "📍 | GADM",
+    "\U0001F4CD | GADM",
     "#FFAD00",
     "https://mrc-ide.github.io/site/articles/data-sources.html#GADM"
   )
@@ -96,7 +96,7 @@ gadm_badge <- function() {
 #' @export
 dhs_badge <- function() {
   badge(
-    "📋 | DHS",
+    "\U0001F4CB | DHS",
     "#C606B4",
     "https://mrc-ide.github.io/site/articles/data-sources.html#DHS"
   )
@@ -106,7 +106,7 @@ dhs_badge <- function() {
 #' @export
 smc_badge <- function() {
   badge(
-    "💊 | SMC",
+    "\U001F48A | SMC",
     "#385B1F",
     "https://mrc-ide.github.io/site/articles/data-sources.html#SMC"
   )
@@ -116,7 +116,7 @@ smc_badge <- function() {
 #' @export
 unicef_badge <- function() {
   badge(
-    "🚸 | UNICEF",
+    "\U0001F9D1\U0000200D\U0001F9D2\U0000200D\U0001F9D2 | UNICEF",
     "#4DC7F4",
     "https://mrc-ide.github.io/site/articles/data-sources.html#UNICEF"
   )

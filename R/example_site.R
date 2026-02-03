@@ -288,6 +288,12 @@ create_example_interventions <- function() {
   )
 }
 
+#' Create example demography inputs
+#'
+#' Creates a demography list for testing
+#'
+#' @return A data frame with columns:
+#'   name, year, age_lower, age_upper, adjusted_mortality_rates
 create_example_demography <- function() {
   data.frame(
     name = "place",
@@ -298,6 +304,12 @@ create_example_demography <- function() {
   )
 }
 
+#' Create example seasonality inputs
+#'
+#' Creates a seasonality list for testing
+#'
+#' @return A data frame with columns:
+#'   name, g0, g1, g2, g3, h1, h2, h3
 create_example_seasonality_parameters <- function() {
   data.frame(
     name = "place",
@@ -311,6 +323,12 @@ create_example_seasonality_parameters <- function() {
   )
 }
 
+#' Create example vector inputs
+#'
+#' Creates a vectors list for testing
+#'
+#' @return A data frame with columns:
+#'   name, species, prop, blood_meal_rates, foraging time, Q0, phi_bednets, phi_indoors, mum
 create_example_vector_species <- function() {
   data.frame(
     name = "place",
@@ -325,6 +343,9 @@ create_example_vector_species <- function() {
   )
 }
 
+#' Create a skeleton example site
+#' @return Skeleton example single site
+#' @export
 create_example_site <- function() {
   list(
     interventions = create_example_interventions(),
