@@ -60,32 +60,32 @@ library(site)
 **Dataset name:** Malaria__202508_Global_Pf_Parasite_Rate_  
 **Accessed via:** R-package  
 **Last accessed:** 06/01/2026
-**Data range:** 
+**Data range:** 2000-2024
 
 **Dataset:** Plasmodium vivax prevalence in 1 to 99 year olds  
 **Dataset name:** Malaria__202508_Global_Pv_Parasite_Rate  
 **Accessed via:** R-package  
 **Last accessed:** 06/01/2026
-**Data range:** 
+**Data range:** 2000-2024
 
 ### Intervention coverage estimates @MAP_package
 **Dataset:** ITN use in Africa  
 **Dataset name:** Interventions__202508_Africa_Insecticide_Treated_Net_Use  
 **Accessed via:** R-package  
 **Last accessed:** 06/01/2026
-**Data range:** 
+**Data range:** 2000-2024
 
 **Dataset:** IRS coverage in Africa  
 **Dataset name:** Interventions__202508_Africa_IRS_Coverage  
 **Accessed via:** R-package  
 **Last accessed:** 06/01/2026
-**Data range:** 
+**Data range:** 2000-2024
 
 **Dataset:** Effective treatment coverage  
 **Dataset name:** Interventions__202508_Global_Antimalarial_Effective_Treatment  
 **Accessed via:** R-package  
 **Last accessed:** 06/01/2026
-**Data range:** 
+**Data range:** 2000-2024
 
 ### Access and travel time @MAP_package
 **Dataset:** Travel time to cities
