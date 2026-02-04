@@ -108,7 +108,7 @@ create_example_smc <- function() {
 #' @return A list containing:
 #'   - `drug`: Character drug identifier
 #'   - `age`: Numeric vector of target ages in days
-#'   - `implementation`: Data frame with name, year, pmc_coverage_timesteps, pmc_cov
+#'   - `implementation`: Data frame with name, year, pmc_cov
 create_example_pmc <- function() {
   list(
     drug = "sp",
@@ -116,7 +116,6 @@ create_example_pmc <- function() {
     implementation = data.frame(
       name = "place",
       year = 2000:2003,
-      pmc_coverage_timesteps = ((2000:2003) - 2000) * 365 + 1,
       pmc_cov = 0.1
     )
   )
@@ -276,7 +275,7 @@ create_example_treatment <- function() {
 #'
 #' @return A named list with elements: treatment, itns, irs, smc, pmc, vaccine, lsm.
 #'   Each element contains the output from the corresponding `create_example_*` function.
-create_example_interventions <- function(itn_use = itn_use) {
+create_example_interventions <- function(itn_use = c(0.1, 0.2, 0.5)) {
   list(
     treatment = create_example_treatment(),
     itns = create_example_itn(itn_use),
