@@ -31,8 +31,8 @@ Bed net implementation details
 `distribution_upper` Upper bound for possible itn_input_dist
 
 ### Description
-Supported net types currently include: "pyrethroid_only", "pyrethroid_pbo", "pyrethroid_pyrrole". Net type introductions are informed by data from alliance for malaria prevention Allicance. Current available net types are: pyrethroid_only, pyrethroid_pbo and pyrethroid_pyrrole. Absent systematic, country data on mass campaign dates and locations we assume that mass campaigns occur on the
-first day of the year and routine distributions occur quartely. Lower and upper bounds help to ensure that
+Supported net types currently include: "pyrethroid_only", "pyrethroid_pbo", "pyrethroid_pyrrole". Net type introductions are informed by data from the Alliance for Malaria Prevention. Current available net types are: pyrethroid_only, pyrethroid_pbo and pyrethroid_pyrrole. Absent systematic, country data on mass campaign dates and locations we assume that mass campaigns occur on the
+first day of the year and routine distributions occur quarterly. Lower and upper bounds help to ensure that
 sensible model input distributions are estimated, see `stop_missing_itn_input_dist()` for full details. Due to differences in the availability of data sources the approach for countries within sub-Saharan Africa differs to countries outside of sub-Saharan Africa:
 
 **Within sub-Saharan Africa:** The population at risk weighted mean ITN use estimates for each site are taken 
@@ -42,7 +42,7 @@ from the malaria atlas project.
 
 Available data on ITN use will not extend to the present year. Missing ITN use estimates to present are filled assuming a constant, continuing level of coverage. To respect the multi-year cyclical nature of ITN distribution cycles any missing estimates are filled in assuming that coverage is constant with respect to 3 years prior. For example if years 2024, 2025 and 2026 are missing then 2024 == 2021, 2025 == 2022 and 2026 == 2023.
 
-⚠️ **Warning:** For ITNs to work when passed to `site::site_parameters()` you will need to specify a column: `site_file$interventions$itn$implementation$itn_input_dist` indicating the size of the model ITN distrbutions each year. This is **not** the same as ITN usage. Please call `stop_missing_itn_input_dist()` for more information.
+⚠️ **Warning:** For ITNs to work when passed to `site::site_parameters()` you will need to specify a column: `site_file$interventions$itn$implementation$itn_input_dist` indicating the size of the model ITN distributions each year. This is **not** the same as ITN usage. Please call `stop_missing_itn_input_dist()` for more information.
 
 Given an ITN type and level of pyrethroid insecticide resistance, the site package will link to
 corresponding estimates of the key ITN efficacy parameters.
@@ -64,7 +64,7 @@ Bed net usage estimates
 
 ### Description
 Population at risk weighted average ITN use for each region. Usage measurements are assumed to occur on
-the first day of the year (alligns with the MAP net online model).
+the first day of the year (aligns with the MAP net online model).
 
 ### Sources
 `r map_badge()`
@@ -73,13 +73,13 @@ the first day of the year (alligns with the MAP net online model).
 
 `site_file$interventions$itn$retention_half_life`
 
-ITN retention halflife
+ITN retention half-life
 
 ### Variable
-`retention_half_life` Median retention half life (days)
+`retention_half_life` Median retention half-life (days)
 
 ### Description
-Retention half life of nets in the population.
+Retention half-life of nets in the population.
 
 ### Sources
 `r vectors_badge()`
@@ -95,7 +95,7 @@ IRS implementation details
 `peak_season` Rainfall seasonal peak day of the year  
 `insecticide` IRS insecticide  
 `round` Spray round  
-`spay_day_of_year` Day of year of spray round  
+`spray_day_of_year` Day of year of spray round  
 
 ### Description
 
@@ -103,9 +103,9 @@ As with ITNs, due to differences in the availability of data sources the approac
 for countries within sub-Saharan Africa differs to countries outside of 
 sub-Saharan Africa:
 
-**Within sub-Saharan Africa:** The population at risk weighted mean IRS coverage estimates for each spatial unit are summarise from the malaria atlas project
+**Within sub-Saharan Africa:** The population at risk weighted mean IRS coverage estimates for each spatial unit are summarised from the malaria atlas project
 
-**Outside of sub-Saharan Africa:** IRS coverage is much more heterogeneous outside of SSA and data are less systematicallycollected. As a result, there are strong assumptions associated with the historical
+**Outside of sub-Saharan Africa:** IRS coverage is much more heterogeneous outside of SSA and data are less systematically collected. As a result, there are strong assumptions associated with the historical
 scale and magnitude of IRS campaigns. We make the assumption that any reported
 persons protected by IRS (as detailed by the world malaria report) are targeted such that
 areas with the highest baseline prevalence are prioritised first. IRS coverage  
@@ -137,7 +137,7 @@ Treatment implementation details
 `prop_act` Proportion of first line treatments that are an ACT
 
 ### Description
-The population at risk weighted mean effective treatment coverage estimates for each spatial unit are summarised from the malaria atlas project. Note, as this metric descibes "effective" treatment, we implement specially parameterised drugs implemented inthe site file with efficacy = 1. For the proporiton of treatments that are an ACT, for SSA estimates by year are expanded by linear interpolation between data 
+The population at risk weighted mean effective treatment coverage estimates for each spatial unit are summarised from the malaria atlas project. Note, as this metric describes "effective" treatment, we implement specifically parameterised drugs in the site file with efficacy = 1. For the proportion of treatments that are an ACT, for SSA estimates by year are expanded by linear interpolation between data 
 points and an assumption of constant coverage after the most recent data point. 
 We assume that ACT coverage is zero before 2006, when the WHO recommendation was 
 first issued. For outside of SSA the DHS indicator is confounded by treatment 
@@ -173,8 +173,8 @@ SMC implementation details
 ### Variables
 `smc_cov` SMC coverage  
 `peak_season` Rainfall seasonal peak day of the year  
-`smc_min_age` Lower bound of SMC-eligability age range (days)  
-`smc_max_age` Upper bound of SMC-eligability age range (days)  
+`smc_min_age` Lower bound of SMC-eligibility age range (days)  
+`smc_max_age` Upper bound of SMC-eligibility age range (days)  
 `round` Delivery round  
 `round_day_of_year` Day of year each round is delivered  
 
@@ -206,7 +206,7 @@ option.
 ### Sources
 `r who_badge()`
 
-## vaccine
+## Vaccine
 
 `site_file$interventions$vaccine$implementation`
 
@@ -242,8 +242,8 @@ Vaccine delivery mode
 ### Variables
 `delivery` Delivery mode
 
-### Decription
-Can be age-based or hybrid (seasoal boosters)
+### Description
+Can be age-based or hybrid (seasonal boosters)
 
 ### Sources
 `r who_badge()`
@@ -278,7 +278,7 @@ For age-based delivery booster timing is calculated relative to when an individu
 ### Sources
 `r unicef_badge()`
 
-## Perennial malaria chemoprevention (PMC).
+## Perennial malaria chemoprevention (PMC)
 
 `site_file$interventions$pmc$implementation`
 
@@ -287,10 +287,10 @@ PMC implementation information
 ### Variables
 `pmc_cov` PMC coverage
 
-# Description 
+### Description
 This intervention has been known in the past as intermittent preventative treatment
 of infants (IPTi). Due to the very limited (non-trial setting) implementation of PMC historically,
-we moslty assume 0 coverage.
+we mostly assume 0 coverage.
 
 ---
 

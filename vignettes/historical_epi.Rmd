@@ -31,7 +31,7 @@ World Malaria Report cases and deaths estimates.
 `wmr_deaths_l` WMR death estimate, lower bound  
 `wmr_deaths` WMR death point estimate  
 `wmr_deaths_u` WMR death estimate, upper bound  
-`wmr_par` WMR population at risk estimates
+`wmr_par` WMR population at risk estimates  
 `wmr_incidence_l` WMR case incidence estimate, lower bound  
 `wmr_incidence` WMR case incidence point estimate  
 `wmr_incidence_u` WMR case incidence estimate, upper bound  

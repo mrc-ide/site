@@ -18,14 +18,14 @@ library(site)
 
 ## Seasonality
 
-`site_file$seasonality$montly_rainfall`
+`site_file$seasonality$monthly_rainfall`
 
 Monthly rainfall estimates
 
 ### Variables
-`month` Month integer
-`month_name` Month
-`t` Mid point of month
+`month` Month integer  
+`month_name` Month  
+`t` Midpoint of month  
 `rainfall` Monthly rainfall estimate (mm)
 
 ### Description
@@ -39,13 +39,13 @@ Monthly rainfall global rasters aggregated to the site by taking the population 
 
 `site_file$seasonality$seasonality_parameters`
 
-Fitted fourier series seasonality parameters
+Fitted Fourier series seasonality parameters
 
 ### Variables
-`g0, g1, g2, g3, h1, h2, h3` Fitted fourier seasonality parameters
+`g0, g1, g2, g3, h1, h2, h3` Fitted Fourier seasonality parameters
 
 ### Description
-For each site we estimate the fourier series parameters  representing general seasonal profiles using the 
+For each site we estimate the Fourier series parameters representing general seasonal profiles using the 
 [umbrella R package](https://mrc-ide.github.io/umbrella/).
 
 ---
@@ -60,7 +60,7 @@ A prediction of the seasonal curve using the estimated parameters
 
 ### Description
 We do not currently include historical year-on-year variability in rainfall seasonality
-into the model runs so fourier seasonal curves represent an average over all historical years in the rainfall
+into the model runs so Fourier seasonal curves represent an average over all historical years in the rainfall
 dataset.
 
 ---
