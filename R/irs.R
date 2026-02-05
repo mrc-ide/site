@@ -1,7 +1,7 @@
 #' Add IRS
 #'
 #' @param p parameter list
-#' @param irs interventions irs object
+#' @param irs interventions IRS object
 #' @param irs_adjust Operational downscaling of irs coverage
 #'
 #' @return modified parameter list

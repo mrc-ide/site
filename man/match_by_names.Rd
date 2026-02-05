@@ -9,7 +9,7 @@ match_by_names(x, y)
 \arguments{
 \item{x}{Site file element}
 
-\item{y}{Data.frame to match for}
+\item{y}{data frame to match for}
 }
 \value{
 Site file element filtered by y

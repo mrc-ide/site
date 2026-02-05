@@ -5,8 +5,8 @@
 #'
 #' @return modified parameter list
 add_vaccine <- function(p, vaccine) {
-  rtss <- sum(vaccine$implementation$rtss_primary_cov, na.rm = T) > 0
-  r21 <- sum(vaccine$implementation$r21_primary_cov, na.rm = T) > 0
+  rtss <- sum(vaccine$implementation$rtss_primary_cov, na.rm = TRUE) > 0
+  r21 <- sum(vaccine$implementation$r21_primary_cov, na.rm = TRUE) > 0
   if (rtss && r21) {
     warning(
       "Cannot currently model two vaccine types,

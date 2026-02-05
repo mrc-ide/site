@@ -9,7 +9,7 @@ add_itns(p, itn, resistance)
 \arguments{
 \item{p}{parameter list}
 
-\item{itn}{interventions itn object}
+\item{itn}{interventions ITN object}
 
 \item{resistance}{vectors resistance object}
 }

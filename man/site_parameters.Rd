@@ -39,7 +39,7 @@ site_parameters(
 
 \item{prevalence}{Age breaks for prevalence outputs in days; default = c(2, 10) * 365}
 
-\item{parasite}{Can be "falciparum" or "vivax" for vivax SMC, RTSS
+\item{parasite}{Can be "falciparum" or "vivax". For vivax, SMC, RTSS
 and PMC are not implemented}
 
 \item{eir}{Site baseline EIR}
@@ -48,14 +48,14 @@ and PMC are not implemented}
 
 \item{overrides}{List of malariasimulation default parameter overrides}
 
-\item{start_year}{The year the simulation starts. This should be inclusive of any burnin
-(which is reccommended). For example, if the site file data started in year 2000 and I wanted to
-specify a 20 year burnin I would set start_year to 1980. Interventions prior to the site file start year are assumed to be 0 coverage, and
+\item{start_year}{The year the simulation starts. This should be inclusive of any burn-in
+(which is recommended). For example, if the site file data started in year 2000 and I wanted to
+specify a 20 year burn-in I would set start_year to 1980. Interventions prior to the site file start year are assumed to be 0 coverage, and
 demography set to the same profile as the first site file entry.}
 
 \item{end_year}{The end year (inclusive) of the simulation}
 
-\item{irs_adjust}{A scaler adjustment to IRS coverage inputs to account for observed discrepancies
+\item{irs_adjust}{A scalar adjustment to IRS coverage inputs to account for observed discrepancies
 between IRS impact in trial versus real-world implementation.}
 }
 \value{

@@ -10,7 +10,7 @@ create_example_pmc()
 A list containing:
   - `drug`: Character drug identifier
   - `age`: Numeric vector of target ages in days
-  - `implementation`: Data frame with name, year, pmc_cov
+  - `implementation`: Data frame with name, year, day_of_year, pmc_cov
 }
 \description{
 Creates a PMC (Perennial Malaria Chemoprevention) intervention list for testing

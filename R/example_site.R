@@ -110,7 +110,7 @@ create_example_smc <- function() {
 #' @return A list containing:
 #'   - `drug`: Character drug identifier
 #'   - `age`: Numeric vector of target ages in days
-#'   - `implementation`: Data frame with name, year, pmc_cov
+#'   - `implementation`: Data frame with name, year, day_of_year, pmc_cov
 create_example_pmc <- function() {
   list(
     drug = "sp",
@@ -135,6 +135,11 @@ create_example_pmc <- function() {
 #' @param name Character. Location name. Default: "place"
 #' @param peak_season Numeric. Peak transmission day of year. Default: 100
 #' @param primary_schedule Numeric vector. Primary vaccination ages in days. Default: c(180, 210, 240)
+#' @return A list containing:
+#'   - `delivery`: Character delivery method
+#'   - `primary_schedule`: Numeric vector of primary schedule ages in days
+#'   - `booster_spacing`: Numeric vector of booster spacing values
+#'   - `implementation`: Data frame with coverage and schedule columns
 create_example_vaccine <- function(
   vaccine = "rtss",
   delivery = "age-based",
@@ -233,7 +238,7 @@ create_example_vaccine <- function(
 #' with basic implementation parameters.
 #'
 #' @return A list containing an `implementation` data frame with columns:
-#'   name, year, lsm_cov
+#'   name, year, day_of_year, lsm_cov
 create_example_lsm <- function() {
   list(
     implementation = data.frame(
@@ -251,7 +256,7 @@ create_example_lsm <- function() {
 #' (Artemisinin-based Combination Therapy) proportion parameters.
 #'
 #' @return A list containing an `implementation` data frame with columns:
-#'   name, year, tx_cov, prop_act
+#'   name, year, day_of_year, tx_cov, prop_act
 create_example_treatment <- function() {
   list(
     implementation = data.frame(
@@ -275,18 +280,10 @@ create_example_treatment <- function() {
 #' @return A named list with elements: treatment, itns, irs, smc, pmc, vaccine, lsm.
 #'   Each element contains the output from the corresponding `create_example_*` function.
 #' @keywords internal
-#' Create complete set of example interventions
-#'
-#' Creates a comprehensive list containing all intervention types (treatment, ITNs,
-#' IRS, SMC, PMC, vaccine, and LSM) using default example parameters. Useful for
-#' testing functions that require a full intervention specification.
-#'
-#' @return A named list with elements: treatment, itns, irs, smc, pmc, vaccine, lsm.
-#'   Each element contains the output from the corresponding `create_example_*` function.
 create_example_interventions <- function(itn_use = c(0.1, 0.2, 0.5)) {
   list(
     treatment = create_example_treatment(),
-    itns = create_example_itn(itn_use),
+    itn = create_example_itn(itn_use),
     irs = create_example_irs(),
     smc = create_example_smc(),
     pmc = create_example_pmc(),
@@ -335,7 +332,7 @@ create_example_seasonality_parameters <- function() {
 #' Creates a vectors list for testing
 #'
 #' @return A data frame with columns:
-#'   name, species, prop, blood_meal_rates, foraging time, Q0, phi_bednets, phi_indoors, mum
+#'   name, species, prop, blood_meal_rates, foraging_time, Q0, phi_bednets, phi_indoors, mum
 create_example_vector_species <- function() {
   data.frame(
     name = "place",

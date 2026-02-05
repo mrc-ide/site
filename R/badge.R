@@ -1,7 +1,7 @@
 #' Create a data source badge
 #'
 #' @param label Text to display in the badge
-#' @param colour Background color (hex code or CSS color name)
+#' @param colour Background colour (hex code)
 #' @param link URL or anchor link (e.g., "https://mrc-ide.github.io/site/articles/data-sources.html#un")
 #'
 #' @return HTML string for the badge

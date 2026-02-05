@@ -35,6 +35,13 @@ create_example_vaccine(
 
 \item{primary_schedule}{Numeric vector. Primary vaccination ages in days. Default: c(180, 210, 240)}
 }
+\value{
+A list containing:
+  - `delivery`: Character delivery method
+  - `primary_schedule`: Numeric vector of primary schedule ages in days
+  - `booster_spacing`: Numeric vector of booster spacing values
+  - `implementation`: Data frame with coverage and schedule columns
+}
 \description{
 Create vaccine intervention examples
 }

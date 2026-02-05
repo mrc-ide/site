@@ -8,7 +8,7 @@ create_example_treatment()
 }
 \value{
 A list containing an `implementation` data frame with columns:
-  name, year, tx_cov, prop_act
+  name, year, day_of_year, tx_cov, prop_act
 }
 \description{
 Creates a treatment intervention list for testing with coverage and ACT

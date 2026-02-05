@@ -13,7 +13,7 @@ subset_site(
 \arguments{
 \item{site}{Country site file}
 
-\item{site_filter}{Data.frame to filter site file elements by. Filtering will
+\item{site_filter}{data frame to filter site file elements by. Filtering will
 be conducted on any matched columns for each element.}
 
 \item{skip}{Character vector of field names to preserve without filtering.

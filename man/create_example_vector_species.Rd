@@ -8,7 +8,7 @@ create_example_vector_species()
 }
 \value{
 A data frame with columns:
-  name, species, prop, blood_meal_rates, foraging time, Q0, phi_bednets, phi_indoors, mum
+  name, species, prop, blood_meal_rates, foraging_time, Q0, phi_bednets, phi_indoors, mum
 }
 \description{
 Creates a vectors list for testing

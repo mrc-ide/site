@@ -10,7 +10,7 @@ add_interventions <- function(p, interventions, resistance, irs_adjust) {
   # Drug types
   p <- add_drugs(p)
   # Treatment
-  if (sum(interventions$treatment$implementation$tx_cov) > 0) {
+  if (sum(interventions$treatment$implementation$tx_cov, na.rm = TRUE) > 0) {
     p <- add_treatment(
       p = p,
       treatment = interventions$treatment

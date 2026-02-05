@@ -9,7 +9,7 @@ badge(label, colour, link)
 \arguments{
 \item{label}{Text to display in the badge}
 
-\item{colour}{Background color (hex code or CSS color name)}
+\item{colour}{Background colour (hex code)}
 
 \item{link}{URL or anchor link (e.g., "https://mrc-ide.github.io/site/articles/data-sources.html#un")}
 }

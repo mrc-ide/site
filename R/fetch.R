@@ -37,13 +37,13 @@ location_add_or_update <- function(name, type, args, root) {
 }
 
 
-#' Configure the orderly root used to fetch sitefiles.
+#' Configure the orderly root used to fetch site files.
 #'
 #' This creates a folder in the user's home directory used to download and cache
 #' site files. The location of the cache folder is determined by
 #' [rappdirs::user_cache_dir()] and depends on the OS.
 #'
-#' A remote location from which the sitefiles will be fetched is configured on
+#' A remote location from which the site files will be fetched is configured on
 #' the root. By default this is the malariaverse Packit instance hosted at
 #' `https://packit.dide.ic.ac.uk/malariaverse-sitefiles`. This can be customized
 #' by setting the `site.orderly_location` option.
@@ -66,7 +66,7 @@ configure_orderly <- function() {
 }
 
 
-#' Get files from the malariaverse sitefile server.
+#' Get files from the malariaverse site file server.
 #'
 #' @param name The name of the orderly report.
 #' @param parameters A named list of parameters to use when searching for the
@@ -105,7 +105,7 @@ fetch_files <- function(name, parameters, dest, files, expr = NULL) {
   plan$id
 }
 
-#' Fetch a site file for a country from the malariaverse sitefile server.
+#' Fetch a site file for a country from the malariaverse site file server.
 #'
 #' The site file is identified by its country code, and optionally the
 #' admin_level, urban/rural setting and version of the site files. The latest

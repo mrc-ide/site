@@ -1,7 +1,7 @@
 #' Add ITNs
 #'
 #' @param p parameter list
-#' @param itn interventions itn object
+#' @param itn interventions ITN object
 #' @param resistance vectors resistance object
 #'
 #' @return modified parameter list
@@ -17,6 +17,12 @@ add_itns <- function(p, itn, resistance) {
     wrong_net_type(supported_nets, unsupported)
   }
   join_cols <- intersect(colnames(itn$implementation), colnames(resistance))
+  if (length(join_cols) == 0) {
+    cli::cli_abort(c(
+      "x" = "No shared columns between {.code itn$implementation} and {.code resistance}.",
+      "i" = "Expected at least one shared join key (e.g., {.val {c('name', 'year')}})."
+    ))
+  }
   resistance$pyrethroid_resistance <- round(resistance$pyrethroid_resistance, 2)
   itn$implementation <- itn$implementation |>
     dplyr::left_join(resistance, by = join_cols) |>

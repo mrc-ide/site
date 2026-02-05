@@ -9,7 +9,7 @@ filter_recursive(x, site_filter)
 \arguments{
 \item{x}{Site file element (can be data.frame, list, or other)}
 
-\item{site_filter}{Data.frame to filter by}
+\item{site_filter}{data frame to filter by}
 }
 \value{
 Filtered element

@@ -8,7 +8,7 @@ create_example_lsm()
 }
 \value{
 A list containing an `implementation` data frame with columns:
-  name, year, lsm_cov
+  name, year, day_of_year, lsm_cov
 }
 \description{
 Creates a simple LSM (Larval Source Management) intervention list for testing

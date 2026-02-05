@@ -9,7 +9,7 @@ add_irs(p, irs, irs_adjust = 1)
 \arguments{
 \item{p}{parameter list}
 
-\item{irs}{interventions irs object}
+\item{irs}{interventions IRS object}
 
 \item{irs_adjust}{Operational downscaling of irs coverage}
 }

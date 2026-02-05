@@ -13,46 +13,10 @@ Default: c(0.1, 0.2, 0.5).}
 \value{
 A named list with elements: treatment, itns, irs, smc, pmc, vaccine, lsm.
   Each element contains the output from the corresponding `create_example_*` function.
-
-A named list with elements: treatment, itns, irs, smc, pmc, vaccine, lsm.
-  Each element contains the output from the corresponding `create_example_*` function.
 }
 \description{
 Creates a comprehensive list containing all intervention types (treatment, ITNs,
 IRS, SMC, PMC, vaccine, and LSM) using default example parameters. Useful for
 testing functions that require a full intervention specification.
 }
-\keyword{(treatment,}
-\keyword{Create}
-\keyword{Creates}
-\keyword{IRS,}
-\keyword{ITNs,}
-\keyword{LSM)}
-\keyword{PMC,}
-\keyword{SMC,}
-\keyword{Useful}
-\keyword{a}
-\keyword{all}
-\keyword{and}
-\keyword{complete}
-\keyword{comprehensive}
-\keyword{containing}
-\keyword{default}
-\keyword{example}
-\keyword{for}
-\keyword{full}
-\keyword{functions}
 \keyword{internal}
-\keyword{intervention}
-\keyword{interventions}
-\keyword{list}
-\keyword{of}
-\keyword{parameters.}
-\keyword{require}
-\keyword{set}
-\keyword{specification.}
-\keyword{testing}
-\keyword{that}
-\keyword{types}
-\keyword{using}
-\keyword{vaccine,}

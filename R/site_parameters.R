@@ -8,17 +8,17 @@
 #' @param clinical_incidence Age breaks for clinical incidence outputs in days; default = c(0, 5, 15, 100) * 365
 #' @param severe_incidence Age breaks for severe incidence outputs in days (pf only); default = c(0, 5, 15, 100) * 365
 #' @param prevalence Age breaks for prevalence outputs in days; default = c(2, 10) * 365
-#' @param parasite Can be "falciparum" or "vivax" for vivax SMC, RTSS
+#' @param parasite Can be "falciparum" or "vivax". For vivax, SMC, RTSS
 #'  and PMC are not implemented
 #' @param eir Site baseline EIR
 #' @param draw malariasimulation parameter draw. Default NULL is best-fit parameter set
 #' @param overrides List of malariasimulation default parameter overrides
-#' @param start_year The year the simulation starts. This should be inclusive of any burnin
-#' (which is reccommended). For example, if the site file data started in year 2000 and I wanted to
-#' specify a 20 year burnin I would set start_year to 1980. Interventions prior to the site file start year are assumed to be 0 coverage, and
+#' @param start_year The year the simulation starts. This should be inclusive of any burn-in
+#' (which is recommended). For example, if the site file data started in year 2000 and I wanted to
+#' specify a 20 year burn-in I would set start_year to 1980. Interventions prior to the site file start year are assumed to be 0 coverage, and
 #' demography set to the same profile as the first site file entry.
 #' @param end_year The end year (inclusive) of the simulation
-#' @param irs_adjust A scaler adjustment to IRS coverage inputs to account for observed discrepancies
+#' @param irs_adjust A scalar adjustment to IRS coverage inputs to account for observed discrepancies
 #' between IRS impact in trial versus real-world implementation.
 #'
 #' @return A malariasimulation parameter list

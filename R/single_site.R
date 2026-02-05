@@ -1,7 +1,7 @@
 #' Extract a subset from a country site file
 #'
 #' @param site Country site file
-#' @param site_filter Data.frame to filter site file elements by. Filtering will
+#' @param site_filter data frame to filter site file elements by. Filtering will
 #' be conducted on any matched columns for each element.
 #' @param skip Character vector of field names to preserve without filtering.
 #' Default is c("country", "version", "admin_level", "sites").
@@ -31,7 +31,7 @@ subset_site <- function(site, site_filter, skip = c("country", "version", "admin
 #' Recursively filter site file elements
 #'
 #' @param x Site file element (can be data.frame, list, or other)
-#' @param site_filter Data.frame to filter by
+#' @param site_filter data frame to filter by
 #'
 #' @return Filtered element
 filter_recursive <- function(x, site_filter) {
@@ -55,7 +55,7 @@ filter_recursive <- function(x, site_filter) {
 #' Matched join
 #'
 #' @param x Site file element
-#' @param y Data.frame to match for
+#' @param y data frame to match for
 #'
 #' @return Site file element filtered by y
 match_by_names <- function(x, y){

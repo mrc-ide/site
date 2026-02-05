@@ -90,6 +90,19 @@ test_that("Net type is checked", {
   )
 })
 
+test_that("Missing join keys between itn and resistance is flagged", {
+  resistance_no_join <- example_resistance
+  names(resistance_no_join) <- c("site", "time", "pyrethroid_resistance")
+  expect_error(
+    p1 <- add_itns(
+      p = p0,
+      itn = example_itns_complete,
+      resistance = resistance_no_join
+    ),
+    "No shared columns"
+  )
+})
+
 test_that("Introduced NAs get flagged", {
   na_example_resistance <- example_resistance
   na_example_resistance$pyrethroid_resistance[1] <- 100

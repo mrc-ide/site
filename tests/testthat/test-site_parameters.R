@@ -1,23 +1,23 @@
 example_site <- create_example_site()
 usage_timestep <- calendar_to_timestep(
-  year = example_site$interventions$itns$use$year,
-  day_of_year = example_site$interventions$itns$use$usage_day_of_year,
-  start_year = 2000
+year = example_site$interventions$itn$use$year,
+day_of_year = example_site$interventions$itn$use$usage_day_of_year,
+start_year = 2000
 )
 implementation_timestep <- calendar_to_timestep(
-  year = example_site$interventions$itns$implementation$year,
-  day_of_year = example_site$interventions$itns$implementation$distribution_day_of_year,
+  year = example_site$interventions$itn$implementation$year,
+  day_of_year = example_site$interventions$itn$implementation$distribution_day_of_year,
   start_year = 2000
 )
-example_site$interventions$itns$implementation$itn_input_dist <-
+example_site$interventions$itn$implementation$itn_input_dist <-
   netz::usage_to_model_distribution(
-    usage = example_site$interventions$itns$use$itn_use,
+    usage = example_site$interventions$itn$use$itn_use,
     usage_timesteps = usage_timestep,
     distribution_timesteps = implementation_timestep,
-    distribution_lower = example_site$interventions$itns$implementation$distribution_lower,
-    distribution_upper = example_site$interventions$itns$implementation$distribution_upper,
+    distribution_lower = example_site$interventions$itn$implementation$distribution_lower,
+    distribution_upper = example_site$interventions$itn$implementation$distribution_upper,
     net_loss_function = netz::net_loss_map,
-    half_life = example_site$interventions$itns$retention_half_life
+    half_life = example_site$interventions$itn$retention_half_life
   )
 
 start_year <- 2000
