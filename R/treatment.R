@@ -52,6 +52,7 @@ add_treatment <- function(p, treatment) {
   # Assuming treatment changes happen on January 1st
   timesteps <- calendar_to_timestep(
     year = treatment$implementation$year,
+    day_of_year = treatment$implementation$day_of_year,
     start_year = p$start_year
   )
 

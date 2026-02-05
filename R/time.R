@@ -111,5 +111,13 @@ calendar_to_timestep <- function(
   # Add the specific day within the target year
   timestep <- days_from_years + day_of_year
 
+  if (length(timestep) > 1 && any(diff(timestep) < 0)) {
+    stop(
+      "Resulting timesteps are not monotonically increasing. ",
+      "Ensure your time inputs are ordered by time (year, then day of year), ",
+      "or sort them before calculating timesteps."
+    )
+  }
+
   return(timestep)
 }

@@ -17,6 +17,8 @@ library(site)
 
 Interventions contains the historical intervention information for a site. It is also the section of the site file that you would modify with intervention information for future scenarios. Details, references and methods for individual interventions are shown below:
 
+Note on time: The model assumes all years have 365 days (no leap years). Intervention time points are therefore specified using a `year` column plus a "day_of_year" column, where day of year runs from 1 to 365 inclusive.
+
 ## ITNs
 
 `site_file$interventions$itn$implementation`
@@ -133,6 +135,8 @@ constant, continuing level of coverage.
 Treatment implementation details
 
 ### Variables
+`year` Year at which coverage changes  
+`day_of_year` Day of the year at which coverage changes  
 `tx_cov` Effective treatment coverage  
 `prop_act` Proportion of first line treatments that are an ACT
 
@@ -213,6 +217,8 @@ option.
 Vaccine implementation details
 
 ### Variables
+`year` Year at which coverage changes  
+`day_of_year` Day of the year at which coverage changes  
 `r21_primary_cov` Coverage of R21 primary series  
 `rtss_primary_cov` Coverage of RTS,S primary series  
 `peak_season` Rainfall seasonal peak day of the year  
@@ -285,6 +291,8 @@ For age-based delivery booster timing is calculated relative to when an individu
 PMC implementation information
 
 ### Variables
+`year` Year at which coverage changes  
+`day_of_year` Day of the year at which coverage changes  
 `pmc_cov` PMC coverage
 
 ### Description
@@ -330,6 +338,8 @@ Assumed an age-based delivery through EPI
 Larval source management
 
 ### Variables
+`year` Year at which coverage changes  
+`day_of_year` Day of the year at which coverage changes  
 `lsm_cov` Proportion of breeding sites removed
 
 ### Description

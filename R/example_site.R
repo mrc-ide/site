@@ -25,6 +25,8 @@ create_example_irs <- function() {
 #' retention parameters, usage data, and multiple distribution events including
 #' mass and routine distributions across different net types.
 #'
+#' @param itn_use Numeric vector. ITN use values by year; length should match
+#'   the years used in the example (default: 2000:2002).
 #' @return A list containing:
 #'   - `retention_half_life`: Numeric half-life of net retention
 #'   - `use`: Data frame with name, year, itn_use, usage_day_of_year
@@ -116,6 +118,7 @@ create_example_pmc <- function() {
     implementation = data.frame(
       name = "place",
       year = 2000:2003,
+      day_of_year = 1,
       pmc_cov = 0.1
     )
   )
@@ -170,6 +173,7 @@ create_example_vaccine <- function(
   implementation <- data.frame(
     name = name,
     year = years,
+    day_of_year = 1,
     peak_season = peak_season,
     rtss_primary_cov = 0,
     rtss_booster1_cov = 0,
@@ -235,6 +239,7 @@ create_example_lsm <- function() {
     implementation = data.frame(
       name = "place",
       year = 2000:2002,
+      day_of_year = 1,
       lsm_cov = 0.2
     )
   )
@@ -252,6 +257,7 @@ create_example_treatment <- function() {
     implementation = data.frame(
       name = "place",
       year = 2000:2002,
+      day_of_year = 1,
       tx_cov = 0.1,
       prop_act = 0.2
     )
@@ -264,6 +270,8 @@ create_example_treatment <- function() {
 #' IRS, SMC, PMC, vaccine, and LSM) using default example parameters. Useful for
 #' testing functions that require a full intervention specification.
 #'
+#' @param itn_use Numeric vector. ITN use values to pass to `create_example_itn()`.
+#'   Default: c(0.1, 0.2, 0.5).
 #' @return A named list with elements: treatment, itns, irs, smc, pmc, vaccine, lsm.
 #'   Each element contains the output from the corresponding `create_example_*` function.
 #' @keywords internal
@@ -343,6 +351,8 @@ create_example_vector_species <- function() {
 }
 
 #' Create a skeleton example site
+#' @param itn_use Numeric vector. ITN use values to pass to
+#'   `create_example_interventions()` (default: c(0.1, 0.2, 0.5)).
 #' @return Skeleton example single site
 #' @export
 create_example_site <- function(itn_use = c(0.1, 0.2, 0.5)) {

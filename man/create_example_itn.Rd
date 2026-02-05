@@ -4,7 +4,11 @@
 \alias{create_example_itn}
 \title{Create example ITN intervention data}
 \usage{
-create_example_itn()
+create_example_itn(itn_use = c(0.1, 0.2, 0.5))
+}
+\arguments{
+\item{itn_use}{Numeric vector. ITN use values by year; length should match
+the years used in the example (default: 2000:2002).}
 }
 \value{
 A list containing:

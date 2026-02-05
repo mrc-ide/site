@@ -4,7 +4,11 @@
 \alias{create_example_interventions}
 \title{Create complete set of example interventions}
 \usage{
-create_example_interventions()
+create_example_interventions(itn_use = c(0.1, 0.2, 0.5))
+}
+\arguments{
+\item{itn_use}{Numeric vector. ITN use values to pass to `create_example_itn()`.
+Default: c(0.1, 0.2, 0.5).}
 }
 \value{
 A named list with elements: treatment, itns, irs, smc, pmc, vaccine, lsm.

@@ -61,7 +61,7 @@ add_vaccine <- function(p, vaccine) {
   booster_coverage <- as.matrix(vaccine$implementation[, paste0(
     "vaccine_booster",
     1:n_boosters,
-      "_cov"
+    "_cov"
   )])
   for (j in 1:ncol(booster_coverage)) {
     booster_coverage[, j] <- booster_coverage[, j] /
@@ -75,7 +75,7 @@ add_vaccine <- function(p, vaccine) {
 
   timesteps <- calendar_to_timestep(
     vaccine$implementation$year,
-    day_of_year = rep(1, nrow(vaccine$implementation)),
+    day_of_year = vaccine$implementation$day_of_year,
     start_year = p$start_year
   )
 

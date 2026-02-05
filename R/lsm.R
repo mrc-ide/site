@@ -16,6 +16,7 @@ adjust_carrying_capacity <- function(p, lsm) {
 
   timesteps <- calendar_to_timestep(
     year = lsm$implementation$year,
+    day_of_year = lsm$implementation$day_of_year,
     start_year = p$start_year
   )
 

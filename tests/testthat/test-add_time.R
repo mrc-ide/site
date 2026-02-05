@@ -53,6 +53,16 @@ test_that("calendar_to_timestep works correctly", {
   expect_equal(calendar_to_timestep(2000, 1, 2000), 1) # Same year, first day
   expect_equal(calendar_to_timestep(2000, 365, 2000), 365) # Same year, last day
 
+  # Ordering check
+  expect_equal(
+    calendar_to_timestep(c(2000, 2000), c(1, 2), 2000),
+    c(1, 2)
+  )
+  expect_error(
+    calendar_to_timestep(c(2000, 2000), c(2, 1), 2000),
+    "monotonically increasing"
+  )
+
   # Input validation - should error
   expect_error(calendar_to_timestep("2000", 1, 2000), "must be numeric")
   expect_error(calendar_to_timestep(2000, "1", 2000), "must be numeric")
