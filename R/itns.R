@@ -60,6 +60,130 @@ add_itns <- function(p, itn, resistance) {
   return(p)
 }
 
+#' Convert ITN usage to model input distributions
+#'
+#' A convenience wrapper around [netz::usage_to_model_distribution()] that
+#' accepts year and day-of-year inputs (as found in site files) rather than
+#' pre-computed timesteps.
+#'
+#' @param usage Numeric vector of ITN usage values.
+#' @param usage_year Integer vector of years corresponding to `usage`.
+#' @param usage_day_of_year Integer vector of days of the year corresponding to
+#'   `usage`.
+#' @param distribution_year Integer vector of years for distribution time
+#'   points.
+#' @param distribution_day_of_year Integer vector of days of the year for
+#'   distribution time points.
+#' @param distribution_lower Numeric vector of lower bounds for possible
+#'   distributions. Defaults to 0 for each distribution time point.
+#' @param distribution_upper Numeric vector of upper bounds for possible
+#'   distributions. Defaults to 1 for each distribution time point.
+#' @param net_loss_function Function describing net loss over time. Defaults to
+#'   [netz::net_loss_exp].
+#' @param ... Additional arguments passed to
+#'   [netz::usage_to_model_distribution()] (e.g. `half_life`).
+#'
+#' @return Numeric vector of model input distribution values, one per
+#'   distribution time point.
+#'
+#' @export
+site_usage_to_model_distribution <- function(
+  usage,
+  usage_year,
+  usage_day_of_year,
+  distribution_year,
+  distribution_day_of_year,
+  distribution_lower = NULL,
+  distribution_upper = NULL,
+  net_loss_function = netz::net_loss_exp,
+  ...
+) {
+  reference_start_year <- min(c(usage_year, distribution_year))
+
+  usage_timesteps <- calendar_to_timestep(
+    year = usage_year,
+    day_of_year = usage_day_of_year,
+    start_year = reference_start_year
+  )
+
+  distribution_timesteps <- calendar_to_timestep(
+    year = distribution_year,
+    day_of_year = distribution_day_of_year,
+    start_year = reference_start_year
+  )
+
+  if (is.null(distribution_lower)) {
+    distribution_lower <- rep(0, length(distribution_timesteps))
+  }
+  if (is.null(distribution_upper)) {
+    distribution_upper <- rep(1, length(distribution_timesteps))
+  }
+
+  netz::usage_to_model_distribution(
+    usage = usage,
+    usage_timesteps = usage_timesteps,
+    distribution_timesteps = distribution_timesteps,
+    distribution_lower = distribution_lower,
+    distribution_upper = distribution_upper,
+    net_loss_function = net_loss_function,
+    ...
+  )
+}
+
+#' Convert model input distributions to expected ITN usage
+#'
+#' A convenience wrapper around [netz::model_distribution_to_usage()] that
+#' accepts year and day-of-year inputs (as found in site files) rather than
+#' pre-computed timesteps.
+#'
+#' @param distribution Numeric vector of model input distribution values.
+#' @param usage_year Integer vector of years at which to estimate usage.
+#' @param usage_day_of_year Integer vector of days of the year at which to
+#'   estimate usage.
+#' @param distribution_year Integer vector of years for distribution time
+#'   points.
+#' @param distribution_day_of_year Integer vector of days of the year for
+#'   distribution time points.
+#' @param net_loss_function Function describing net loss over time. Defaults to
+#'   [netz::net_loss_exp].
+#' @param ... Additional arguments passed to
+#'   [netz::model_distribution_to_usage()] (e.g. `half_life`).
+#'
+#' @return Numeric vector of expected usage values, one per usage time point.
+#'
+#' @export
+site_model_distribution_to_usage <- function(
+  distribution,
+  usage_year,
+  usage_day_of_year,
+  distribution_year,
+  distribution_day_of_year,
+  net_loss_function = netz::net_loss_exp,
+  ...
+) {
+  reference_start_year <- min(c(usage_year, distribution_year))
+
+  usage_timesteps <- calendar_to_timestep(
+    year = usage_year,
+    day_of_year = usage_day_of_year,
+    start_year = reference_start_year
+  )
+
+  distribution_timesteps <- calendar_to_timestep(
+    year = distribution_year,
+    day_of_year = distribution_day_of_year,
+    start_year = reference_start_year
+  )
+
+  netz::model_distribution_to_usage(
+    usage_timesteps = usage_timesteps,
+    distribution = distribution,
+    distribution_timesteps = distribution_timesteps,
+    net_loss_function = net_loss_function,
+    ...
+  )
+}
+
 stop_missing_itn_input_dist <- function() {
   cli::cli_abort(c(
     "x" = "Missing required column: {.field itn_input_dist} in {.code itn$implementation}",
@@ -71,22 +195,13 @@ stop_missing_itn_input_dist <- function() {
     " " = "",
     "v" = "{.strong How to create this column:}",
     " " = "",
-    "1" = "{.strong Convert calendar dates to timesteps:}",
-    " " = "  usage_timesteps <- site::calendar_to_timestep(",
-    " " = "    year = site$interventions$itn$use$year,",
-    " " = "    day_of_year = site$interventions$itn$use$usage_day_of_year,",
-    " " = "    start_year = site$metadata$start_year)",
-    " " = "",
-    " " = "  distribution_timesteps <- site::calendar_to_timestep(",
-    " " = "    year = site$interventions$itn$implementation$year,",
-    " " = "    day_of_year = site$interventions$itn$implementation$distribution_day_of_year,",
-    " " = "    start_year = site$metadata$start_year)",
-    " " = "",
-    "2" = "{.strong Calculate input distributions with {.fn netz::usage_to_model_distribution}:}",
-    " " = "  site$interventions$itn$implementation$itn_input_dist <- netz::usage_to_model_distribution(",
+    "1" = "{.strong Calculate input distributions with {.fn site::site_usage_to_model_distribution}:}",
+    " " = "  site$interventions$itn$implementation$itn_input_dist <- site::site_usage_to_model_distribution(",
     " " = "    usage = site$interventions$itn$use$itn_use,",
-    " " = "    usage_timesteps = usage_timesteps,",
-    " " = "    distribution_timesteps = distribution_timesteps,",
+    " " = "    usage_year = site$interventions$itn$use$year,",
+    " " = "    usage_day_of_year = site$interventions$itn$use$usage_day_of_year,",
+    " " = "    distribution_year = site$interventions$itn$implementation$year,",
+    " " = "    distribution_day_of_year = site$interventions$itn$implementation$distribution_day_of_year,",
     " " = "    distribution_lower = site$interventions$itn$implementation$distribution_lower,",
     " " = "    distribution_upper = site$interventions$itn$implementation$distribution_upper,",
     " " = "    net_loss_function = netz::net_loss_map,",
@@ -99,12 +214,14 @@ stop_missing_itn_input_dist <- function() {
     " " = "Do this for one location at a time (times/years must be monotonically increasing)",
     " " = "",
     "!" = "{.strong Recommended validation step:}",
-    " " = "Check your predicted usage against target usage using {.fn netz::model_distribution_to_usage}:",
+    " " = "Check your predicted usage against target usage using {.fn site::site_model_distribution_to_usage}:",
     " " = "",
-    " " = "  site$interventions$itn$use$expected_use <- netz::model_distribution_to_usage(",
+    " " = "  site$interventions$itn$use$expected_use <- site::site_model_distribution_to_usage(",
     " " = "    distribution = site$interventions$itn$implementation$itn_input_dist,",
-    " " = "    usage_timesteps = usage_timesteps,",
-    " " = "    distribution_timesteps = distribution_timesteps,",
+    " " = "    usage_year = site$interventions$itn$use$year,",
+    " " = "    usage_day_of_year = site$interventions$itn$use$usage_day_of_year,",
+    " " = "    distribution_year = site$interventions$itn$implementation$year,",
+    " " = "    distribution_day_of_year = site$interventions$itn$implementation$distribution_day_of_year,",
     " " = "    net_loss_function = netz::net_loss_map,",
     " " = "    half_life = site$interventions$itn$retention_half_life)",
     " " = "",

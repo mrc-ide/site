@@ -1,35 +1,15 @@
 example_itns <- create_example_itn()
-
-d <- calendar_to_timestep(
-  example_itns$implementation$year,
-  example_itns$implementation$distribution_day_of_year,
-  start_year = 2000
-)
-usage_timestep <- calendar_to_timestep(
-  example_itns$use$year,
-  example_itns$use$usage_day_of_year,
-  start_year = 2000
-)
-
 example_resistance <- create_example_resistance()
 
 example_itns_complete <- create_example_itn()
 
-usage_timestep <- calendar_to_timestep(
-  year = example_itns_complete$use$year,
-  day_of_year = example_itns_complete$use$usage_day_of_year,
-  start_year = 2000
-)
-implementation_timestep <- calendar_to_timestep(
-  year = example_itns_complete$implementation$year,
-  day_of_year = example_itns_complete$implementation$distribution_day_of_year,
-  start_year = 2000
-)
 example_itns_complete$implementation$itn_input_dist <-
-  netz::usage_to_model_distribution(
+  site_usage_to_model_distribution(
     usage = example_itns_complete$use$itn_use,
-    usage_timesteps = usage_timestep,
-    distribution_timesteps = implementation_timestep,
+    usage_year = example_itns_complete$use$year,
+    usage_day_of_year = example_itns_complete$use$usage_day_of_year,
+    distribution_year = example_itns_complete$implementation$year,
+    distribution_day_of_year = example_itns_complete$implementation$distribution_day_of_year,
     distribution_lower = example_itns_complete$implementation$distribution_lower,
     distribution_upper = example_itns_complete$implementation$distribution_upper,
     net_loss_function = netz::net_loss_map,
@@ -114,4 +94,106 @@ test_that("Introduced NAs get flagged", {
     ),
     "NA values found.*bioassay"
   )
+})
+
+test_that("site_usage_to_model_distribution matches netz directly", {
+  itn <- create_example_itn()
+  ref_start <- min(c(itn$use$year, itn$implementation$year))
+
+  usage_ts <- calendar_to_timestep(
+    itn$use$year, itn$use$usage_day_of_year, start_year = ref_start
+  )
+  dist_ts <- calendar_to_timestep(
+    itn$implementation$year,
+    itn$implementation$distribution_day_of_year,
+    start_year = ref_start
+  )
+
+  expected <- netz::usage_to_model_distribution(
+    usage = itn$use$itn_use,
+    usage_timesteps = usage_ts,
+    distribution_timesteps = dist_ts,
+    distribution_lower = itn$implementation$distribution_lower,
+    distribution_upper = itn$implementation$distribution_upper,
+    net_loss_function = netz::net_loss_map,
+    half_life = itn$retention_half_life
+  )
+
+  result <- site_usage_to_model_distribution(
+    usage = itn$use$itn_use,
+    usage_year = itn$use$year,
+    usage_day_of_year = itn$use$usage_day_of_year,
+    distribution_year = itn$implementation$year,
+    distribution_day_of_year = itn$implementation$distribution_day_of_year,
+    distribution_lower = itn$implementation$distribution_lower,
+    distribution_upper = itn$implementation$distribution_upper,
+    net_loss_function = netz::net_loss_map,
+    half_life = itn$retention_half_life
+  )
+
+  expect_equal(result, expected)
+})
+
+test_that("site_usage_to_model_distribution defaults work", {
+
+  itn <- create_example_itn()
+
+  # Should work with defaults for distribution_lower and distribution_upper
+  result <- site_usage_to_model_distribution(
+    usage = itn$use$itn_use,
+    usage_year = itn$use$year,
+    usage_day_of_year = itn$use$usage_day_of_year,
+    distribution_year = itn$implementation$year,
+    distribution_day_of_year = itn$implementation$distribution_day_of_year,
+    net_loss_function = netz::net_loss_map,
+    half_life = itn$retention_half_life
+  )
+
+  expect_length(result, nrow(itn$implementation))
+  expect_true(all(result >= 0))
+  expect_true(all(result <= 1))
+})
+
+test_that("site_model_distribution_to_usage matches netz directly", {
+  itn <- create_example_itn()
+  ref_start <- min(c(itn$use$year, itn$implementation$year))
+
+  usage_ts <- calendar_to_timestep(
+    itn$use$year, itn$use$usage_day_of_year, start_year = ref_start
+  )
+  dist_ts <- calendar_to_timestep(
+    itn$implementation$year,
+    itn$implementation$distribution_day_of_year,
+    start_year = ref_start
+  )
+
+  input_dist <- netz::usage_to_model_distribution(
+    usage = itn$use$itn_use,
+    usage_timesteps = usage_ts,
+    distribution_timesteps = dist_ts,
+    distribution_lower = itn$implementation$distribution_lower,
+    distribution_upper = itn$implementation$distribution_upper,
+    net_loss_function = netz::net_loss_map,
+    half_life = itn$retention_half_life
+  )
+
+  expected <- netz::model_distribution_to_usage(
+    usage_timesteps = usage_ts,
+    distribution = input_dist,
+    distribution_timesteps = dist_ts,
+    net_loss_function = netz::net_loss_map,
+    half_life = itn$retention_half_life
+  )
+
+  result <- site_model_distribution_to_usage(
+    distribution = input_dist,
+    usage_year = itn$use$year,
+    usage_day_of_year = itn$use$usage_day_of_year,
+    distribution_year = itn$implementation$year,
+    distribution_day_of_year = itn$implementation$distribution_day_of_year,
+    net_loss_function = netz::net_loss_map,
+    half_life = itn$retention_half_life
+  )
+
+  expect_equal(result, expected)
 })

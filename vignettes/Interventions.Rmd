@@ -44,7 +44,7 @@ from the malaria atlas project.
 
 Available data on ITN use will not extend to the present year. Missing ITN use estimates to present are filled assuming a constant, continuing level of coverage. To respect the multi-year cyclical nature of ITN distribution cycles any missing estimates are filled in assuming that coverage is constant with respect to 3 years prior. For example if years 2024, 2025 and 2026 are missing then 2024 == 2021, 2025 == 2022 and 2026 == 2023.
 
-⚠️ **Warning:** For ITNs to work when passed to `site::site_parameters()` you will need to specify a column: `site_file$interventions$itn$implementation$itn_input_dist` indicating the size of the model ITN distributions each year. This is **not** the same as ITN usage. Please call `stop_missing_itn_input_dist()` for more information.
+⚠️ **Warning:** For ITNs to work when passed to `site::site_parameters()` you will need to specify a column: `site_file$interventions$itn$implementation$itn_input_dist` indicating the size of the model ITN distributions each year. This is **not** the same as ITN usage. Use `site::site_usage_to_model_distribution()` to convert usage to model input distributions, or call `stop_missing_itn_input_dist()` for full details.
 
 Given an ITN type and level of pyrethroid insecticide resistance, the site package will link to
 corresponding estimates of the key ITN efficacy parameters.
