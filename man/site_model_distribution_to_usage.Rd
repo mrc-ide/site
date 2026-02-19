@@ -10,7 +10,7 @@ site_model_distribution_to_usage(
   usage_day_of_year,
   distribution_year,
   distribution_day_of_year,
-  net_loss_function = netz::net_loss_exp,
+  net_loss_function = netz::net_loss_map,
   ...
 )
 }
@@ -29,10 +29,9 @@ points.}
 distribution time points.}
 
 \item{net_loss_function}{Function describing net loss over time. Defaults to
-[netz::net_loss_exp].}
+[netz::net_loss_map].}
 
-\item{...}{Additional arguments passed to
-[netz::model_distribution_to_usage()] (e.g. `half_life`).}
+\item{...}{Additional arguments passed to the net_loss_function (e.g. `half_life`).}
 }
 \value{
 Numeric vector of expected usage values, one per usage time point.

@@ -79,9 +79,8 @@ add_itns <- function(p, itn, resistance) {
 #' @param distribution_upper Numeric vector of upper bounds for possible
 #'   distributions. Defaults to 1 for each distribution time point.
 #' @param net_loss_function Function describing net loss over time. Defaults to
-#'   [netz::net_loss_exp].
-#' @param ... Additional arguments passed to
-#'   [netz::usage_to_model_distribution()] (e.g. `half_life`).
+#'   [netz::net_loss_map].
+#' @param ... Additional arguments passed to the net_loss_function (e.g. `half_life`).
 #'
 #' @return Numeric vector of model input distribution values, one per
 #'   distribution time point.
@@ -95,7 +94,7 @@ site_usage_to_model_distribution <- function(
   distribution_day_of_year,
   distribution_lower = NULL,
   distribution_upper = NULL,
-  net_loss_function = netz::net_loss_exp,
+  net_loss_function = netz::net_loss_map,
   ...
 ) {
   reference_start_year <- min(c(usage_year, distribution_year))
@@ -145,9 +144,8 @@ site_usage_to_model_distribution <- function(
 #' @param distribution_day_of_year Integer vector of days of the year for
 #'   distribution time points.
 #' @param net_loss_function Function describing net loss over time. Defaults to
-#'   [netz::net_loss_exp].
-#' @param ... Additional arguments passed to
-#'   [netz::model_distribution_to_usage()] (e.g. `half_life`).
+#'   [netz::net_loss_map].
+#' @param ... Additional arguments passed to the net_loss_function (e.g. `half_life`).
 #'
 #' @return Numeric vector of expected usage values, one per usage time point.
 #'
@@ -158,7 +156,7 @@ site_model_distribution_to_usage <- function(
   usage_day_of_year,
   distribution_year,
   distribution_day_of_year,
-  net_loss_function = netz::net_loss_exp,
+  net_loss_function = netz::net_loss_map,
   ...
 ) {
   reference_start_year <- min(c(usage_year, distribution_year))

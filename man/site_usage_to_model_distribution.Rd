@@ -12,7 +12,7 @@ site_usage_to_model_distribution(
   distribution_day_of_year,
   distribution_lower = NULL,
   distribution_upper = NULL,
-  net_loss_function = netz::net_loss_exp,
+  net_loss_function = netz::net_loss_map,
   ...
 )
 }
@@ -37,10 +37,9 @@ distributions. Defaults to 0 for each distribution time point.}
 distributions. Defaults to 1 for each distribution time point.}
 
 \item{net_loss_function}{Function describing net loss over time. Defaults to
-[netz::net_loss_exp].}
+[netz::net_loss_map].}
 
-\item{...}{Additional arguments passed to
-[netz::usage_to_model_distribution()] (e.g. `half_life`).}
+\item{...}{Additional arguments passed to the net_loss_function (e.g. `half_life`).}
 }
 \value{
 Numeric vector of model input distribution values, one per
