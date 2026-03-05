@@ -87,7 +87,7 @@ plot_site_prevalence <- function(prevalence, title = NULL) {
 
   ggplot2::ggplot(
     plot_data,
-    ggplot2::aes(x = year + 0.5, y = .data$Prevalence, colour = .data$Species)
+    ggplot2::aes(x = .data$year + 0.5, y = .data$Prevalence, colour = .data$Species)
   ) +
     year_shading_layer(year_shading) +
     ggplot2::geom_line() +
@@ -176,7 +176,7 @@ plot_pyrethroid_resistance <- function(pyrethroid_resistance, title = NULL) {
 
   ggplot2::ggplot(
     pyrethroid_resistance,
-    ggplot2::aes(x = year + 0.5, y = .data$pyrethroid_resistance)
+    ggplot2::aes(x = .data$year + 0.5, y = .data$pyrethroid_resistance)
   ) +
     year_shading_layer(year_shading) +
     ggplot2::geom_line() +
@@ -221,11 +221,11 @@ plot_age_distribution_stacked <- function(
     dplyr::summarise(
       par = sum(.data$par),
       pop = sum(.data$pop),
-      .by = c(year, age_group)
+      .by = c("year", "age_group")
     )
 
   pop_totals <- plot_data |>
-    dplyr::summarise(pop = sum(.data$pop), .by = year)
+    dplyr::summarise(pop = sum(.data$pop), .by = "year")
 
   years <- sort(unique(plot_data$year))
   max_y <- max(pop_totals$pop)
