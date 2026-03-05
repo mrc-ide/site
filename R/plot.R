@@ -101,7 +101,10 @@ plot_site_prevalence <- function(prevalence, title = NULL) {
       name = NULL
     ) +
     ggplot2::scale_x_continuous(breaks = years + 0.5, labels = years) +
-    ggplot2::scale_y_continuous(limits = c(0, NA), expand = c(0, 0.02)) +
+    ggplot2::scale_y_continuous(
+      limits = c(0, NA),
+      expand = ggplot2::expansion(mult = c(0, 0.05))
+    ) +
     ggplot2::labs(x = "Year", y = "Prevalence", title = title) +
     theme_site()
 }
@@ -138,10 +141,7 @@ plot_vector_species <- function(vector_species, title = NULL) {
       )
     )
 
-  species_colours <- stats::setNames(
-    site_vector_palette(nrow(vs)),
-    levels(vs$species)
-  )
+  species_colours <- species_colour_lookup(levels(vs$species))
 
   ggplot2::ggplot(
     vs_long,
@@ -256,7 +256,7 @@ plot_age_distribution_stacked <- function(
     ) +
     ggplot2::scale_x_continuous(breaks = years) +
     ggplot2::scale_y_continuous(
-      labels = scales::label_comma(),
+      labels = label_fixed_width(scales::label_comma()),
       expand = c(0, 0)
     ) +
     ggplot2::labs(x = "Year", y = "Population", title = title) +
@@ -862,6 +862,24 @@ year_shading_data <- function(
   }
 }
 
+#' Fixed-width axis label formatter
+#'
+#' Wraps a label function to right-pad its output to a consistent character
+#' width. This prevents plot panels from shifting when label widths vary
+#' across pages in multi-page documents.
+#'
+#' @param label_fn A labelling function (e.g. [scales::label_comma()]).
+#' @param width Minimum character width to pad to. Default 11 accommodates
+#'   comma-formatted values up to 99,999,999.
+#' @return A labelling function that returns fixed-width character strings.
+#' @keywords internal
+label_fixed_width <- function(label_fn, width = 11) {
+  function(x) {
+    labs <- label_fn(x)
+    sprintf(paste0("%", width, "s"), labs)
+  }
+}
+
 #' Year shading geom_rect layer
 #'
 #' @param shading_data Data frame from [year_shading_data()].
@@ -880,4 +898,58 @@ year_shading_layer <- function(shading_data) {
     fill = "grey93",
     colour = NA
   )
+}
+
+#' Known malaria vector species
+#'
+#' @return Character vector of all known vector species names.
+#' @keywords internal
+known_vector_species <- function() {
+  c(
+    "arabiensis", "gambiae", "funestus", "aconitus", "annularis",
+    "anthropophagus", "argyropus", "baimaii", "balabacensis",
+    "barbirostris", "barbumbrosus", "cracens", "culicifacies",
+    "d'thali", "dirus", "epiroticus", "farauti", "flavirostris",
+    "fluviatilis", "gigas", "harrisoni", "hinesorum", "hyrcanus",
+    "indefinitus", "insulaeflorum", "jamesii", "karwari", "kochi",
+    "koliensis", "latens", "leucosphyrus", "maculatus", "minimus",
+    "nigerrimus", "nivipes", "pallidus", "pampanai", "peditaeniatus",
+    "philippinensis", "pseudojamesi", "pulcherrimus", "punctulatus",
+    "sawadwongporni", "sinensis", "splendidus", "stephensi", "subpictus",
+    "sundaicus", "superpictus", "tessellatus", "umbrosus", "vagus",
+    "vanus", "varuna", "parangensis", "aitkenii", "jeyporiensis",
+    "turkhudi", "vargus", "willmori", "albimanus", "albitarsis",
+    "aquasalis", "atroparvus", "darlingi", "freeborni", "labranchiae",
+    "lesteri", "marajoara", "melas", "merus", "messeae", "moucheti",
+    "nili", "nuneztovari", "pseudopuncti", "quadrimacul", "sacharovi",
+    "sergentii"
+  )
+}
+
+#' Look up fixed colours for vector species
+#'
+#' Returns a named character vector of colours for the given species names.
+#' Each species always maps to the same colour regardless of which subset
+#' is plotted, ensuring visual consistency across multi-page reports.
+#'
+#' @param species Character vector of species names (title case).
+#' @return Named character vector of hex colours.
+#' @keywords internal
+species_colour_lookup <- function(species) {
+  fixed <- c(
+    Gambiae = "#2A9D8F",
+    Funestus = "#E76F51",
+    Arabiensis = "#1B2A6C"
+  )
+  remaining <- known_vector_species()
+  remaining <- remaining[!remaining %in% c("gambiae", "funestus", "arabiensis")]
+  remaining <- tools::toTitleCase(remaining)
+  n <- length(remaining)
+  hues <- seq(0, 360 - 360 / n, length.out = n)
+  generated <- stats::setNames(
+    grDevices::hcl(h = hues, c = 70, l = 55),
+    remaining
+  )
+  lookup <- c(fixed, generated)
+  lookup[species]
 }
