@@ -1,7 +1,7 @@
 Package: site
 Type: Package
 Title: Site specific malariasimulation modelling
-Version: 1.0.10
+Version: 1.0.11
 Authors@R: c(
     person("Pete", "Winskill", email = "p.winskill@imperial.ac.uk", role = c("aut", "cre"))
     )
@@ -19,13 +19,17 @@ Depends:
     R (>= 3.5),
     sf
 Imports:
-    orderly,
     cli,
     dplyr,
+    ggplot2,
     malariasimulation,
+    orderly,
+    patchwork,
     rappdirs,
     rlang,
+    scales,
     stringr,
+    tidyr,
     withr
 Suggests:
     testthat (>= 3.0.0),
