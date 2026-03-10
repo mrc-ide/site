@@ -52,6 +52,15 @@ These are composed in `R/interventions.R` which calls each module in sequence.
 - `R/fetch.R` - Downloads site files from the malariaverse Packit server via `orderly`
 - `R/badge.R` - Data provenance badge functions for tracking data sources
 
+### Visualization
+
+- `R/plot.R` - Diagnostic plotting functions for site data
+  - `plot_site_diagnostic()` - Composite 6-panel dashboard (map, prevalence, interventions, vectors, resistance, age distribution) assembled with `patchwork`
+  - `plot_interventions()` / `plot_site_interventions()` - Multi-layer intervention timeline (ITN, SMC, IRS, treatment, vaccines, PMC, LSM, rainfall)
+  - Individual plots: `plot_site_prevalence()`, `plot_vector_species()`, `plot_pyrethroid_resistance()`, `plot_age_distribution_stacked()`, `plot_site_map()`
+  - Theme/palette helpers: `theme_site()`, `site_age_palette()`, `site_vector_palette()`, `default_intervention_colours()`
+  - Internal `prepare_*` helpers handle data wrangling per intervention type before plotting
+
 ### Data
 
 - `data/net_efficacy.rda` and `data/irs_efficacy.rda` - Lookup tables for intervention efficacy parameters
@@ -62,6 +71,7 @@ These are composed in `R/interventions.R` which calls each module in sequence.
 - `malariasimulation` (from `mrc-ide/malariasimulation@dev`) - The simulation engine
 - `netz` (from `mrc-ide/netz@site-2601`) - Net distribution modelling
 - `orderly` - Data pipeline/reproducibility framework for fetching site files
+- `ggplot2` / `patchwork` - Plotting and multi-panel composition (`R/plot.R`)
 
 ## Workflow Preferences
 
