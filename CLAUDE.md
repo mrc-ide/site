@@ -51,6 +51,12 @@ These are composed in `R/interventions.R` which calls each module in sequence.
 - `R/single_site.R` - `subset_site()` filters site files by country/ISO/name
 - `R/fetch.R` - Downloads site files from the malariaverse Packit server via `orderly`
 - `R/badge.R` - Data provenance badge functions for tracking data sources
+- `R/plot.R` - Diagnostic visualisations of site data. Key public functions:
+  - `plot_site_diagnostic(site)` — composite 6-panel patchwork report (map, prevalence, interventions, vectors, resistance, age distribution)
+  - `plot_interventions()` / `plot_site_interventions(site)` — multi-layer intervention coverage overlaid on rainfall seasonality
+  - `plot_site_prevalence()`, `plot_vector_species()`, `plot_pyrethroid_resistance()`, `plot_age_distribution_stacked()`, `plot_site_map()` — individual diagnostic panels
+  - `theme_site()`, `site_age_palette()`, `site_vector_palette()` — shared theme and palettes; use these when adding new plots for visual consistency
+  - `default_intervention_colours()` / `default_intervention_labels()` — customisable colour/label vectors for `plot_interventions()`
 
 ### Data
 
