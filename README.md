@@ -13,6 +13,14 @@ public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostat
 coverage](https://codecov.io/gh/mrc-ide/site/graph/badge.svg)](https://app.codecov.io/gh/mrc-ide/site)
 <!-- badges: end -->
 
+> ## 📢 Heads-up: major update coming
+>
+> The malariaverse site files and several supporting packages are about to
+> receive a significant update that will change the site-file structure and may
+> **break existing workflows**. **Please read [Upcoming changes to
+> malariaverse](https://mrc-ide.github.io/site/articles/Upcoming-changes.html)**
+> for what's changing, timing, and how to keep reproducing existing work.
+
 The site package supports malariaverse users to:
 
 1.  Access and download the latest country site-files 🌐 ➡️ 💻
