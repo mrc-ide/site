@@ -2,3 +2,12 @@ url: ~
 template:
   bootstrap: 5
 
+navbar:
+  structure:
+    left:  [intro, changes, articles, news]
+    right: [search, github]
+  components:
+    changes:
+      text: 📢 Upcoming changes
+      href: articles/Upcoming-changes.html
+
