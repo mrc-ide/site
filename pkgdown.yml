@@ -1,4 +1,4 @@
-pandoc: 3.1.11
+pandoc: 3.8.3
 pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
@@ -8,5 +8,6 @@ articles:
   Metadata: Metadata.html
   pop_demog: pop_demog.html
   Seasonality: Seasonality.html
+  Upcoming-changes: Upcoming-changes.html
   vectors: vectors.html
-last_built: 2026-01-06T10:05Z
+last_built: 2026-06-08T11:28Z

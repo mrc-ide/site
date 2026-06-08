@@ -8,4 +8,5 @@
 - [Metadata](Metadata.md):
 - [Population and Demography](pop_demog.md):
 - [Seasonality](Seasonality.md):
+- [Upcoming changes to malariaverse](Upcoming-changes.md):
 - [Mosquito Vectors](vectors.md):
