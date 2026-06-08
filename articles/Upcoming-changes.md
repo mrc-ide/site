@@ -68,6 +68,9 @@ pak::pak(c(
 ))
 ```
 
+Remember, you can see al available site-files and versions by calling
+[`site::available_sites()`](../reference/available_sites.md)
+
 ## 🗓️ Timing
 
 We expect to merge these changes in the next month or so. If you have
