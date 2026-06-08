@@ -1,6 +1,6 @@
 # site ![](reference/figures/Site.png)
 
-> ## 📢 Heads-up: major update coming
+> ## 📢 Advance notice of a major update
 >
 > The malariaverse site files and several supporting packages are about
 > to receive a significant update that will change the site-file
