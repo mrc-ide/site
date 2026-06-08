@@ -39,7 +39,7 @@ include:
   corrected SMC/PMC round timing.
 - ⚠️ `itn_model_dist` is now a **required** input (with helper functions and a
   detailed error message to guide you if it's missing).
-- ☠️ The previous fixed shortcut (malaria deaths taken as a constant multiple
+- 🏥 The previous fixed shortcut (malaria deaths taken as a constant multiple
   of hospitalised severe incidence) is replaced by an explicit calculation that
   splits severe cases into **hospital and community streams**, each with its own
   case-fatality ratio.
