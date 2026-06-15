@@ -10,6 +10,13 @@
 #' @export
 subset_site <- function(site, site_filter, skip = c("country", "version", "admin_level", "sites")){
 
+  # Guard against legacy site-file structures
+  check_site_structure(
+    interventions = site$interventions,
+    vectors = site$vectors,
+    seasonality = site$seasonality
+  )
+
   # Extract metadata fields that should be preserved
   sub_site <- list()
   for (name in skip) {

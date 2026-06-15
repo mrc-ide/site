@@ -40,6 +40,12 @@ site_parameters <- function(
   end_year,
   irs_adjust = 0.75
 ) {
+  # Guard against legacy site-file structures
+  check_site_structure(
+    interventions = interventions,
+    vectors = vectors,
+    seasonality = seasonality
+  )
   # Baseline parameters
   p <- malariasimulation::get_parameters(
     overrides = overrides,

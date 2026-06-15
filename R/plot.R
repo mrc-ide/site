@@ -603,6 +603,12 @@ plot_interventions <- function(
   years = NULL,
   title = NULL
 ) {
+  # Guard against legacy site-file structures
+  check_site_structure(
+    interventions = interventions,
+    seasonality = seasonality
+  )
+
   if (is.null(years)) {
     all_years <- c(
       interventions$itn$use$year,
@@ -794,6 +800,13 @@ plot_site_interventions <- function(site, ...) {
 #' @return A patchwork object
 #' @export
 plot_site_diagnostic <- function(site, max_year = 2030) {
+  # Guard against legacy site-file structures
+  check_site_structure(
+    interventions = site$interventions,
+    vectors = site$vectors,
+    seasonality = site$seasonality
+  )
+
   map <- plot_site_map(site)
   prev <- plot_site_prevalence(site$prevalence, title = "Prevalence")
   int <- plot_site_interventions(site, title = "Interventions")
