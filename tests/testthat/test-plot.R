@@ -151,3 +151,159 @@ test_that("prepare_segment_intervention formats data correctly", {
   expect_equal(result$value, c(0.5, 0.8))
   expect_equal(result$t, c(2000 + 100 / 365, 2001 + 200 / 365))
 })
+
+# ---- Rainfall / continuous preparation --------------------------------------
+
+test_that("prepare_rainfall_bars normalises rainfall to the maximum", {
+  monthly <- data.frame(
+    year = rep(2000:2001, each = 2),
+    t = rep(c(15, 200), 2),
+    rainfall = c(50, 100, 25, 75)
+  )
+  result <- prepare_rainfall_bars(monthly)
+  expect_named(result, c("t", "value", "element"))
+  expect_equal(max(result$value), 1)
+  expect_true(all(result$element == "rainfall_bars"))
+})
+
+test_that("prepare_rainfall_profile expands over years and normalises", {
+  fourier <- data.frame(t = c(1, 183, 365), profile = c(10, 50, 10))
+  result <- prepare_rainfall_profile(fourier, years = 2000:2002, max_rainfall = 100)
+  expect_named(result, c("t", "value", "element"))
+  expect_equal(nrow(result), 3 * 3)
+  expect_equal(max(result$value), 0.5)
+  expect_true(all(result$element == "rainfall_profile"))
+})
+
+test_that("prepare_continuous_interventions pivots and recodes vaccine columns", {
+  interventions <- create_example_interventions()
+  result <- prepare_continuous_interventions(interventions, years = 2000:2002)
+  expect_named(result, c("t", "element", "value"))
+  expect_true(all(c("tx_cov", "pmc_cov", "lsm_cov") %in% result$element))
+  # rtss_primary_cov is recoded to the legend element name rtss_cov
+  expect_true("rtss_cov" %in% result$element)
+  expect_false("rtss_primary_cov" %in% result$element)
+  expect_false(any(is.na(result$value)))
+})
+
+test_that("prepare_itn errors when itn_input_dist is missing", {
+  itn <- create_example_itn()
+  expect_error(
+    prepare_itn(
+      itn$implementation,
+      itn$use,
+      itn$retention_half_life,
+      years = 2000:2002
+    ),
+    "itn_input_dist"
+  )
+})
+
+# ---- Small utility helpers ---------------------------------------------------
+
+test_that("label_fixed_width right-pads labels to a fixed width", {
+  lab <- label_fixed_width(function(x) as.character(x), width = 6)
+  out <- lab(c(1, 22))
+  expect_true(all(nchar(out) == 6))
+  expect_equal(out, c("     1", "    22"))
+})
+
+test_that("known_vector_species returns the major species", {
+  species <- known_vector_species()
+  expect_type(species, "character")
+  expect_true(all(c("gambiae", "funestus", "arabiensis") %in% species))
+})
+
+test_that("species_colour_lookup uses fixed colours and generates the rest", {
+  cols <- species_colour_lookup(c("Gambiae", "Funestus", "Arabiensis", "Dirus"))
+  expect_equal(unname(cols["Gambiae"]), "#2A9D8F")
+  expect_equal(unname(cols["Funestus"]), "#E76F51")
+  expect_equal(unname(cols["Arabiensis"]), "#1B2A6C")
+  # An unfixed-but-known species still resolves to a colour
+  expect_match(cols["Dirus"], "^#[0-9A-Fa-f]{6}$")
+})
+
+# ---- Composite plot smoke tests ---------------------------------------------
+
+# A complete single-site fixture: the skeleton example site augmented with the
+# extra components the map / timeline / diagnostic plots consume (spatial shapes,
+# prevalence, population, rainfall seasonality, and modelled ITN distribution).
+example_full_site <- function() {
+  site <- create_example_site()
+
+  # prepare_itn() requires an itn_input_dist column on the implementation table.
+  site$interventions$itn$implementation$itn_input_dist <- 0.3
+
+  site$seasonality$monthly_rainfall <- data.frame(
+    year = rep(2000:2002, each = 12),
+    t = rep(seq(15, 350, length.out = 12), 3),
+    rainfall = rep(c(10, 20, 40, 80, 120, 150, 140, 90, 60, 30, 15, 10), 3)
+  )
+  site$seasonality$fourier_prediction <- data.frame(
+    t = 1:365,
+    profile = 60 + 40 * sin(2 * pi * (1:365) / 365)
+  )
+
+  site$prevalence <- data.frame(
+    year = 2000:2002,
+    pfpr = c(0.10, 0.12, 0.15),
+    pvpr = c(0.01, 0.02, 0.01)
+  )
+
+  site$population <- list(
+    population_by_age = data.frame(
+      year = rep(2000:2002, each = 5),
+      age_lower = rep(c(0, 5, 15, 30, 50), 3),
+      pop = rep(c(100, 200, 300, 250, 150), 3),
+      par = rep(c(80, 160, 240, 200, 120), 3)
+    )
+  )
+
+  # Two-level set of simple square polygons: admin-1 units and a country outline.
+  admin1 <- sf::st_sf(
+    name_1 = c("A", "B"),
+    geometry = sf::st_sfc(
+      sf::st_polygon(list(rbind(
+        c(0, 0), c(1, 0), c(1, 1), c(0, 1), c(0, 0)
+      ))),
+      sf::st_polygon(list(rbind(
+        c(1, 0), c(2, 0), c(2, 1), c(1, 1), c(1, 0)
+      )))
+    )
+  )
+  country <- sf::st_sf(
+    iso3c = "XXX",
+    geometry = sf::st_sfc(sf::st_polygon(list(rbind(
+      c(0, 0), c(2, 0), c(2, 1), c(0, 1), c(0, 0)
+    ))))
+  )
+  site$shape <- list(admin1, country)
+  site$sites <- data.frame(iso3c = "XXX", name_1 = "A")
+
+  site
+}
+
+test_that("plot_site_map returns a ggplot", {
+  p <- plot_site_map(example_full_site(), title = "Map")
+  expect_s3_class(p, "ggplot")
+})
+
+test_that("plot_site_interventions returns a ggplot", {
+  p <- plot_site_interventions(example_full_site(), title = "Interventions")
+  expect_s3_class(p, "ggplot")
+})
+
+test_that("plot_interventions honours show_legend = FALSE", {
+  site <- example_full_site()
+  p <- plot_interventions(
+    site$interventions,
+    site$seasonality,
+    show_legend = FALSE
+  )
+  expect_s3_class(p, "ggplot")
+})
+
+test_that("plot_site_diagnostic returns a patchwork object", {
+  p <- plot_site_diagnostic(example_full_site())
+  expect_s3_class(p, "patchwork")
+})

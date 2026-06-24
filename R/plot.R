@@ -798,6 +798,7 @@ plot_site_interventions <- function(site, ...) {
 #' @param site A site object (subset to a single site).
 #' @param max_year Maximum year for resistance and age panels. Default 2030.
 #' @return A patchwork object
+#' @importFrom patchwork plot_layout
 #' @export
 plot_site_diagnostic <- function(site, max_year = 2030) {
   # Guard against legacy site-file structures
