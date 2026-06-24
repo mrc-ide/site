@@ -39,7 +39,7 @@ test_that("check_site_structure aborts on a legacy structure with a link", {
 
   err <- expect_error(check_site_structure(interventions = legacy_interventions()))
   msg <- conditionMessage(err)
-  expect_true(grepl("Upcoming-changes", msg))
+  expect_true(grepl("Latest-changes", msg))
 })
 
 test_that("check_site_structure passes a current structure silently", {

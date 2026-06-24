@@ -20,7 +20,7 @@ granular breakdown of intervention implmentation in `site_file$interventions`. F
 
 ### Minor improvement and bug fixes
 
-* Public functions that consume a site file (e.g. `site_parameters()`, `subset_site()`, the `plot_*` functions) now detect when an older site-file structure is supplied and abort with an informative message linking to the [upgrade guide](https://mrc-ide.github.io/site/articles/Upcoming-changes.html).
+* Public functions that consume a site file (e.g. `site_parameters()`, `subset_site()`, the `plot_*` functions) now detect when an older site-file structure is supplied and abort with an informative message linking to the [upgrade guide](https://mrc-ide.github.io/site/articles/Latest-changes.html).
 
 # site 1.0.5
 

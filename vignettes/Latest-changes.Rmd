@@ -1,8 +1,8 @@
 ---
-title: "Upcoming changes to malariaverse"
+title: "Latest changes to malariaverse"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Upcoming-changes}
+  %\VignetteIndexEntry{Latest-changes}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -11,16 +11,16 @@ vignette: >
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
-## 📢 Advance notice of a major update
+## 📢 Latest update
 
-This page gives advance notice of a significant update to the malariaverse
-site files and several of the supporting packages. We're flagging it ahead of
-time because the changes will affect — and in some cases break — existing
-workflows.
+This page describes a significant update to the malariaverse site files and
+several of the supporting packages. These changes affect — and in some cases
+break — existing workflows, so please read on if you have analyses built against
+the previous site files and packages.
 
-## ⚙️ What's changing
+## ⚙️ What's changed
 
-The malariaverse packages and site files are being substantially updated (full
+The malariaverse packages and site files have been substantially updated (full
 detail in [site PR #56](https://github.com/mrc-ide/site/pull/56) and
 [postie PR #8](https://github.com/mrc-ide/postie/pull/8)). The headline changes
 include:
@@ -51,10 +51,10 @@ include:
 
 <div style="font-weight: bold;">
 Importantly, alongside these data and methods updates, the structure of the
-site files themselves is changing, and the supporting malariaverse packages are
-being updated in step. Taken together, this means code written against the
-current site files and packages will likely not run unchanged once the update
-lands.
+site files themselves has changed, and the supporting malariaverse packages have
+been updated in step. Taken together, this means code written against the
+previous site files and packages will likely not run unchanged against the
+updated versions.
 </div>
 
 ## 🔁 Reproducing existing work
@@ -62,9 +62,9 @@ lands.
 Many of you will need to re-run or reproduce earlier analyses. Two things make
 that possible:
 
-1. **Older site files will remain available** through `fetch_site()`, so you can
+1. **Older site files remain available** through `fetch_site()`, so you can
    continue to retrieve the previous data.
-2. We have **frozen the current versions** of the malariaverse packages as a
+2. We have **frozen the previous versions** of the malariaverse packages as a
    coordinated snapshot under the tag `malariaverse_01_2025`. Pairing the older
    site files with this tagged set of packages reproduces the environment your
    existing workflows were built for.
@@ -79,11 +79,12 @@ pak::pak(c(
 ))
 ```
 
-## 🗓️ Timing
+## 🗓️ Package versions
 
-We expect to merge these changes in the next month or so. If you have analyses
-in progress, we'd recommend noting which package versions you're currently using
-(or installing the tagged snapshot above) before then.
+These changes are reflected in the latest versions of the malariaverse packages
+and site files. If you have analyses that rely on the previous behaviour, we'd
+recommend noting which package versions you were using (or installing the tagged
+snapshot above) before updating.
 
 ## ❓ Questions
 

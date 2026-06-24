@@ -48,7 +48,7 @@ check_site_structure <- function(
                {.code vectors} and {.code seasonality} are now nested lists
                rather than flat data frames.",
         "i" = "See the upgrade guide:
-               {.url https://mrc-ide.github.io/site/articles/Upcoming-changes.html}",
+               {.url https://mrc-ide.github.io/site/articles/Latest-changes.html}",
         "i" = "To reproduce older analyses, pair older site files with the frozen
                package snapshot {.code malariaverse_01_2025}."
       ),
