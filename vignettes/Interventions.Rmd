@@ -56,7 +56,7 @@ corresponding estimates of the key ITN efficacy parameters.
 
 ---
 
-`site_file$interventions$itn$itn_use`
+`site_file$interventions$itn$use`
 
 Bed net usage estimates
 

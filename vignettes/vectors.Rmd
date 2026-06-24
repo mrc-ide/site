@@ -64,12 +64,13 @@ previously fitted values.
  
 ## Pyrethroid resistance
 
-`site_file$interventions$pyrethroid_resistance`
+`site_file$vectors$pyrethroid_resistance`
 
 Pyrethroid resistance
 
 ### Variables
-`pyrethroid_resistance` Pyrethroid resistance 
+`year` Year  
+`pyrethroid_resistance` Pyrethroid resistance
 
 For each site we include an estimated level of pyrethroid insecticide resistance.
 This has been estimated by Tom Churcher and colleagues using spatio-temporally

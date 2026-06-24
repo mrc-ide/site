@@ -59,10 +59,12 @@ include:
 
 1.  The
     [Metadata](https://mrc-ide.github.io/site/articles/Metadata.html),
-    with high level information about the country and site-file version.
+    with high level information about the country, site-file version and
+    spatial boundaries.
 2.  [Historical Epidemiological
     Data](https://mrc-ide.github.io/site/articles/historical_epi.html)
-    with estimates of cases, deaths and parasite prevalence.
+    with estimates of cases, deaths and parasite prevalence, the
+    calibrated baseline EIR and bias-correction factors.
 3.  [Population and
     Demography](https://mrc-ide.github.io/site/articles/pop_demog.html)
     information.
@@ -73,7 +75,11 @@ include:
     Seasonality](https://mrc-ide.github.io/site/articles/Seasonality.html)
     data.
 6.  Information on the [Mosquito
-    Vectors](https://mrc-ide.github.io/site/articles/vectors.html)
+    Vectors](https://mrc-ide.github.io/site/articles/vectors.html).
+7.  [Blood Disorders and
+    Accessibility](https://mrc-ide.github.io/site/articles/blood_disorders_accessibility.html),
+    with inherited blood-disorder frequencies and travel-time
+    accessibility metrics.
 
 ## Data inputs
 

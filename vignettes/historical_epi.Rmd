@@ -65,3 +65,46 @@ Prevalence estimates are used for calibrating the baseline EIR using the [cali p
 ### Sources
 
 `r map_badge()`
+
+## Entomological inoculation rate (EIR)
+
+`site_file$eir`
+
+The calibrated baseline entomological inoculation rate (EIR) for each site.
+
+### Variables
+`sp` Malaria species the EIR applies to (`pf` = *Plasmodium falciparum*, `pv` = *Plasmodium vivax*)  
+`eir` Calibrated baseline annual entomological inoculation rate (infectious bites per person per year)
+
+### Description
+
+The baseline EIR is the key parameter setting transmission intensity in the
+model. It is not observed directly: for each site (and species) it is calibrated
+so that the simulated parasite prevalence matches the MAP prevalence estimates
+(2010–2024) using the [cali package](https://mrc-ide.github.io/cali/).
+
+### Sources
+
+`r map_badge()`
+
+## Bias correction
+
+`site_file$bias_correction`
+
+Annual factors used to reconcile modelled case and death counts with the WHO
+World Malaria Report estimates.
+
+### Variables
+`year` Year  
+`case_bias_correction` Multiplicative correction applied to modelled cases  
+`death_bias_correction` Multiplicative correction applied to modelled deaths
+
+### Description
+
+Modelled clinical case and death counts do not exactly reproduce the
+country-level totals reported in the World Malaria Report. These annual factors
+rescale the modelled output so that it aligns with the reported WHO burden.
+
+### Sources
+
+`r who_badge()`

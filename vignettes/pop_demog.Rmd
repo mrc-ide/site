@@ -46,7 +46,7 @@ Population total and age-disaggregated estimates by year for the country are sou
 
 ## Model input demography
 
-`site_file$population$demography`
+`site_file$demography`
 
 Model input demography parameters
 
