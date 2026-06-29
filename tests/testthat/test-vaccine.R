@@ -1,81 +1,788 @@
-test_that("adding rtss works", {
-  single_site <- subset_site(example_site, example_site$eir[1,])
-  interventions <- single_site$interventions
-  interventions$rtss_cov[1:10] <- 0.5
-  p0 <- malariasimulation::get_parameters()
-  p0$baseline_year <- 2000
-  p1 <- add_rtss(
+## rtss -----------------------------------------------------------------------------------
+
+example_rtss_age_based_no_boost <- create_example_vaccine(
+  "rtss",
+  "age-based",
+  "none"
+)
+
+p0 <- malariasimulation::get_parameters()
+p0$start_year <- 2000
+
+test_that("adding rtss, age based no booster works", {
+  p1 <- add_vaccine(
     p = p0,
-    interventions = interventions
+    vaccine = example_rtss_age_based_no_boost
   )
 
-  month <- 365 / 12
-  expect_equal(p1$pev_epi_age, round(6 * month))
-  expect_equal(p1$pev_epi_booster_coverage, matrix(rep(0.8, length(p1$pev_epi_timesteps))))
-  expect_equal(p1$pev_epi_booster_spacing, round(12 * month))
-  expect_equal(p1$pev_epi_timesteps, 1 + (365 * (interventions$year - p0$baseline_year)))
-  expect_equal(p1$pev_epi_coverages, interventions$rtss_cov)
-  expect_equal(p1$pev_epi_min_wait, 0)
-  expect_equal(p1$pev_epi_seasonal_boosters, FALSE)
-})
-
-test_that("adding r21 works", {
-  single_site <- subset_site(example_site, example_site$eir[1,])
-  interventions <- single_site$interventions
-  interventions$r21_cov[1:10] <- 0.5
-  p0 <- malariasimulation::get_parameters()
-  p0$baseline_year <- 2000
-  p1 <- add_r21(
-    p = p0,
-    interventions = interventions
+  expect_equal(
+    p1$pev_epi_coverages,
+    example_rtss_age_based_no_boost$implementation$rtss_primary_cov
   )
-
-  month <- 365 / 12
-  expect_equal(p1$pev_epi_age, round(6 * month))
-  expect_equal(p1$pev_epi_booster_coverage, matrix(rep(0.8, length(p1$pev_epi_timesteps))))
-  expect_equal(p1$pev_epi_booster_spacing, round(12 * month))
-  expect_equal(p1$pev_epi_timesteps, 1 + (365 * (interventions$year - p0$baseline_year)))
-  expect_equal(p1$pev_epi_coverages, interventions$r21_cov)
+  expect_equal(
+    p1$pev_epi_age,
+    example_rtss_age_based_no_boost$primary_schedule[1]
+  )
+  expect_equal(
+    p1$pev_epi_booster_coverage,
+    matrix(
+      example_rtss_age_based_no_boost$implementation$rtss_booster1_cov /
+        example_rtss_age_based_no_boost$implementation$rtss_primary_cov,
+      ncol = 1
+    )
+  )
+  expect_equal(
+    p1$pev_epi_booster_spacing,
+    example_rtss_age_based_no_boost$booster_spacing
+  )
+  expect_equal(
+    p1$pev_epi_timesteps,
+    calendar_to_timestep(
+      year = example_rtss_age_based_no_boost$implementation$year,
+      start_year = p0$start_year
+    )
+  )
   expect_equal(p1$pev_epi_min_wait, 0)
   expect_equal(p1$pev_epi_seasonal_boosters, FALSE)
-})
-
-test_that("adding r21 and rtss fails as expected", {
-  single_site <- subset_site(example_site, example_site$eir[1,])
-  interventions <- single_site$interventions
-  interventions$rtss_cov[1:10] <- 0.5
-  interventions$r21_cov[1:10] <- 0.5
-  p0 <- malariasimulation::get_parameters()
-  p0$baseline_year <- 2000
-  expect_warning(
-    p1 <- add_interventions(
-      p = p0,
-      interventions = interventions,
-      species = "pf"
+  expect_equal(
+    p1$pev_profiles,
+    list(
+      malariasimulation::rtss_profile,
+      malariasimulation::rtss_booster_profile
     )
   )
 })
 
-test_that("n_doses can be specified", {
-  single_site <- subset_site(example_site, example_site$eir[1,])
-  interventions <- single_site$interventions
-  interventions$rtss_cov[1:10] <- 0.5
-  interventions$n_doses <- c(rep(3,8), 4, 4, rep(0, 15))
-  p0 <- malariasimulation::get_parameters()
-  p0$baseline_year <- 2000
-  p1 <- add_rtss(
+example_rtss_age_based_single_boost <- create_example_vaccine(
+  "rtss",
+  "age-based",
+  "single"
+)
+
+test_that("adding rtss, age based single booster works", {
+  p1 <- add_vaccine(
     p = p0,
-    interventions = interventions
+    vaccine = example_rtss_age_based_single_boost
   )
 
-  month <- 365 / 12
-  expect_equal(p1$pev_epi_age, round(6 * month))
-  booster_cov <- rep(0, nrow(single_site$interventions))
-  booster_cov[9:10] <- 0.8
-  expect_equal(p1$pev_epi_booster_coverage, matrix(booster_cov))
-  expect_equal(p1$pev_epi_booster_spacing, round(12 * month))
-  expect_equal(p1$pev_epi_timesteps, 1 + (365 * (interventions$year - p0$baseline_year)))
-  expect_equal(p1$pev_epi_coverages, interventions$rtss_cov)
+  expect_equal(
+    p1$pev_epi_coverages,
+    example_rtss_age_based_single_boost$implementation$rtss_primary_cov
+  )
+  expect_equal(
+    p1$pev_epi_age,
+    example_rtss_age_based_single_boost$primary_schedule[1]
+  )
+  expect_equal(
+    p1$pev_epi_booster_coverage,
+    matrix(
+      example_rtss_age_based_single_boost$implementation$rtss_booster1_cov /
+        example_rtss_age_based_single_boost$implementation$rtss_primary_cov,
+      ncol = 1
+    )
+  )
+  expect_equal(
+    p1$pev_epi_booster_spacing,
+    example_rtss_age_based_single_boost$booster_spacing
+  )
+  expect_equal(
+    p1$pev_epi_timesteps,
+    calendar_to_timestep(
+      year = example_rtss_age_based_single_boost$implementation$year,
+      start_year = p0$start_year
+    )
+  )
   expect_equal(p1$pev_epi_min_wait, 0)
   expect_equal(p1$pev_epi_seasonal_boosters, FALSE)
+  expect_equal(
+    p1$pev_profiles,
+    list(
+      malariasimulation::rtss_profile,
+      malariasimulation::rtss_booster_profile
+    )
+  )
+})
+
+example_rtss_age_based_multiple_boost <- create_example_vaccine(
+  "rtss",
+  "age-based",
+  "multiple"
+)
+
+test_that("adding rtss, age based multiple booster works", {
+  p1 <- add_vaccine(
+    p = p0,
+    vaccine = example_rtss_age_based_multiple_boost
+  )
+
+  expect_equal(
+    p1$pev_epi_coverages,
+    example_rtss_age_based_multiple_boost$implementation$rtss_primary_cov
+  )
+  expect_equal(
+    p1$pev_epi_age,
+    example_rtss_age_based_multiple_boost$primary_schedule[1]
+  )
+
+  expected_booster_cov <- matrix(
+    c(
+      example_rtss_age_based_multiple_boost$implementation$rtss_booster1_cov /
+        example_rtss_age_based_multiple_boost$implementation$rtss_primary_cov,
+      example_rtss_age_based_multiple_boost$implementation$rtss_booster2_cov /
+        example_rtss_age_based_multiple_boost$implementation$rtss_primary_cov
+    ),
+    ncol = 2
+  )
+  colnames(expected_booster_cov) <- c(
+    "vaccine_booster1_cov",
+    "vaccine_booster2_cov"
+  )
+
+  expect_equal(
+    p1$pev_epi_booster_coverage,
+    expected_booster_cov
+  )
+  expect_equal(
+    p1$pev_epi_booster_spacing,
+    example_rtss_age_based_multiple_boost$booster_spacing
+  )
+  expect_equal(
+    p1$pev_epi_timesteps,
+    calendar_to_timestep(
+      year = example_rtss_age_based_multiple_boost$implementation$year,
+      start_year = p0$start_year
+    )
+  )
+  expect_equal(p1$pev_epi_min_wait, 0)
+  expect_equal(p1$pev_epi_seasonal_boosters, FALSE)
+  expect_equal(p1$pev_epi_seasonal_boosters, FALSE)
+  expect_equal(
+    p1$pev_profiles,
+    list(
+      malariasimulation::rtss_profile,
+      malariasimulation::rtss_booster_profile,
+      malariasimulation::rtss_booster_profile
+    )
+  )
+})
+
+example_rtss_hybrid_single_boost <- create_example_vaccine(
+  "rtss",
+  "hybrid",
+  "single"
+)
+
+test_that("adding rtss, hybird single booster works", {
+  p1 <- add_vaccine(
+    p = p0,
+    vaccine = example_rtss_hybrid_single_boost
+  )
+
+  expect_equal(
+    p1$pev_epi_coverages,
+    example_rtss_hybrid_single_boost$implementation$rtss_primary_cov
+  )
+  expect_equal(
+    p1$pev_epi_age,
+    example_rtss_hybrid_single_boost$primary_schedule[1]
+  )
+
+  expect_equal(
+    p1$pev_epi_booster_coverage,
+    matrix(
+      example_rtss_hybrid_single_boost$implementation$rtss_booster1_cov /
+        example_rtss_hybrid_single_boost$implementation$rtss_primary_cov,
+      ncol = 1
+    )
+  )
+  expect_equal(
+    p1$pev_epi_booster_spacing,
+    (example_rtss_hybrid_single_boost$implementation$peak_season[1] - 90) %% 365
+  )
+  expect_equal(
+    p1$pev_epi_timesteps,
+    calendar_to_timestep(
+      year = example_rtss_hybrid_single_boost$implementation$year,
+      start_year = p0$start_year
+    )
+  )
+  expect_equal(p1$pev_epi_min_wait, 182)
+  expect_equal(p1$pev_epi_seasonal_boosters, TRUE)
+  expect_equal(
+    p1$pev_profiles,
+    list(
+      malariasimulation::rtss_profile,
+      malariasimulation::rtss_booster_profile
+    )
+  )
+})
+
+example_rtss_hybrid_multiple_boost <- create_example_vaccine(
+  "rtss",
+  "hybrid",
+  "multiple"
+)
+
+test_that("adding rtss, hybird multiple booster works", {
+  p1 <- add_vaccine(
+    p = p0,
+    vaccine = example_rtss_hybrid_multiple_boost
+  )
+
+  expect_equal(
+    p1$pev_epi_coverages,
+    example_rtss_hybrid_multiple_boost$implementation$rtss_primary_cov
+  )
+  expect_equal(
+    p1$pev_epi_age,
+    example_rtss_hybrid_multiple_boost$primary_schedule[1]
+  )
+  expected_booster_cov <- matrix(
+    c(
+      example_rtss_age_based_multiple_boost$implementation$rtss_booster1_cov /
+        example_rtss_age_based_multiple_boost$implementation$rtss_primary_cov,
+      example_rtss_age_based_multiple_boost$implementation$rtss_booster2_cov /
+        example_rtss_age_based_multiple_boost$implementation$rtss_primary_cov
+    ),
+    ncol = 2
+  )
+  colnames(expected_booster_cov) <- c(
+    "vaccine_booster1_cov",
+    "vaccine_booster2_cov"
+  )
+  expect_equal(
+    p1$pev_epi_booster_coverage,
+    expected_booster_cov
+  )
+  expect_equal(
+    p1$pev_epi_booster_spacing,
+    c(
+      (example_rtss_hybrid_multiple_boost$implementation$peak_season[1] - 90) %%
+        365,
+      365
+    )
+  )
+  expect_equal(
+    p1$pev_epi_timesteps,
+    calendar_to_timestep(
+      year = example_rtss_hybrid_multiple_boost$implementation$year,
+      start_year = p0$start_year
+    )
+  )
+  expect_equal(p1$pev_epi_min_wait, 182)
+  expect_equal(p1$pev_epi_seasonal_boosters, TRUE)
+  expect_equal(
+    p1$pev_profiles,
+    list(
+      malariasimulation::rtss_profile,
+      malariasimulation::rtss_booster_profile,
+      malariasimulation::rtss_booster_profile
+    )
+  )
+})
+
+
+## R21 -----------------------------------------------------------------------------------
+example_r21_age_based_no_boost <- create_example_vaccine(
+  "r21",
+  "age-based",
+  "none"
+)
+
+test_that("adding r21, age based no booster works", {
+  p1 <- add_vaccine(
+    p = p0,
+    vaccine = example_r21_age_based_no_boost
+  )
+
+  expect_equal(
+    p1$pev_epi_coverages,
+    example_r21_age_based_no_boost$implementation$r21_primary_cov
+  )
+  expect_equal(
+    p1$pev_epi_age,
+    example_r21_age_based_no_boost$primary_schedule[1]
+  )
+  expect_equal(
+    p1$pev_epi_booster_coverage,
+    matrix(
+      example_r21_age_based_no_boost$implementation$r21_booster1_cov /
+        example_r21_age_based_no_boost$implementation$r21_primary_cov,
+      ncol = 1
+    )
+  )
+  expect_equal(
+    p1$pev_epi_booster_spacing,
+    example_r21_age_based_no_boost$booster_spacing
+  )
+  expect_equal(
+    p1$pev_epi_timesteps,
+    calendar_to_timestep(
+      year = example_r21_age_based_no_boost$implementation$year,
+      start_year = p0$start_year
+    )
+  )
+  expect_equal(p1$pev_epi_min_wait, 0)
+  expect_equal(p1$pev_epi_seasonal_boosters, FALSE)
+  expect_equal(
+    p1$pev_profiles,
+    list(
+      malariasimulation::r21_profile,
+      malariasimulation::r21_booster_profile
+    )
+  )
+})
+
+example_r21_age_based_single_boost <- create_example_vaccine(
+  "r21",
+  "age-based",
+  "single"
+)
+
+test_that("adding r21, age based single booster works", {
+  p1 <- add_vaccine(
+    p = p0,
+    vaccine = example_r21_age_based_single_boost
+  )
+
+  expect_equal(
+    p1$pev_epi_coverages,
+    example_r21_age_based_single_boost$implementation$r21_primary_cov
+  )
+  expect_equal(
+    p1$pev_epi_age,
+    example_r21_age_based_single_boost$primary_schedule[1]
+  )
+  expect_equal(
+    p1$pev_epi_booster_coverage,
+    matrix(
+      example_r21_age_based_single_boost$implementation$r21_booster1_cov /
+        example_r21_age_based_single_boost$implementation$r21_primary_cov,
+      ncol = 1
+    )
+  )
+  expect_equal(
+    p1$pev_epi_booster_spacing,
+    example_r21_age_based_single_boost$booster_spacing
+  )
+  expect_equal(
+    p1$pev_epi_timesteps,
+    calendar_to_timestep(
+      year = example_r21_age_based_single_boost$implementation$year,
+      start_year = p0$start_year
+    )
+  )
+  expect_equal(p1$pev_epi_min_wait, 0)
+  expect_equal(p1$pev_epi_seasonal_boosters, FALSE)
+  expect_equal(
+    p1$pev_profiles,
+    list(
+      malariasimulation::r21_profile,
+      malariasimulation::r21_booster_profile
+    )
+  )
+})
+
+example_r21_age_based_multiple_boost <- create_example_vaccine(
+  "r21",
+  "age-based",
+  "multiple"
+)
+
+test_that("adding r21, age based multiple booster works", {
+  p1 <- add_vaccine(
+    p = p0,
+    vaccine = example_r21_age_based_multiple_boost
+  )
+
+  expect_equal(
+    p1$pev_epi_coverages,
+    example_r21_age_based_multiple_boost$implementation$r21_primary_cov
+  )
+  expect_equal(
+    p1$pev_epi_age,
+    example_r21_age_based_multiple_boost$primary_schedule[1]
+  )
+
+  expected_booster_cov <- matrix(
+    c(
+      example_r21_age_based_multiple_boost$implementation$r21_booster1_cov /
+        example_r21_age_based_multiple_boost$implementation$r21_primary_cov,
+      example_r21_age_based_multiple_boost$implementation$r21_booster2_cov /
+        example_r21_age_based_multiple_boost$implementation$r21_primary_cov
+    ),
+    ncol = 2
+  )
+  colnames(expected_booster_cov) <- c(
+    "vaccine_booster1_cov",
+    "vaccine_booster2_cov"
+  )
+
+  expect_equal(
+    p1$pev_epi_booster_coverage,
+    expected_booster_cov
+  )
+  expect_equal(
+    p1$pev_epi_booster_spacing,
+    example_r21_age_based_multiple_boost$booster_spacing
+  )
+  expect_equal(
+    p1$pev_epi_timesteps,
+    calendar_to_timestep(
+      year = example_r21_age_based_multiple_boost$implementation$year,
+      start_year = p0$start_year
+    )
+  )
+  expect_equal(p1$pev_epi_min_wait, 0)
+  expect_equal(p1$pev_epi_seasonal_boosters, FALSE)
+  expect_equal(p1$pev_epi_seasonal_boosters, FALSE)
+  expect_equal(
+    p1$pev_profiles,
+    list(
+      malariasimulation::r21_profile,
+      malariasimulation::r21_booster_profile,
+      malariasimulation::r21_booster_profile
+    )
+  )
+})
+
+example_r21_hybrid_single_boost <- create_example_vaccine(
+  "r21",
+  "hybrid",
+  "single"
+)
+
+test_that("adding r21, hybird single booster works", {
+  p1 <- add_vaccine(
+    p = p0,
+    vaccine = example_r21_hybrid_single_boost
+  )
+
+  expect_equal(
+    p1$pev_epi_coverages,
+    example_r21_hybrid_single_boost$implementation$r21_primary_cov
+  )
+  expect_equal(
+    p1$pev_epi_age,
+    example_r21_hybrid_single_boost$primary_schedule[1]
+  )
+
+  expect_equal(
+    p1$pev_epi_booster_coverage,
+    matrix(
+      example_r21_hybrid_single_boost$implementation$r21_booster1_cov /
+        example_r21_hybrid_single_boost$implementation$r21_primary_cov,
+      ncol = 1
+    )
+  )
+  expect_equal(
+    p1$pev_epi_booster_spacing,
+    (example_r21_hybrid_single_boost$implementation$peak_season[1] - 90) %% 365
+  )
+  expect_equal(
+    p1$pev_epi_timesteps,
+    calendar_to_timestep(
+      year = example_r21_hybrid_single_boost$implementation$year,
+      start_year = p0$start_year
+    )
+  )
+  expect_equal(p1$pev_epi_min_wait, 182)
+  expect_equal(p1$pev_epi_seasonal_boosters, TRUE)
+  expect_equal(
+    p1$pev_profiles,
+    list(
+      malariasimulation::r21_profile,
+      malariasimulation::r21_booster_profile
+    )
+  )
+})
+
+example_r21_hybrid_multiple_boost <- create_example_vaccine(
+  "r21",
+  "hybrid",
+  "multiple"
+)
+
+test_that("adding r21, hybird multiple booster works", {
+  p1 <- add_vaccine(
+    p = p0,
+    vaccine = example_r21_hybrid_multiple_boost
+  )
+
+  expect_equal(
+    p1$pev_epi_coverages,
+    example_r21_hybrid_multiple_boost$implementation$r21_primary_cov
+  )
+  expect_equal(
+    p1$pev_epi_age,
+    example_r21_hybrid_multiple_boost$primary_schedule[1]
+  )
+  expected_booster_cov <- matrix(
+    c(
+      example_r21_age_based_multiple_boost$implementation$r21_booster1_cov /
+        example_r21_age_based_multiple_boost$implementation$r21_primary_cov,
+      example_r21_age_based_multiple_boost$implementation$r21_booster2_cov /
+        example_r21_age_based_multiple_boost$implementation$r21_primary_cov
+    ),
+    ncol = 2
+  )
+  colnames(expected_booster_cov) <- c(
+    "vaccine_booster1_cov",
+    "vaccine_booster2_cov"
+  )
+  expect_equal(
+    p1$pev_epi_booster_coverage,
+    expected_booster_cov
+  )
+  expect_equal(
+    p1$pev_epi_booster_spacing,
+    c(
+      (example_r21_hybrid_multiple_boost$implementation$peak_season[1] - 90) %%
+        365,
+      365
+    )
+  )
+  expect_equal(
+    p1$pev_epi_timesteps,
+    calendar_to_timestep(
+      year = example_r21_hybrid_multiple_boost$implementation$year,
+      start_year = p0$start_year
+    )
+  )
+  expect_equal(p1$pev_epi_min_wait, 182)
+  expect_equal(p1$pev_epi_seasonal_boosters, TRUE)
+  expect_equal(
+    p1$pev_profiles,
+    list(
+      malariasimulation::r21_profile,
+      malariasimulation::r21_booster_profile,
+      malariasimulation::r21_booster_profile
+    )
+  )
+})
+
+
+if (FALSE) {
+  example_r21_age_based_no_boost <- create_example_vaccine(
+    "r21",
+    "age-based",
+    "none"
+  )
+
+  p0 <- malariasimulation::get_parameters()
+  p0$start_year <- 2000
+
+  test_that("adding r21, age based no booster works", {
+    p1 <- add_vaccine(
+      p = p0,
+      vaccine = example_r21_age_based_no_boost
+    )
+
+    expect_equal(
+      p1$pev_epi_coverages,
+      example_r21_age_based_no_boost$implementation$r21_primary_cov
+    )
+    expect_equal(
+      p1$pev_epi_age,
+      example_r21_age_based_no_boost$primary_schedule[1]
+    )
+    expect_equal(
+      p1$pev_epi_booster_coverage,
+      matrix(
+        example_r21_age_based_no_boost$implementation$r21_booster1_cov /
+          example_r21_age_based_no_boost$implementation$r21_primary_cov,
+        ncol = 1
+      )
+    )
+    expect_equal(
+      p1$pev_epi_booster_spacing,
+      example_r21_age_based_no_boost$booster_spacing
+    )
+    expect_equal(
+      p1$pev_epi_timesteps,
+      calendar_to_timestep(
+        year = example_r21_age_based_no_boost$implementation$year,
+        start_year = p0$start_year
+      )
+    )
+    expect_equal(p1$pev_epi_min_wait, 0)
+    expect_equal(p1$pev_epi_seasonal_boosters, FALSE)
+    expect_equal(
+      p1$pev_profiles,
+      list(
+        malariasimulation::r21_profile,
+        malariasimulation::r21_booster_profile
+      )
+    )
+  })
+
+  example_r21_age_based_single_boost <- create_example_vaccine(
+    "r21",
+    "age-based",
+    "single"
+  )
+
+  test_that("adding r21, age based single booster works", {
+    p1 <- add_vaccine(
+      p = p0,
+      vaccine = example_r21_age_based_single_boost
+    )
+
+    expect_equal(
+      p1$pev_epi_coverages,
+      example_r21_age_based_single_boost$implementation$r21_primary_cov
+    )
+    expect_equal(
+      p1$pev_epi_age,
+      example_r21_age_based_single_boost$primary_schedule[1]
+    )
+    expect_equal(
+      p1$pev_epi_booster_coverage,
+      matrix(
+        example_r21_age_based_single_boost$implementation$r21_booster1_cov /
+          example_r21_age_based_single_boost$implementation$r21_primary_cov,
+        ncol = 1
+      )
+    )
+    expect_equal(
+      p1$pev_epi_booster_spacing,
+      example_r21_age_based_single_boost$booster_spacing
+    )
+    expect_equal(
+      p1$pev_epi_timesteps,
+      calendar_to_timestep(
+        year = example_r21_age_based_single_boost$implementation$year,
+        start_year = p0$start_year
+      )
+    )
+    expect_equal(p1$pev_epi_min_wait, 0)
+    expect_equal(p1$pev_epi_seasonal_boosters, FALSE)
+    expect_equal(
+      p1$pev_profiles,
+      list(
+        malariasimulation::r21_profile,
+        malariasimulation::r21_booster_profile
+      )
+    )
+  })
+
+  example_r21_age_based_multiple_boost <- create_example_vaccine(
+    "r21",
+    "age-based",
+    "multiple"
+  )
+
+  test_that("adding r21, hybird multiple booster works", {
+    p1 <- add_vaccine(
+      p = p0,
+      vaccine = example_r21_age_based_multiple_boost
+    )
+
+    expect_equal(
+      p1$pev_epi_coverages,
+      example_r21_age_based_multiple_boost$implementation$rtss_primary_cov
+    )
+    expect_equal(
+      p1$pev_epi_age,
+      example_r21_age_based_multiple_boost$primary_schedule[1]
+    )
+    expected_booster_cov <- matrix(
+      c(
+        example_r21_age_based_multiple_boost$implementation$rtss_booster1_cov /
+          example_r21_age_based_multiple_boost$implementation$rtss_primary_cov,
+        example_r21_age_based_multiple_boost$implementation$rtss_booster2_cov /
+          example_r21_age_based_multiple_boost$implementation$rtss_primary_cov
+      ),
+      ncol = 2
+    )
+    colnames(expected_booster_cov) <- c(
+      "vaccine_booster1_cov",
+      "vaccine_booster2_cov"
+    )
+    expect_equal(
+      p1$pev_epi_booster_coverage,
+      expected_booster_cov
+    )
+    expect_equal(
+      p1$pev_epi_booster_spacing,
+      c(
+        (example_r21_age_based_multiple_boost$implementation$peak_season[1] -
+          90) %%
+          365,
+        365
+      )
+    )
+    expect_equal(
+      p1$pev_epi_timesteps,
+      calendar_to_timestep(
+        year = example_r21_age_based_multiple_boost$implementation$year,
+        start_year = p0$start_year
+      )
+    )
+    expect_equal(p1$pev_epi_min_wait, 182)
+    expect_equal(p1$pev_epi_seasonal_boosters, TRUE)
+    expect_equal(
+      p1$pev_profiles,
+      list(
+        malariasimulation::rtss_profile,
+        malariasimulation::rtss_booster_profile,
+        malariasimulation::rtss_booster_profile
+      )
+    )
+  })
+}
+
+## mixed -----------------------------------------------------------------------------------
+
+example_rtss_r21_age_based_single_boost <- create_example_vaccine(
+  "rtss_r21",
+  "age-based",
+  "single"
+)
+
+test_that("adding rtss and r21 togther warns and reverts to r21", {
+  expect_warning(
+    p1 <- add_vaccine(
+      p = p0,
+      vaccine = example_rtss_r21_age_based_single_boost
+    ),
+    "Cannot currently"
+  )
+
+  expect_equal(
+    p1$pev_epi_coverages,
+    example_rtss_r21_age_based_single_boost$implementation$r21_primary_cov
+  )
+  expect_equal(
+    p1$pev_epi_age,
+    example_rtss_r21_age_based_single_boost$primary_schedule[1]
+  )
+  expect_equal(
+    p1$pev_epi_booster_coverage,
+    matrix(
+      example_rtss_r21_age_based_single_boost$implementation$r21_booster1_cov /
+        example_rtss_r21_age_based_single_boost$implementation$r21_primary_cov,
+      ncol = 1
+    )
+  )
+  expect_equal(
+    p1$pev_epi_booster_spacing,
+    example_rtss_r21_age_based_single_boost$booster_spacing
+  )
+  expect_equal(
+    p1$pev_epi_timesteps,
+    calendar_to_timestep(
+      year = example_rtss_r21_age_based_single_boost$implementation$year,
+      start_year = p0$start_year
+    )
+  )
+  expect_equal(p1$pev_epi_min_wait, 0)
+  expect_equal(p1$pev_epi_seasonal_boosters, FALSE)
+  expect_equal(
+    p1$pev_profiles,
+    list(
+      malariasimulation::r21_profile,
+      malariasimulation::r21_booster_profile
+    )
+  )
 })

@@ -1,9 +1,6 @@
 ---
 title: "Mosquito Vectors"
 output: rmarkdown::html_vignette
-bibliography: references.bib
-csl: nature.csl
-link-citations: true
 vignette: >
   %\VignetteIndexEntry{Mosquito Vectors}
   %\VignetteEngine{knitr::rmarkdown}
@@ -15,46 +12,46 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+library(site)
 ```
 
 
-`site_file$vectors`
+## Vector species
 
-## Within sub-Saharan Africa
+`site_file$vectors$vector_species`
 
-For countries in sub-Saharan Africa a statistical model of relative abundance of
-major vectors has been produced 
-Sinka *et al* @Sinka2016 
-For countries we extract the relative abundance of 
+Vector species
+
+### Variables
+`species` Species name  
+`prop` Proportion of total vector population  
+`blood_meal_rates` Rate of bloodmeal seeking  
+`foraging_time` Time spent taking blood meals  
+`Q0` Proportion of blood meals taken on humans  
+`phi_bednets` Proportion of bites taken from humans in bed  
+`phi_indoors` Proportion of bites taken from humans indoors  
+`mum` Mortality rate of adult female mosquitoes   
+
+### Description
+
+***Within sub-Saharan Africa:*** For countries in sub-Saharan Africa a statistical model of relative abundance of major vectors has been produced by
+Sinka *et al*. For these countries we extract the relative abundance of 
 arabiensis, funestus and gambiae using the malaria atlas project
 "Anopheles arabiensis Patton, 1905", "Anopheles funestus" and 
 "Anopheles gambiae Giles, 1902" rasters.
 Proportions are normalised to sum to one (as other species may be present in the data).
 
-## Outside of sub-Saharan Africa
-
-For countries outside of sub-Saharan Africa we do not have estimates of the relative
-abundance of vectors species. There are however probability of occurrence maps for
+***Outside of sub-Saharan Africa:*** For countries outside of sub-Saharan Africa we do not have estimates of the relative
+abundance of vector species. There are however probability of occurrence maps for
 a large number of species 
-Sinka et al @Sinka2012.
+Sinka et al.
 For these locations we select up to a maximum of three species ranked by their
 average probability of occurrence across a site. Each species is then given an
 equally weighted relative abundance.
 
-## Vector bionomics 
-
-`site_file$vectors$blood_meal_rates`
-`site_file$vectors$foraging_time`
-`site_file$vectors$Q0`
-`site_file$vectors$phi_bednets`
-`site_file$vectors$phi_indoors`
-`site_file$vectors$mum`
-
 The bionomics parameters for vectors in sub-Saharan Africa are parameterised 
 using the fitted parameters in
-[malarisimulation](https://mrc-ide.github.io/malariasimulation/).
-
-All other vectors are parameterised from an (unpublished) literature review
+[malariasimulation](https://mrc-ide.github.io/malariasimulation/). All other vectors are parameterised from an (unpublished) literature review
 by Arran Hamlet. Any unknown species are assigned the median vector bionomics
 parameters across other species at the site. Please contact Pete Winskill
 directly if using these estimates.
@@ -62,4 +59,23 @@ directly if using these estimates.
 The blood_meal_rates, foraging_time and mum parameters are assumed fixed at 
 previously fitted values.
 
-## Citations
+### Sources
+`r vectors_badge()`
+ 
+## Pyrethroid resistance
+
+`site_file$vectors$pyrethroid_resistance`
+
+Pyrethroid resistance
+
+### Variables
+`year` Year  
+`pyrethroid_resistance` Pyrethroid resistance
+
+For each site we include an estimated level of pyrethroid insecticide resistance.
+This has been estimated by Tom Churcher and colleagues using spatio-temporally
+distributed bioassay mortality data. This work is not yet published. Therefore
+for attribution/citation and further information on the methods used please contact
+Pete Winskill or Tom Churcher.
+
+`r vectors_badge()`

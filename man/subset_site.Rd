@@ -4,13 +4,20 @@
 \alias{subset_site}
 \title{Extract a subset from a country site file}
 \usage{
-subset_site(site, site_filter)
+subset_site(
+  site,
+  site_filter,
+  skip = c("country", "version", "admin_level", "sites")
+)
 }
 \arguments{
 \item{site}{Country site file}
 
-\item{site_filter}{Data.frame to filter site file elements by. Filtering will
+\item{site_filter}{data frame to filter site file elements by. Filtering will
 be conducted on any matched columns for each element.}
+
+\item{skip}{Character vector of field names to preserve without filtering.
+Default is c("country", "version", "admin_level", "sites").}
 }
 \value{
 Filtered site file

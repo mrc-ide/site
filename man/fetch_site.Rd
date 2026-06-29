@@ -2,7 +2,7 @@
 % Please edit documentation in R/fetch.R
 \name{fetch_site}
 \alias{fetch_site}
-\title{Fetch a site file for a country from the malariaverse sitefile server.}
+\title{Fetch a site file for a country from the malariaverse site file server.}
 \usage{
 fetch_site(
   iso3c = NULL,

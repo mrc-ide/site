@@ -1,54 +1,71 @@
 #' Extract a subset from a country site file
 #'
 #' @param site Country site file
-#' @param site_filter Data.frame to filter site file elements by. Filtering will
+#' @param site_filter data frame to filter site file elements by. Filtering will
 #' be conducted on any matched columns for each element.
+#' @param skip Character vector of field names to preserve without filtering.
+#' Default is c("country", "version", "admin_level", "sites").
 #'
 #' @return Filtered site file
 #' @export
-subset_site <- function(site, site_filter){
+subset_site <- function(site, site_filter, skip = c("country", "version", "admin_level", "sites")){
 
+  # Guard against legacy site-file structures
+  check_site_structure(
+    interventions = site$interventions,
+    vectors = site$vectors,
+    seasonality = site$seasonality
+  )
+
+  # Extract metadata fields that should be preserved
   sub_site <- list()
-  sub_site$country <- site$country
-  sub_site$version <- site$version
-  sub_site$admin_level <- site$admin_level
-  sub_site$sites <- site_filter[ , sub_site$admin_level]
-  sub_site$shape <- lapply(
-    site$shape,
-    match,
-    y = site_filter
-  )
-  names(sub_site$shape) <- names(site$shape)
-  sub_site$cases_deaths <- match(site$cases_deaths, site_filter)
-  sub_site$prevalence <- match(site$prevalence, site_filter)
-  sub_site$interventions <- match(site$interventions, sub_site$site)
-  sub_site$population <- list(
-    population_total = match(site$population$population_total, sub_site$site),
-    population_by_age = match(site$population$population_by_age, sub_site$site)
-  )
-  sub_site$demography <- match(site$demography, sub_site$site)
-  sub_site$vectors <-  list(
-    vector_species = match(site$vectors$vector_species, sub_site$site),
-    pyrethroid_resistance = match(site$vectors$pyrethroid_resistance, sub_site$site)
-  )
-  sub_site$seasonality <-  list(
-    seasonality_parameters = match(site$seasonality$seasonality_parameters, sub_site$site),
-    monthly_rainfall = match(site$seasonality$monthly_rainfall, sub_site$site),
-    fourier_prediction = match(site$seasonality$fourier_prediction, sub_site$site)
-  )
-  sub_site$blood_disorders <- match(site$blood_disorders, sub_site$site)
-  sub_site$accessibility <- match(site$accessibility, sub_site$site)
-  sub_site$eir <- match(site$eir, site_filter)
+  for (name in skip) {
+    if (name == "sites") {
+      sub_site$sites <- site_filter[, site$admin_level, drop = FALSE]
+    } else if (name %in% names(site)) {
+      sub_site[[name]] <- site[[name]]
+    }
+  }
+
+  # Recursively filter all other elements
+  for (name in setdiff(names(site), skip)) {
+    sub_site[[name]] <- filter_recursive(site[[name]], site_filter)
+  }
+
   return(sub_site)
+}
+
+#' Recursively filter site file elements
+#'
+#' @param x Site file element (can be data.frame, list, or other)
+#' @param site_filter data frame to filter by
+#'
+#' @return Filtered element
+filter_recursive <- function(x, site_filter) {
+  # If x is a data.frame, apply match_by_names
+  if (is.data.frame(x)) {
+    return(match_by_names(x, site_filter))
+  }
+
+  # If x is a list (but not a data.frame), recursively apply to each element
+  if (is.list(x)) {
+    result <- lapply(x, filter_recursive, site_filter = site_filter)
+    # Preserve names
+    names(result) <- names(x)
+    return(result)
+  }
+
+  # Otherwise, return as-is (e.g., atomic vectors, NULL, etc.)
+  return(x)
 }
 
 #' Matched join
 #'
 #' @param x Site file element
-#' @param y Data.frame to match for
+#' @param y data frame to match for
 #'
 #' @return Site file element filtered by y
-match <- function(x, y){
+match_by_names <- function(x, y){
   by_names <- names(y)[names(y) %in% names(x)]
   if(length(by_names) == 0){
     return(x)

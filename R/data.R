@@ -1,24 +1,37 @@
-#' An example country site file
+#' IRS insecticide efficacy parameters
 #'
-#' A site file containing all of the input components for running a setting-specific
-#' \href{https://mrc-ide.github.io/malariasimulation/}{malariasimulation} model run.
+#' A dataset containing efficacy parameters for different Indoor Residual Spraying (IRS)
+#' insecticides. These parameters are used by malariasimulation to model the impact of
+#' IRS interventions on mosquito populations.
 #'
-#' @format A list with 10 variables:
+#' @format A data frame with 4 rows and 7 columns:
 #' \describe{
-#'   \item{country}{The country name}
-#'   \item{version}{Site file version}
-#'   \item{admin_level}{The levels of spatial disaggregation}
-#'   \item{sites}{Unique sites}
-#'   \item{shape}{Sptial boundaries (set to NA in testing shapefile)}
-#'   \item{cases_deaths}{Epidemiological site data}
-#'   \item{prevalence}{Prevalence data}
-#'   \item{interventions}{Intervention coverage and specification}
-#'   \item{population}{Population, population at risk mand age-disaggregated population projections}
-#'   \item{demography}{Demographic projections}
-#'   \item{vectors}{Vector specieis and pyrethroid resistance}
-#'   \item{seasonality}{Seasonal profile parameters, monthly rainfall and fourier predictions}
-#'   \item{blood_disorders}{Blood disorder data}
-#'   \item{accessibility}{Accessibility data}
-#'   \item{eir}{Calibrated eir}
+#'   \item{insecticide}{Character. Name of the insecticide (ddt, actellic, bendiocarb, sumishield)}
+#'   \item{ls_theta}{Numeric. Theta parameter for mosquito repelling effect}
+#'   \item{ls_gamma}{Numeric. Gamma parameter for mosquito repelling effect}
+#'   \item{ks_theta}{Numeric. Theta parameter for mosquito killing effect}
+#'   \item{ks_gamma}{Numeric. Gamma parameter for mosquito killing effect}
+#'   \item{ms_theta}{Numeric. Theta parameter for successful feeding reduction}
+#'   \item{ms_gamma}{Numeric. Gamma parameter for successful feeding reduction}
 #' }
-"example_site"
+#' @source Parameterized from field trial data for malariasimulation
+"irs_efficacy"
+
+#' ITN net efficacy parameters
+#'
+#' A dataset containing efficacy parameters for Insecticide Treated Nets (ITNs)
+#' based on pyrethroid resistance levels and net type. These parameters are used
+#' by malariasimulation to model the protective effect of bed nets.
+#'
+#' @format A data frame with 303 rows and 7 columns:
+#' \describe{
+#'   \item{pyrethroid_resistance}{Numeric. Pyrethroid resistance level (0 to 1)}
+#'   \item{bioassay_mortality}{Numeric. Bioassay mortality rate}
+#'   \item{dn0}{Numeric. Initial deterrence parameter}
+#'   \item{rn0}{Numeric. Initial killing parameter}
+#'   \item{gamman}{Numeric. Net half-life parameter (in days)}
+#'   \item{rnm}{Numeric. Minimum killing rate parameter}
+#'   \item{net_type}{Character. Type of net (e.g., pyrethroid_only, pyrethroid_pbo, pyrethroid_pyrrole)}
+#' }
+#' @source Parameterized from field trial data for malariasimulation
+"net_efficacy"

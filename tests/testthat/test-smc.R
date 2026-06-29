@@ -1,38 +1,42 @@
-test_that("adding smc works", {
-  single_site <- subset_site(example_site, example_site$eir[1,])
-  interventions <- single_site$interventions
-  interventions$smc_cov[1:10] <- 0.5
-  p0 <- malariasimulation::get_parameters()
+example_smc <- create_example_smc()
 
-  p0$baseline_year <- 2000
+p0 <- malariasimulation::get_parameters()
+p0$start_year <- 2000
+
+test_that("Adding SMC correctly modifies the parameter list", {
   p1 <- add_smc(
     p = p0,
-    interventions = interventions
+    smc = example_smc
   )
-
-  month <- 365 / 12
-
-  peak <- malariasimulation::peak_season_offset(p1)
-  rounds <- interventions$smc_n_rounds
-  year_start_times <-  1 + (interventions$year - p1$baseline_year) * 365
-  peak_season_times <- peak + year_start_times
-  # Assume middle of rounds occurs at peak season:
-  round_relative_time <- as.vector(
-    unlist(
-      sapply(rounds, function (x) {seq(-x * month / 2, x * month / 2, length.out = x)})
+  expect_equal(p1$smc, TRUE)
+  expect_equal(
+    p1$smc_coverages,
+    example_smc$implementation$smc_cov
+  )
+  expect_equal(p1$smc_drug, 3)
+  expect_equal(
+    p1$smc_min_age,
+    example_smc$implementation$smc_min_age
+  )
+  expect_equal(
+    p1$smc_max_age,
+    example_smc$implementation$smc_max_age
+  )
+  expect_equal(
+    p1$smc_timesteps,
+    calendar_to_timestep(
+      year = example_smc$implementation$year,
+      day_of_year = example_smc$implementation$round_day_of_year,
+      start_year = p0$start_year
     )
   )
-  timesteps <- round(round_relative_time) + rep(peak_season_times, rounds)
-  index <- timesteps < 0
-  timesteps <- timesteps[!index]
+})
 
-  expect_equal(p1$smc, TRUE)
-  expect_equal(p1$smc_coverages, rep(interventions$smc_cov, rounds)[!index])
-  expect_equal(p1$smc_drug, 3)
-  expect_equal(p1$smc_min_age, rep(interventions$smc_min_age, rounds)[!index])
-  expect_equal(p1$smc_max_age, rep(interventions$smc_max_age, rounds)[!index])
-  expect_equal(p1$smc_timesteps, timesteps)
-
-  interventions$smc_drug <- "n"
-  expect_error(add_smc(p = p1, interventions = interventions), "Not currently set up for non SP AQ SMC drug")
+test_that("SPAQ drug check is informative", {
+  wrong_drug_example_smc <- example_smc
+  wrong_drug_example_smc$drug <- "n"
+  expect_error(
+    add_smc(p = p0, smc = wrong_drug_example_smc),
+    "SMC drug must be sp_aq"
+  )
 })

@@ -4,15 +4,16 @@
 \alias{add_interventions}
 \title{Add all interventions}
 \usage{
-add_interventions(p, interventions, species)
+add_interventions(p, interventions, resistance, irs_adjust)
 }
 \arguments{
 \item{p}{parameter list}
 
 \item{interventions}{site intervention inputs}
 
-\item{species}{Can be falciparum: "pf" or vivax: "pv", for vivax SMC, RTSS,
-R21 and PMC are not implemented}
+\item{resistance}{pyrethroid resistance data for ITN efficacy calculations}
+
+\item{irs_adjust}{scalar adjustment factor to IRS coverage inputs to account for observed discrepancies between trial and real-world implementation}
 }
 \value{
 modified parameter list

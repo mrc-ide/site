@@ -8,6 +8,6 @@ navbar:
     right: [search, github]
   components:
     changes:
-      text: 📢 Upcoming changes
-      href: articles/Upcoming-changes.html
+      text: 📢 Latest changes
+      href: articles/Latest-changes.html
 

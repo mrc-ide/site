@@ -2,7 +2,7 @@
 % Please edit documentation in R/fetch.R
 \name{fetch_files}
 \alias{fetch_files}
-\title{Get files from the malariaverse sitefile server.}
+\title{Get files from the malariaverse site file server.}
 \usage{
 fetch_files(name, parameters, dest, files, expr = NULL)
 }
@@ -28,5 +28,5 @@ specified list of parameters is used and matched exactly.}
 the id of the orderly packet the files were copied from.
 }
 \description{
-Get files from the malariaverse sitefile server.
+Get files from the malariaverse site file server.
 }

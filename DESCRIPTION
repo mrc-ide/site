@@ -1,7 +1,7 @@
 Package: site
 Type: Package
 Title: Site specific malariasimulation modelling
-Version: 1.0.10
+Version: 1.0.13
 Authors@R: c(
     person("Pete", "Winskill", email = "p.winskill@imperial.ac.uk", role = c("aut", "cre"))
     )
@@ -11,23 +11,30 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Remotes:
-    mrc-ide/malariasimulation
+    mrc-ide/malariasimulation,
+    mrc-ide/netz
 Config/testthat/edition: 3
 RoxygenNote: 7.3.3
 Depends: 
-    R (>= 2.10),
+    R (>= 3.5),
     sf
-Imports: 
-    orderly,
+Imports:
+    cli,
     dplyr,
+    ggplot2,
     malariasimulation,
+    orderly,
+    patchwork,
     rappdirs,
     rlang,
+    scales,
+    stringr,
     tidyr,
     withr
 Suggests:
     testthat (>= 3.0.0),
     fs,
     rmarkdown,
-    knitr
+    knitr,
+    netz
 VignetteBuilder: knitr

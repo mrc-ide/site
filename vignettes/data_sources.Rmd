@@ -1,0 +1,274 @@
+---
+title: "Data Sources and Citations"
+output: 
+  rmarkdown::html_vignette
+bibliography: references.bib
+csl: nature.csl
+link-citations: true
+vignette: >
+  %\VignetteIndexEntry{Data Sources and Citations}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(site)
+```
+
+# `r un_badge()`
+
+### UNWPP @UNWPP
+**Dataset:** Historical population estimates  
+**Dataset name:** WPP2022_Population1JanuaryBySingleAgeSex_Medium_1950-2021  
+**Accessed via:** Webpage  
+**Last accessed:** 30/08/2023
+**Data range:** 1950-2021
+
+**Dataset:** Future population projections  
+**Dataset name:** WPP2022_Population1JanuaryBySingleAgeSex_Medium_2022-2100  
+**Accessed via:** Webpage  
+**Last accessed:** 30/08/2023
+**Data range:** 2022-2100
+
+### UNWUP @UNWUP
+**Dataset:** Urban population estimates  
+**Dataset name:** WUP2018-F02-Proportion_Urban  
+**Accessed via:** Webpage  
+**Last accessed:** 30/08/2023
+
+---
+
+# `r worldpop_badge()`
+
+### Population spatial distribution @WorldPop2025
+**Dataset:** Individual countries 2015-2030 ( 1km resolution ) R2025A v1  
+**Dataset name:** G2_CN_POP_R25A_1km  
+**Accessed via:** API  
+**Last accessed:** 06/01/2026
+**Data range:** 2015-2030 (2015-2026 used)
+
+---
+
+# `r map_badge()`
+
+### Prevalence estimates @MAP_package
+**Dataset:** Plasmodium falciparum prevalence in 2 to 10 year olds  
+**Dataset name:** Malaria__202508_Global_Pf_Parasite_Rate_  
+**Accessed via:** R-package  
+**Last accessed:** 06/01/2026
+**Data range:** 2000-2024
+
+**Dataset:** Plasmodium vivax prevalence in 1 to 99 year olds  
+**Dataset name:** Malaria__202508_Global_Pv_Parasite_Rate  
+**Accessed via:** R-package  
+**Last accessed:** 06/01/2026
+**Data range:** 2000-2024
+
+### Intervention coverage estimates @MAP_package
+**Dataset:** ITN use in Africa  
+**Dataset name:** Interventions__202508_Africa_Insecticide_Treated_Net_Use  
+**Accessed via:** R-package  
+**Last accessed:** 06/01/2026
+**Data range:** 2000-2024
+
+**Dataset:** IRS coverage in Africa  
+**Dataset name:** Interventions__202508_Africa_IRS_Coverage  
+**Accessed via:** R-package  
+**Last accessed:** 06/01/2026
+**Data range:** 2000-2024
+
+**Dataset:** Effective treatment coverage  
+**Dataset name:** Interventions__202508_Global_Antimalarial_Effective_Treatment  
+**Accessed via:** R-package  
+**Last accessed:** 06/01/2026
+**Data range:** 2000-2024
+
+### Access and travel time @MAP_package
+**Dataset:** Travel time to cities
+**Dataset name:** 201501_Global_Travel_Time_to_Cities_2015  
+**Accessed via:** R-package  
+**Last accessed:** 30/11/2023
+**Data range:** 2015
+
+**Dataset:** Motorised travel time to healthcare
+**Dataset name:** 202001_Global_Motorized_Travel_Time_to_Healthcare_2019  
+**Accessed via:** R-package  
+**Last accessed:** 30/11/2023
+**Data range:** 2019
+
+**Dataset:** Walking travel time to healthcare
+**Dataset name:** 202001_Global_Walking_Only_Travel_Time_To_Healthcare_2019  
+**Accessed via:** R-package  
+**Last accessed:** 30/11/2023
+**Data range:** 2019
+
+### Blood disorders @MAP_package
+**Dataset:** HbC Allele frequency
+**Dataset name:** 201201_Africa_HbC_Allele_Frequency_2010  
+**Accessed via:** R-package  
+**Last accessed:** 30/11/2023
+**Data range:** 2010
+
+**Dataset:** Duffy negativity phenotype frequency
+**Dataset name:** 201201_Global_Duffy_Negativity_Phenotype_Frequency_2010  
+**Accessed via:** R-package  
+**Last accessed:** 30/11/2023
+**Data range:** 2010
+
+**Dataset:** G6PD Allele frequency
+**Dataset name:** 201201_Global_G6PDd_Allele_Frequency_2010  
+**Accessed via:** R-package  
+**Last accessed:** 30/11/2023
+**Data range:** 2010
+
+**Dataset:** HbS Allele frequency
+**Dataset name:** 201201_Global_Sickle_Haemoglobin_HbS_Allele_Frequency_2010  
+**Accessed via:** R-package  
+**Last accessed:** 30/11/2023
+**Data range:** 2010
+
+---
+
+# `r chirps_badge()`
+
+### Rainfall estimates @CHIRPS
+**Dataset:** CHIRPS: rainfall estimates from rain gauge and satellite observations 
+**Dataset name:** Monthly global raster dataset  
+**Accessed via:** Website  
+**Last accessed:** 06/01/2026
+**Data range:** 2000:2025
+
+---
+
+# `r who_badge()`
+
+### Burden @WMR
+**Dataset:** Cases and deaths 
+**Dataset name:** Annex 4h  
+**Accessed via:** Website  
+**Last accessed:** 06/01/2026
+**Data range:** 2022-2024
+
+### Intervention commodities
+**Dataset:** Commodities distribution and coverage
+**Dataset name:** Annex 4g  
+**Accessed via:** Website  
+**Last accessed:** 06/01/2026
+**Data range:** 2022-2024
+
+### MVIP @MVIP
+**Dataset:** MVIP vaccine trial
+**Dataset name:** WHO_Malaria_Vaccine_Implementation_Program_Briefing_2021  
+**Accessed via:** Online report  
+**Last accessed:** 01/10/2022
+
+### Vaccine dashboard @WHO_malaria_vaccine_dashboard_2025
+**Dataset:** Malaria vaccine introduction status  
+**Dataset name:** Malaria vaccine introduction status  
+**Accessed via:** Online dashboard  
+**Last accessed:** 06/01/2026 
+
+### MagicAPP @WHO_malaria_MAGICapp_guideline_2025
+**Dataset:** WHO malaria guidelines  
+**Dataset name:** MAGICapp
+**Accessed via:** Online resource  
+**Last accessed:** 06/01/2026 
+
+---
+
+# `r vectors_badge()`
+
+### Vector relative abundance @Sinka2016
+**Dataset:** Relative abundance of malaria vectors  
+**Dataset name:** Modelling the relative abundance of the primary African vectors of malaria before and after the implementation of indoor, insecticide-based vector control  
+**Accessed via:** Website/Paper 
+**Last accessed:** 06/01/2026
+
+### Vector occurrence @Sinka2012
+**Dataset:** Dominant malaria vectors  
+**Dataset name:** A global map of dominant malaria vectors 
+**Accessed via:** Website/Paper 
+**Last accessed:** 06/01/2026  
+
+### Vector bionomics
+**Dataset:** Vector bionomics 
+**Dataset name:** A review of malaria vector bionomics 
+**Accessed via:** Personal correspondence with Arran Hamlet  
+**Last accessed:** 30/08/2023  
+
+### Pyrethroid resistance
+**Dataset:** Pyrethroid resistance 
+**Dataset name:** Country level historical and future pyrethroid resistance projections  
+**Accessed via:** Personal correspondence with Thom Churcher  
+**Last accessed:** 30/08/2023  
+
+### Vector control parameters @sherrard2018 @sherrard2022
+**Dataset:** Vector control efficacy parameters  
+**Dataset name:** ITN and IRS efficacy parameters for multiple products in the presence of resistance  
+**Accessed via:** Papers  
+**Last accessed:** 30/08/2023  
+
+### Net type @alliance
+**Dataset:** Bed net product introduction dates  
+**Dataset name:** itn-dashboards/mass-campaign-tracker/?_sfm_mc_date_of_import=20221201  
+**Accessed via:** Webpage  
+**Last accessed:** 04/01/2024  
+
+### Net retention @bertozzi
+**Dataset:** Bed net retention half-life
+**Dataset name:** Bed net retention half-life 
+**Accessed via:** Paper  
+**Last accessed:** 05/03/2024  
+
+---
+
+# `r gadm_badge()`
+
+### Spatial boundaries @GADM
+**Dataset:** Country and sub-national spatial boundaries  
+**Dataset name:** GADM version 4.1.0  
+**Accessed via:** Website  
+**Last accessed:** 22/11/2023  
+
+--- 
+
+# `r dhs_badge()`
+
+### Proportion ACT @DHS
+**Dataset:** ACT use  
+**Dataset name:** Children who took any ACT (ID: ML_AMLD_C_ACT)  
+**Accessed via:** Website/StatCompiler  
+**Last accessed:** 19/07/2022  
+
+### Proportion public @DHS
+**Dataset:** Public sector treatment coverage  
+**Dataset name:** Children with fever for whom advice or treatment was sought, 
+the source was a public sector facility (ID: ML_FEVA_C_PUB)  
+**Accessed via:** Website/StatCompiler  
+**Last accessed:** 19/07/2022  
+
+---
+
+# `r smc_badge()`
+
+### SMC coverage @access_SMC @SMC_alliance  
+**Dataset:** SMC implementation areas  
+**Dataset name:** SMC implementation areas  
+**Accessed via:** Website/Grey literature  
+**Last accessed:** 10/01/2025
+
+---
+
+# `r unicef_badge()`
+
+### Vaccine deliveries @UNICEF_immunization_market_dashboard_2026
+**Dataset:** Malaria vaccine deliveries  
+**Dataset name:** Malaria vaccine deliveries  
+**Accessed via:** Website/dashboard  
+**Last accessed:** 06/01/2026
+
+# Citations
