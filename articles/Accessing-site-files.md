@@ -5,7 +5,7 @@
 To access a site file - a collated set of data for a specific country -
 you will need to follow these steps:
 
-1.  Sign up for a [github account](https://github.com/), single user
+1.  Sign up for a [GitHub account](https://github.com/), single user
     accounts are free.
 
 2.  Send an email to malariaverse@imperial.ac.uk to ask for site file
@@ -13,13 +13,13 @@ you will need to follow these steps:
 
 - Your name
 - Your institution
-- Your github username
+- Your GitHub username
 - A short description of the project you will use the site files for
 
-3.  You will then be added to the malariaverse github team.
+3.  You will then be added to the malariaverse GitHub team.
 
 When you receive confirmation of this (look out for a notification on
-github), you can then use the `site` package inbuilt functionality to
+GitHub), you can then use the `site` package built-in functionality to
 download site files.
 
 You can call [`fetch_site()`](../reference/fetch_site.md), specifying
@@ -29,12 +29,12 @@ of interest. For example, for Nigeria:
 `fetch_site(iso3c = "NGA", admin_level = 1, urban_rural = TRUE)`.
 
 The first time you do this, you will see interactive authentication
-instructions asking you to access a github link and providing an
+instructions asking you to access a GitHub link and providing an
 authentication code. Open the link and copy the code to authorise
 access. This process should cache your credentials so that you don’t
 have to authorise every time.
 
-Please make sure you have installed ordely from the r-universe:
+Please make sure you have installed orderly from the r-universe:
 
     install.packages(
       "orderly",

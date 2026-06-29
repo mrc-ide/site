@@ -10,7 +10,8 @@
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Metadata">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
+<meta property="og:title" content="Metadata">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -20,7 +21,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">site</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.10</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.13</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,17 +30,19 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item"><a class="nav-link" href="../articles/Upcoming-changes.html">📢 Upcoming changes</a></li>
+<li class="nav-item"><a class="nav-link" href="../articles/Latest-changes.html">📢 Latest changes</a></li>
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/Accessing-site-files.html">Accessing site-files</a></li>
+    <li><a class="dropdown-item" href="../articles/blood_disorders_accessibility.html">Blood Disorders and Accessibility</a></li>
+    <li><a class="dropdown-item" href="../articles/data_sources.html">Data Sources and Citations</a></li>
     <li><a class="dropdown-item" href="../articles/historical_epi.html">Historical Epidemiological Data</a></li>
     <li><a class="dropdown-item" href="../articles/Interventions.html">Interventions</a></li>
+    <li><a class="dropdown-item" href="../articles/Latest-changes.html">Latest changes to malariaverse</a></li>
     <li><a class="dropdown-item" href="../articles/Metadata.html">Metadata</a></li>
     <li><a class="dropdown-item" href="../articles/pop_demog.html">Population and Demography</a></li>
     <li><a class="dropdown-item" href="../articles/Seasonality.html">Seasonality</a></li>
-    <li><a class="dropdown-item" href="../articles/Upcoming-changes.html">Upcoming changes to malariaverse</a></li>
     <li><a class="dropdown-item" href="../articles/vectors.html">Mosquito Vectors</a></li>
   </ul>
 </li>
@@ -71,15 +74,19 @@
 
     
     
+<p>Metadata holds high-level information about the country and the
+site-file version. The <code>country</code>, <code>boundary</code> and
+<code>admin_level</code> fields are available both at the top level of
+the site file (e.g. <code>site_file$country</code>) and, mirrored,
+within <code>site_file$metadata</code>.</p>
 <div class="section level2">
 <h2 id="country">Country<a class="anchor" aria-label="anchor" href="#country"></a>
 </h2>
 <p><code>site_file$metadata$country</code></p>
 <p>Country name</p>
 <p><code>site_file$metadata$iso3c</code></p>
-<p>The ISO3c code identifying the country. The R package
-<code>countrycode</code><span class="citation"><sup><a href="#ref-countrycode">1</a></sup></span> is useful for converting
-between ISO3c and country names.</p>
+<p>The ISO3c code identifying the country. The R package <a href="https://cran.r-project.org/web/packages/countrycode/index.html" class="external-link">countrycode</a>
+is useful for converting between ISO3c and country names.</p>
 </div>
 <div class="section level2">
 <h2 id="boundary">Boundary<a class="anchor" aria-label="anchor" href="#boundary"></a>
@@ -98,7 +105,7 @@ within the site file.</p>
 <h2 id="version">Version<a class="anchor" aria-label="anchor" href="#version"></a>
 </h2>
 <p><code>site_file$metadata$version</code></p>
-<p>Site file version name. Please see the (change log)[<a href="https://mrc-ide.github.io/site/news/index.html" class="external-link uri">https://mrc-ide.github.io/site/news/index.html</a>] for
+<p>Site file version name. Please see the <a href="https://mrc-ide.github.io/site/news/index.html" class="external-link">change log</a> for
 version information.</p>
 </div>
 <div class="section level2">
@@ -108,27 +115,54 @@ version information.</p>
 <p>The sites within the site file. These are the named sites
 disaggregated to the specified administrative level. Further
 disaggregation may include, for example, an <a href="https://mrc-ide.github.io/site/articles/pop_demog.html" class="external-link">urban
-rural split</a>. We use the GADM<span class="citation"><sup><a href="#ref-GADM">2</a></sup></span> version 4.1.0 administrative
-boundary simple feature spatial files at the first or second
-administrative unit level.</p>
+rural split</a>. We use the GADM administrative boundary simple feature
+spatial files at the first or second administrative unit level.</p>
+<div class="section level3">
+<h3 id="sources">Sources<a class="anchor" aria-label="anchor" href="#sources"></a>
+</h3>
+<p><a href="https://mrc-ide.github.io/site/articles/data-sources.html#GADM" class="external-link data-badge" style="background-color: rgba(255, 173, 0, 0.75);">📍
+| GADM</a></p>
 </div>
-<div class="section level2 unnumbered">
-<h2 class="unnumbered" id="citations">Citations<a class="anchor" aria-label="anchor" href="#citations"></a>
+</div>
+<div class="section level2">
+<h2 id="shape">Shape<a class="anchor" aria-label="anchor" href="#shape"></a>
 </h2>
-<div id="refs" class="references csl-bib-body" entry-spacing="0" line-spacing="2">
-<div id="ref-countrycode" class="csl-entry">
-<div class="csl-left-margin">1. </div>
-<div class="csl-right-inline">Arel-Bundock, V., Enevoldsen, N. &amp; Yetman,
-C. <a href="https://doi.org/10.21105/joss.00848" class="external-link">Countrycode: An r
-package to convert country names and country codes</a>. <em>Journal of
-Open Source Software</em> <strong>3</strong>, 848 (2018).</div>
+<p><code>site_file$shape</code></p>
+<p>The spatial boundary geometries for the site, stored as
+<code>sf</code> simple-feature data frames (the geometry is held in the
+<code>geom</code> column). The list contains one entry per
+administrative level present in the file, for example
+<code>level_0</code> (the national outline) and <code>level_1</code>
+(the first sub-national level). These are the GADM administrative
+boundaries — version <strong>4.1.0</strong>, as recorded in
+<code>site_file$metadata$boundary</code> (<code>GADM_4.1.0</code>) —
+used to define the sites and to draw maps such as those produced by
+<code><a href="../reference/plot_site_map.html">plot_site_map()</a></code>.</p>
+<div class="section level3">
+<h3 id="sources-1">Sources<a class="anchor" aria-label="anchor" href="#sources-1"></a>
+</h3>
+<p><a href="https://mrc-ide.github.io/site/articles/data-sources.html#GADM" class="external-link data-badge" style="background-color: rgba(255, 173, 0, 0.75);">📍
+| GADM</a></p>
 </div>
-<div id="ref-GADM" class="csl-entry">
-<div class="csl-left-margin">2. </div>
-<div class="csl-right-inline">
-<a href="https://gadm.org/" class="external-link">GADM maps and data</a>.</div>
 </div>
-</div>
+<div class="section level2">
+<h2 id="common-columns">Common columns<a class="anchor" aria-label="anchor" href="#common-columns"></a>
+</h2>
+<p>Most of the data frames in a site file are keyed by a set of
+administrative columns identifying the spatial unit each row refers to.
+This set is <strong>not fixed</strong> — it depends on the resolution of
+the site file (see <code>site_file$metadata$admin_level</code>):</p>
+<ul>
+<li>A country-level file may carry only <code>country</code> and
+<code>iso3c</code>.</li>
+<li>Finer files add successive sub-national levels: <code>name_1</code>,
+and possibly <code>name_2</code>, <code>name_3</code>, and so on.</li>
+<li>
+<code>urban_rural</code> is present only when an urban/rural split
+has been applied.</li>
+</ul>
+<p>For brevity these key columns are not repeated in the per-table
+variable lists elsewhere in this documentation.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

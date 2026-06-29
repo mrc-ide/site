@@ -1,0 +1,157 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working
+with code in this repository.
+
+## Project Overview
+
+R package (`site`) that converts parameterized “site files”
+(sub-nationally disaggregated malaria data) into `malariasimulation`
+model input parameter lists. Part of the malariaverse ecosystem.
+
+## Common Commands
+
+``` r
+
+# Run all tests
+devtools::test()
+
+# Run a single test file
+testthat::test_file("tests/testthat/test-badge.R")
+
+# Full package check (includes tests, examples, vignettes)
+devtools::check()
+
+# Rebuild documentation after modifying roxygen comments
+devtools::document()
+
+# Build pkgdown site locally
+pkgdown::build_site()
+```
+
+## Architecture
+
+### Core Flow
+
+[`site_parameters()`](reference/site_parameters.md) in
+`R/site_parameters.R` is the main entry point. It takes site file
+components (interventions, demography, vectors, seasonality, EIR) and a
+year range, then orchestrates calls to intervention-specific modules to
+build a complete `malariasimulation` parameter list.
+
+### Intervention Modules
+
+Each intervention type has its own file that adds parameters to the
+simulation: - `R/itns.R` - Insecticide-treated nets (uses `netz` package
+for distribution modeling) - `R/irs.R` - Indoor residual spraying -
+`R/smc.R` - Seasonal malaria chemoprevention - `R/pmc.R` - Perennial
+malaria chemoprevention - `R/vaccines.R` - Malaria vaccines -
+`R/treatment.R` - Treatment/case management - `R/lsm.R` - Larval source
+management
+
+These are composed in `R/interventions.R` which calls each module in
+sequence.
+
+### Supporting Modules
+
+- `R/time.R` - Year-to-timestep conversion
+  ([`calendar_to_timestep()`](reference/calendar_to_timestep.md),
+  [`calculate_total_timesteps()`](reference/calculate_total_timesteps.md))
+- `R/seasonality.R`, `R/vectors.R`, `R/demography.R` - Set baseline
+  model parameters from site data
+- `R/single_site.R` - [`subset_site()`](reference/subset_site.md)
+  filters site files by country/ISO/name
+- `R/fetch.R` - Downloads site files from the malariaverse Packit server
+  via `orderly`
+- `R/badge.R` - Data provenance badge functions for tracking data
+  sources
+
+### Visualization
+
+- `R/plot.R` - Diagnostic plotting functions for site data
+  - [`plot_site_diagnostic()`](reference/plot_site_diagnostic.md) -
+    Composite 6-panel dashboard (map, prevalence, interventions,
+    vectors, resistance, age distribution) assembled with `patchwork`
+  - [`plot_interventions()`](reference/plot_interventions.md) /
+    [`plot_site_interventions()`](reference/plot_site_interventions.md) -
+    Multi-layer intervention timeline (ITN, SMC, IRS, treatment,
+    vaccines, PMC, LSM, rainfall)
+  - Individual plots:
+    [`plot_site_prevalence()`](reference/plot_site_prevalence.md),
+    [`plot_vector_species()`](reference/plot_vector_species.md),
+    [`plot_pyrethroid_resistance()`](reference/plot_pyrethroid_resistance.md),
+    [`plot_age_distribution_stacked()`](reference/plot_age_distribution_stacked.md),
+    [`plot_site_map()`](reference/plot_site_map.md)
+  - Theme/palette helpers: [`theme_site()`](reference/theme_site.md),
+    [`site_age_palette()`](reference/site_age_palette.md),
+    [`site_vector_palette()`](reference/site_vector_palette.md),
+    [`default_intervention_colours()`](reference/default_intervention_colours.md)
+  - Internal `prepare_*` helpers handle data wrangling per intervention
+    type before plotting
+
+### Data
+
+- `data/net_efficacy.rda` and `data/irs_efficacy.rda` - Lookup tables
+  for intervention efficacy parameters
+- Source scripts in `data-raw/`
+
+### Key Dependencies
+
+- `malariasimulation` (from `mrc-ide/malariasimulation@dev`) - The
+  simulation engine
+- `netz` (from `mrc-ide/netz@site-2601`) - Net distribution modelling
+- `orderly` - Data pipeline/reproducibility framework for fetching site
+  files
+- `ggplot2` / `patchwork` - Plotting and multi-panel composition
+  (`R/plot.R`)
+
+## Workflow Preferences
+
+- After most changes, run `devtools::test()` to verify. Use
+  `devtools::check()` for larger changes (new exports, vignette edits,
+  dependency changes).
+- Always ask before committing — don’t auto-commit.
+- Assume deep R knowledge; no need to explain standard R idioms or
+  package development concepts.
+
+## Error Handling
+
+- Prefer clear, informative error messages. Use
+  [`cli::cli_abort()`](https://cli.r-lib.org/reference/cli_abort.html)
+  and
+  [`cli::cli_warn()`](https://cli.r-lib.org/reference/cli_abort.html)
+  for user-facing errors/warnings where the formatting helps (e.g.,
+  named bullets, inline markup for variable names/values).
+- Use standard [`stop()`](https://rdrr.io/r/base/stop.html) /
+  [`warning()`](https://rdrr.io/r/base/warning.html) for simple internal
+  errors where `cli` formatting adds no value.
+- Validate inputs at public function boundaries; internal helpers can
+  trust their callers.
+
+## Files to Never Edit
+
+- `man/` — auto-generated by `devtools::document()`. Edit roxygen2
+  comments in `R/` source files instead.
+
+## Code Style
+
+- Follow tidyverse style and conventions (e.g., pipe-friendly functions,
+  tidy evaluation where appropriate)
+- Prioritise clarity and readability over cleverness
+- Use the base pipe `|>` not magrittr `%>%`
+- Use `snake_case` for all names (functions, variables, arguments, file
+  names)
+- New functions must include roxygen2 documentation and corresponding
+  unit tests
+
+## Testing
+
+Uses testthat edition 3. Tests are in `tests/testthat/` with snapshot
+tests in `tests/testthat/_snaps/`. Helper functions for creating test
+fixtures are in `R/test-helpers.R` (e.g.,
+[`create_example_site()`](reference/create_example_site.md)).
+
+## CI
+
+GitHub Actions runs R CMD check on macOS, Windows, and Ubuntu (multiple
+R versions). Coverage via codecov on push to main.

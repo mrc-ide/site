@@ -10,7 +10,8 @@
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Seasonality">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
+<meta property="og:title" content="Seasonality">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -20,7 +21,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">site</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.10</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.13</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,17 +30,19 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item"><a class="nav-link" href="../articles/Upcoming-changes.html">📢 Upcoming changes</a></li>
+<li class="nav-item"><a class="nav-link" href="../articles/Latest-changes.html">📢 Latest changes</a></li>
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/Accessing-site-files.html">Accessing site-files</a></li>
+    <li><a class="dropdown-item" href="../articles/blood_disorders_accessibility.html">Blood Disorders and Accessibility</a></li>
+    <li><a class="dropdown-item" href="../articles/data_sources.html">Data Sources and Citations</a></li>
     <li><a class="dropdown-item" href="../articles/historical_epi.html">Historical Epidemiological Data</a></li>
     <li><a class="dropdown-item" href="../articles/Interventions.html">Interventions</a></li>
+    <li><a class="dropdown-item" href="../articles/Latest-changes.html">Latest changes to malariaverse</a></li>
     <li><a class="dropdown-item" href="../articles/Metadata.html">Metadata</a></li>
     <li><a class="dropdown-item" href="../articles/pop_demog.html">Population and Demography</a></li>
     <li><a class="dropdown-item" href="../articles/Seasonality.html">Seasonality</a></li>
-    <li><a class="dropdown-item" href="../articles/Upcoming-changes.html">Upcoming changes to malariaverse</a></li>
     <li><a class="dropdown-item" href="../articles/vectors.html">Mosquito Vectors</a></li>
   </ul>
 </li>
@@ -74,28 +77,70 @@
 <div class="section level2">
 <h2 id="seasonality">Seasonality<a class="anchor" aria-label="anchor" href="#seasonality"></a>
 </h2>
-<p><code>site_file$seasonality</code></p>
-<p>Daily rainfall global rasters for the period 2000-2024 were obtained
-from CHIRPS<span class="citation"><sup><a href="#ref-CHIRPS">1</a></sup></span> using the <a href="https://mrc-ide.github.io/umbrella/" class="external-link">umbrella R package</a>. For
-each site we estimate the fourier series parameters representing general
-seasonal profiles. Please see the umbrella website for more
-information.</p>
-<p><code>site_file$seasonality$seasonality_parameters</code> Contains
-the estimated fourier series parameters.</p>
-<p><code>site_file$seasonality$monthly_rainfall</code> Contains the
-extracted rainfall estimate</p>
-<p><code>site_file$seasonality$fourier_prediction</code> Contains a
-prediction of the seasonal curve using the estimated parameters</p>
+<p><code>site_file$seasonality$monthly_rainfall</code></p>
+<p>Monthly rainfall estimates</p>
+<div class="section level3">
+<h3 id="variables">Variables<a class="anchor" aria-label="anchor" href="#variables"></a>
+</h3>
+<p><code>month</code> Month integer<br><code>month_name</code> Month<br><code>t</code> Midpoint of month<br><code>rainfall</code> Monthly rainfall estimate (mm)</p>
 </div>
-<div class="section level2 unnumbered">
-<h2 class="unnumbered" id="citations">Citations<a class="anchor" aria-label="anchor" href="#citations"></a>
-</h2>
-<div id="refs" class="references csl-bib-body" entry-spacing="0" line-spacing="2">
-<div id="ref-CHIRPS" class="csl-entry">
-<div class="csl-left-margin">1. </div>
-<div class="csl-right-inline">
-<a href="https://www.chc.ucsb.edu/data/chirps" class="external-link">CHIRPS</a>.</div>
+<div class="section level3">
+<h3 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
+</h3>
+<p>Monthly rainfall global rasters aggregated to the site by taking the
+population at risk weighted mean rainfall across the region.</p>
 </div>
+<div class="section level3">
+<h3 id="sources">Sources<a class="anchor" aria-label="anchor" href="#sources"></a>
+</h3>
+<p><a href="https://mrc-ide.github.io/site/articles/data-sources.html#CHIRPS" class="external-link data-badge" style="background-color: rgba(64, 126, 27, 0.75);">☔️
+| CHIRPS</a></p>
+<hr>
+<p><code>site_file$seasonality$seasonality_parameters</code></p>
+<p>Fitted Fourier series seasonality parameters</p>
+</div>
+<div class="section level3">
+<h3 id="variables-1">Variables<a class="anchor" aria-label="anchor" href="#variables-1"></a>
+</h3>
+<p><code>g0, g1, g2, g3, h1, h2, h3</code> Fitted Fourier seasonality
+parameters</p>
+</div>
+<div class="section level3">
+<h3 id="description-1">Description<a class="anchor" aria-label="anchor" href="#description-1"></a>
+</h3>
+<p>For each site we estimate the Fourier series parameters representing
+general seasonal profiles using the <a href="https://mrc-ide.github.io/umbrella/" class="external-link">umbrella R package</a>.</p>
+<hr>
+<p><code>site_file$seasonality$fourier_prediction</code></p>
+<p>A prediction of the seasonal curve using the estimated parameters</p>
+</div>
+<div class="section level3">
+<h3 id="variables-2">Variables<a class="anchor" aria-label="anchor" href="#variables-2"></a>
+</h3>
+<p><code>t</code> Day of the year<br><code>profile</code> Fourier estimate</p>
+</div>
+<div class="section level3">
+<h3 id="description-2">Description<a class="anchor" aria-label="anchor" href="#description-2"></a>
+</h3>
+<p>We do not currently include historical year-on-year variability in
+rainfall seasonality into the model runs so Fourier seasonal curves
+represent an average over all historical years in the rainfall
+dataset.</p>
+<hr>
+<p><code>site_file$seasonality$peak_season</code></p>
+<p>Peak rainfall day</p>
+</div>
+<div class="section level3">
+<h3 id="variables-3">Variables<a class="anchor" aria-label="anchor" href="#variables-3"></a>
+</h3>
+<p><code>peak_season</code> Day of the year with peak rainfall (from
+fitted fourier)</p>
+</div>
+<div class="section level3">
+<h3 id="description-3">Description<a class="anchor" aria-label="anchor" href="#description-3"></a>
+</h3>
+<p>Peak rainfall season is used to estimate timing of seasonally
+targeted interventions such as SMC and IRS.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -5,7 +5,7 @@ Add PMC
 ## Usage
 
 ``` r
-add_pmc(p, interventions)
+add_pmc(p, pmc)
 ```
 
 ## Arguments
@@ -14,9 +14,9 @@ add_pmc(p, interventions)
 
   parameter list
 
-- interventions:
+- pmc:
 
-  site intervention inputs
+  interventions pmc object
 
 ## Value
 

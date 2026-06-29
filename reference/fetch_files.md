@@ -1,6 +1,6 @@
-# Get files from the malariaverse sitefile server.
+# Get files from the malariaverse site file server.
 
-Get files from the malariaverse sitefile server.
+Get files from the malariaverse site file server.
 
 ## Usage
 

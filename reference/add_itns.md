@@ -5,7 +5,7 @@ Add ITNs
 ## Usage
 
 ``` r
-add_itns(p, interventions)
+add_itns(p, itn, resistance)
 ```
 
 ## Arguments
@@ -14,9 +14,13 @@ add_itns(p, interventions)
 
   parameter list
 
-- interventions:
+- itn:
 
-  site intervention inputs
+  interventions ITN object
+
+- resistance:
+
+  vectors resistance object
 
 ## Value
 

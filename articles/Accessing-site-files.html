@@ -10,7 +10,8 @@
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Accessing site-files">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
+<meta property="og:title" content="Accessing site-files">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -20,7 +21,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">site</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.10</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.13</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,17 +30,19 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item"><a class="nav-link" href="../articles/Upcoming-changes.html">📢 Upcoming changes</a></li>
+<li class="nav-item"><a class="nav-link" href="../articles/Latest-changes.html">📢 Latest changes</a></li>
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/Accessing-site-files.html">Accessing site-files</a></li>
+    <li><a class="dropdown-item" href="../articles/blood_disorders_accessibility.html">Blood Disorders and Accessibility</a></li>
+    <li><a class="dropdown-item" href="../articles/data_sources.html">Data Sources and Citations</a></li>
     <li><a class="dropdown-item" href="../articles/historical_epi.html">Historical Epidemiological Data</a></li>
     <li><a class="dropdown-item" href="../articles/Interventions.html">Interventions</a></li>
+    <li><a class="dropdown-item" href="../articles/Latest-changes.html">Latest changes to malariaverse</a></li>
     <li><a class="dropdown-item" href="../articles/Metadata.html">Metadata</a></li>
     <li><a class="dropdown-item" href="../articles/pop_demog.html">Population and Demography</a></li>
     <li><a class="dropdown-item" href="../articles/Seasonality.html">Seasonality</a></li>
-    <li><a class="dropdown-item" href="../articles/Upcoming-changes.html">Upcoming changes to malariaverse</a></li>
     <li><a class="dropdown-item" href="../articles/vectors.html">Mosquito Vectors</a></li>
   </ul>
 </li>
@@ -77,7 +80,7 @@
 <p>To access a site file - a collated set of data for a specific country
 - you will need to follow these steps:</p>
 <ol style="list-style-type: decimal">
-<li><p>Sign up for a <a href="https://github.com/" class="external-link">github account</a>,
+<li><p>Sign up for a <a href="https://github.com/" class="external-link">GitHub account</a>,
 single user accounts are free.</p></li>
 <li><p>Send an email to malariaverse@imperial.ac.uk to ask for site file
 access. Please include the following details:</p></li>
@@ -85,25 +88,25 @@ access. Please include the following details:</p></li>
 <ul>
 <li>Your name</li>
 <li>Your institution</li>
-<li>Your github username</li>
+<li>Your GitHub username</li>
 <li>A short description of the project you will use the site files
 for</li>
 </ul>
 <ol start="3" style="list-style-type: decimal">
-<li>You will then be added to the malariaverse github team.</li>
+<li>You will then be added to the malariaverse GitHub team.</li>
 </ol>
 <p>When you receive confirmation of this (look out for a notification on
-github), you can then use the <code>site</code> package inbuilt
+GitHub), you can then use the <code>site</code> package built-in
 functionality to download site files.</p>
 <p>You can call <code><a href="../reference/fetch_site.html">fetch_site()</a></code>, specifying the <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3" class="external-link">ISO3c country
 code</a> of your country of interest. For example, for Nigeria:
 <code>fetch_site(iso3c = "NGA", admin_level = 1, urban_rural = TRUE)</code>.</p>
 <p>The first time you do this, you will see interactive authentication
-instructions asking you to access a github link and providing an
+instructions asking you to access a GitHub link and providing an
 authentication code. Open the link and copy the code to authorise
 access. This process should cache your credentials so that you don’t
 have to authorise every time.</p>
-<p>Please make sure you have installed ordely from the r-universe:</p>
+<p>Please make sure you have installed orderly from the r-universe:</p>
 <pre><code><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span></span>
 <span>  <span class="st">"orderly"</span>,</span>
 <span>  repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"https://mrc-ide.r-universe.dev"</span>, <span class="st">"https://cloud.r-project.org"</span><span class="op">)</span></span>

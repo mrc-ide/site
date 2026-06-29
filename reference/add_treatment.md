@@ -5,7 +5,7 @@ Add treatment
 ## Usage
 
 ``` r
-add_treatment(p, interventions)
+add_treatment(p, treatment)
 ```
 
 ## Arguments
@@ -14,9 +14,10 @@ add_treatment(p, interventions)
 
   parameter list
 
-- interventions:
+- treatment:
 
-  site intervention inputs
+  treatment intervention data including coverage and drug type
+  proportions
 
 ## Value
 

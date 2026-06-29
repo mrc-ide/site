@@ -5,7 +5,7 @@ Adjust carrying capacity
 ## Usage
 
 ``` r
-adjust_carrying_capacity(p, interventions)
+adjust_carrying_capacity(p, lsm)
 ```
 
 ## Arguments
@@ -14,9 +14,10 @@ adjust_carrying_capacity(p, interventions)
 
   parameter list
 
-- interventions:
+- lsm:
 
-  site intervention inputs
+  larval source management intervention data including coverage over
+  time
 
 ## Value
 

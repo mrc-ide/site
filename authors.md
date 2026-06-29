@@ -7,11 +7,11 @@
 ## Citation
 
 Winskill P (2026). *site: Site specific malariasimulation modelling*. R
-package version 1.0.10.
+package version 1.0.13.
 
     @Manual{,
       title = {site: Site specific malariasimulation modelling},
       author = {Pete Winskill},
       year = {2026},
-      note = {R package version 1.0.10},
+      note = {R package version 1.0.13},
     }

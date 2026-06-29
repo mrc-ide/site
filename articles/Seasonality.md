@@ -2,25 +2,71 @@
 
 ## Seasonality
 
-`site_file$seasonality`
+`site_file$seasonality$monthly_rainfall`
 
-Daily rainfall global rasters for the period 2000-2024 were obtained
-from CHIRPS^([1](#ref-CHIRPS)) using the [umbrella R
-package](https://mrc-ide.github.io/umbrella/). For each site we estimate
-the fourier series parameters representing general seasonal profiles.
-Please see the umbrella website for more information.
+Monthly rainfall estimates
 
-`site_file$seasonality$seasonality_parameters` Contains the estimated
-fourier series parameters.
+### Variables
 
-`site_file$seasonality$monthly_rainfall` Contains the extracted rainfall
-estimate
+`month` Month integer  
+`month_name` Month  
+`t` Midpoint of month  
+`rainfall` Monthly rainfall estimate (mm)
 
-`site_file$seasonality$fourier_prediction` Contains a prediction of the
-seasonal curve using the estimated parameters
+### Description
 
-## Citations
+Monthly rainfall global rasters aggregated to the site by taking the
+population at risk weighted mean rainfall across the region.
 
-1\.
+### Sources
 
-[CHIRPS](https://www.chc.ucsb.edu/data/chirps).
+[☔️ \|
+CHIRPS](https://mrc-ide.github.io/site/articles/data-sources.html#CHIRPS)
+
+------------------------------------------------------------------------
+
+`site_file$seasonality$seasonality_parameters`
+
+Fitted Fourier series seasonality parameters
+
+### Variables
+
+`g0, g1, g2, g3, h1, h2, h3` Fitted Fourier seasonality parameters
+
+### Description
+
+For each site we estimate the Fourier series parameters representing
+general seasonal profiles using the [umbrella R
+package](https://mrc-ide.github.io/umbrella/).
+
+------------------------------------------------------------------------
+
+`site_file$seasonality$fourier_prediction`
+
+A prediction of the seasonal curve using the estimated parameters
+
+### Variables
+
+`t` Day of the year  
+`profile` Fourier estimate
+
+### Description
+
+We do not currently include historical year-on-year variability in
+rainfall seasonality into the model runs so Fourier seasonal curves
+represent an average over all historical years in the rainfall dataset.
+
+------------------------------------------------------------------------
+
+`site_file$seasonality$peak_season`
+
+Peak rainfall day
+
+### Variables
+
+`peak_season` Day of the year with peak rainfall (from fitted fourier)
+
+### Description
+
+Peak rainfall season is used to estimate timing of seasonally targeted
+interventions such as SMC and IRS.

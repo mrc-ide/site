@@ -1,14 +1,12 @@
 # site ![](reference/figures/Site.png)
 
-> ## 📢 Advance notice of a major update
+> ## 📢 Latest update
 >
-> The malariaverse site files and several supporting packages are about
-> to receive a significant update that will change the site-file
-> structure and may **break existing workflows**. **Please read
-> [Upcoming changes to
-> malariaverse](https://mrc-ide.github.io/site/articles/Upcoming-changes.html)**
-> for what’s changing, timing, and how to keep reproducing existing
-> work.
+> The malariaverse site files and several supporting packages have had a
+> significant update that changes the site-file structure and may
+> **break existing workflows**. **Please read [Latest changes to
+> malariaverse](https://mrc-ide.github.io/site/articles/Latest-changes.html)**
+> for what’s changed and how to keep reproducing existing work.
 
 The site package supports malariaverse users to:
 
@@ -24,7 +22,7 @@ recommend consulting a member of the Imperial College modelling team
 before using these results for science, policy or decision-making
 purposes.
 
-While every effort has been made to ensure the reliability of the
+⚠️ While every effort has been made to ensure the reliability of the
 package and its outputs, the authors, contributors, and affiliated
 institutions accept no responsibility or liability for any errors,
 omissions, or consequences arising from their use. All results should be
@@ -40,10 +38,12 @@ include:
 
 1.  The
     [Metadata](https://mrc-ide.github.io/site/articles/Metadata.html),
-    with high level information about the country and site-file version.
+    with high level information about the country, site-file version and
+    spatial boundaries.
 2.  [Historical Epidemiological
     Data](https://mrc-ide.github.io/site/articles/historical_epi.html)
-    with estimates of cases, deaths and parasite prevalence.
+    with estimates of cases, deaths and parasite prevalence, the
+    calibrated baseline EIR and bias-correction factors.
 3.  [Population and
     Demography](https://mrc-ide.github.io/site/articles/pop_demog.html)
     information.
@@ -54,13 +54,24 @@ include:
     Seasonality](https://mrc-ide.github.io/site/articles/Seasonality.html)
     data.
 6.  Information on the [Mosquito
-    Vectors](https://mrc-ide.github.io/site/articles/vectors.html)
+    Vectors](https://mrc-ide.github.io/site/articles/vectors.html).
+7.  [Blood Disorders and
+    Accessibility](https://mrc-ide.github.io/site/articles/blood_disorders_accessibility.html),
+    with inherited blood-disorder frequencies and travel-time
+    accessibility metrics.
+
+## Data inputs
+
+Data inputs are linked throughout via the data buttons which link to all
+[information on the data
+sources](https://mrc-ide.github.io/site/articles/data_sources.html).
 
 ## Accessing and downloading site-files
 
 Please see [this detailed
 guide](https://mrc-ide.github.io/site/articles/Accessing-site-files.html)
-for information on how to gain access and download site files.
+for information on how to gain access and download site files. When
+using site, use should acknowledge and cite these sources.
 
 ## Translating site-file information to malariasimulation parameters
 
@@ -76,25 +87,20 @@ is
 
 
 # Pull information for a single sub-national unit from the site-file
-site <- subset_site(
-  site = example_site,
-  site_filter = data.frame(
-  country = "Burkina Faso",
-  iso3c = "BFA",
-  name_1 = "Sahel",
-  urban_rural = "rural")
-  )
+site <- create_example_site(itn_use = 0)
 
 # Convert site information to malariasimulation parameters
 site_par <- site_parameters(
   interventions = site$interventions,
   demography = site$demography,
-  vectors = site$vectors$vector_species,
-  seasonality = site$seasonality$seasonality_parameters,
+  vectors = site$vectors,
+  seasonality = site$seasonality,
   eir = site$eir$eir,
   overrides = list(
     human_population = 1000
-  )
+  ),
+  start_year = 2000,
+  end_year = 2002
 )
 
 # Run the model!
@@ -125,40 +131,107 @@ pak::pak("mrc-ide/site")
 - [`add_irs()`](add_irs.md) : Add IRS
 - [`add_itns()`](add_itns.md) : Add ITNs
 - [`add_pmc()`](add_pmc.md) : Add PMC
-- [`add_r21()`](add_r21.md) : Add RTS,S
-- [`add_rtss()`](add_rtss.md) : Add RTS,S
 - [`add_seasonality()`](add_seasonality.md) : Add seasonality
 - [`add_smc()`](add_smc.md) : Add SMC
 - [`add_treatment()`](add_treatment.md) : Add treatment
+- [`add_vaccine()`](add_vaccine.md) : Add vaccine
 - [`add_vectors()`](add_vectors.md) : Add vectors
 - [`adjust_carrying_capacity()`](adjust_carrying_capacity.md) : Adjust
   carrying capacity
 - [`available_sites()`](available_sites.md) : View available sites and
   versions on the server
-- [`burnin_demography()`](burnin_demography.md) : Expand demography
-  retrospectively for burn in period
-- [`burnin_interventions()`](burnin_interventions.md) : Expand
-  interventions retrospectively for burn in period
-- [`example_site`](example_site.md) : An example country site file
+- [`badge()`](badge.md) : Create a data source badge
+- [`calculate_total_timesteps()`](calculate_total_timesteps.md) :
+  Calculate total model timesteps
+- [`calendar_to_timestep()`](calendar_to_timestep.md) : Convert calendar
+  dates to model timesteps
+- [`chirps_badge()`](chirps_badge.md) : CHIRPS badge
+- [`create_example_demography()`](create_example_demography.md) : Create
+  example demography inputs
+- [`create_example_irs()`](create_example_irs.md) : Create example IRS
+  intervention data
+- [`create_example_itn()`](create_example_itn.md) : Create example ITN
+  intervention data
+- [`create_example_lsm()`](create_example_lsm.md) : Create example LSM
+  intervention data
+- [`create_example_pmc()`](create_example_pmc.md) : Create example PMC
+  intervention data
+- [`create_example_resistance()`](create_example_resistance.md) : Create
+  example resistance data
+- [`create_example_seasonality_parameters()`](create_example_seasonality_parameters.md)
+  : Create example seasonality inputs
+- [`create_example_site()`](create_example_site.md) : Create a skeleton
+  example site
+- [`create_example_smc()`](create_example_smc.md) : Create example SMC
+  intervention data
+- [`create_example_treatment()`](create_example_treatment.md) : Create
+  example treatment intervention data
+- [`create_example_vaccine()`](create_example_vaccine.md) : Create
+  vaccine intervention examples
+- [`create_example_vector_species()`](create_example_vector_species.md)
+  : Create example vector inputs
+- [`default_intervention_colours()`](default_intervention_colours.md) :
+  Default colour palette for intervention plot elements
+- [`default_intervention_labels()`](default_intervention_labels.md) :
+  Default labels for intervention plot elements
+- [`dhs_badge()`](dhs_badge.md) : DHS badge
 - [`fetch_files()`](fetch_files.md) : Get files from the malariaverse
-  sitefile server.
+  site file server.
 - [`fetch_site()`](fetch_site.md) : Fetch a site file for a country from
-  the malariaverse sitefile server.
-- [`match()`](match.md) : Matched join
-- [`set_age_outputs()`](set_age_outputs.md) : Set age outputs
+  the malariaverse site file server.
+- [`filter_recursive()`](filter_recursive.md) : Recursively filter site
+  file elements
+- [`gadm_badge()`](gadm_badge.md) : GADM badge
+- [`irs_efficacy`](irs_efficacy.md) : IRS insecticide efficacy
+  parameters
+- [`map_badge()`](map_badge.md) : MAP badge
+- [`match_by_names()`](match_by_names.md) : Matched join
+- [`net_efficacy`](net_efficacy.md) : ITN net efficacy parameters
+- [`plot_age_distribution_stacked()`](plot_age_distribution_stacked.md)
+  : Plot population at risk by age group over time
+- [`plot_interventions()`](plot_interventions.md) : Plot intervention
+  coverage over time
+- [`plot_pyrethroid_resistance()`](plot_pyrethroid_resistance.md) : Plot
+  pyrethroid resistance over time
+- [`plot_site_diagnostic()`](plot_site_diagnostic.md) : Create a site
+  diagnostic report
+- [`plot_site_interventions()`](plot_site_interventions.md) : Plot
+  interventions from a site object
+- [`plot_site_map()`](plot_site_map.md) : Plot a site's admin unit
+  highlighted on a map
+- [`plot_site_prevalence()`](plot_site_prevalence.md) : Plot site
+  prevalence over time
+- [`plot_vector_species()`](plot_vector_species.md) : Plot vector
+  species characteristics as faceted horizontal bars
+- [`site_age_palette()`](site_age_palette.md) : Age group colour palette
+- [`site_model_distribution_to_usage()`](site_model_distribution_to_usage.md)
+  : Convert model input distributions to expected ITN usage
 - [`site_parameters()`](site_parameters.md) : Create site parameters
+- [`site_usage_to_model_distribution()`](site_usage_to_model_distribution.md)
+  : Convert ITN usage to model input distributions
+- [`site_vector_palette()`](site_vector_palette.md) : Vector species
+  colour palette
+- [`smc_badge()`](smc_badge.md) : SMC badge
 - [`subset_site()`](subset_site.md) : Extract a subset from a country
   site file
+- [`theme_site()`](theme_site.md) : Site diagnostic plot theme
+- [`un_badge()`](un_badge.md) : UN badge
+- [`unicef_badge()`](unicef_badge.md) : UNICEF badge
+- [`vectors_badge()`](vectors_badge.md) : Vectors badge
+- [`who_badge()`](who_badge.md) : WHO badge
+- [`worldpop_badge()`](worldpop_badge.md) : WorldPop badge
 
 # Articles
 
 ### All vignettes
 
 - [Accessing site-files](Accessing-site-files.md):
+- [Blood Disorders and Accessibility](blood_disorders_accessibility.md):
+- [Data Sources and Citations](data_sources.md):
 - [Historical Epidemiological Data](historical_epi.md):
 - [Interventions](Interventions.md):
+- [Latest changes to malariaverse](Latest-changes.md):
 - [Metadata](Metadata.md):
 - [Population and Demography](pop_demog.md):
 - [Seasonality](Seasonality.md):
-- [Upcoming changes to malariaverse](Upcoming-changes.md):
 - [Mosquito Vectors](vectors.md):

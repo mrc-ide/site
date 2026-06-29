@@ -10,7 +10,8 @@
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Population and Demography">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
+<meta property="og:title" content="Population and Demography">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -20,7 +21,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">site</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.10</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.13</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,17 +30,19 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item"><a class="nav-link" href="../articles/Upcoming-changes.html">📢 Upcoming changes</a></li>
+<li class="nav-item"><a class="nav-link" href="../articles/Latest-changes.html">📢 Latest changes</a></li>
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/Accessing-site-files.html">Accessing site-files</a></li>
+    <li><a class="dropdown-item" href="../articles/blood_disorders_accessibility.html">Blood Disorders and Accessibility</a></li>
+    <li><a class="dropdown-item" href="../articles/data_sources.html">Data Sources and Citations</a></li>
     <li><a class="dropdown-item" href="../articles/historical_epi.html">Historical Epidemiological Data</a></li>
     <li><a class="dropdown-item" href="../articles/Interventions.html">Interventions</a></li>
+    <li><a class="dropdown-item" href="../articles/Latest-changes.html">Latest changes to malariaverse</a></li>
     <li><a class="dropdown-item" href="../articles/Metadata.html">Metadata</a></li>
     <li><a class="dropdown-item" href="../articles/pop_demog.html">Population and Demography</a></li>
     <li><a class="dropdown-item" href="../articles/Seasonality.html">Seasonality</a></li>
-    <li><a class="dropdown-item" href="../articles/Upcoming-changes.html">Upcoming changes to malariaverse</a></li>
     <li><a class="dropdown-item" href="../articles/vectors.html">Mosquito Vectors</a></li>
   </ul>
 </li>
@@ -71,80 +74,76 @@
 
     
     
+<div class="section level2">
+<h2 id="population-projections">Population projections<a class="anchor" aria-label="anchor" href="#population-projections"></a>
+</h2>
+<p><code>site_file$population$population_total</code></p>
+<p>Total population and population at risk estimates.</p>
+<p><code>site_file$population$population_by_age</code></p>
+<p>Single-year age disaggregated population and population at risk
+estimates.</p>
 <div class="section level3">
-<h3 id="population-projections">Population projections<a class="anchor" aria-label="anchor" href="#population-projections"></a>
+<h3 id="variables">Variables<a class="anchor" aria-label="anchor" href="#variables"></a>
 </h3>
-<p><code>site_file$population</code></p>
-<p>Site-level population estimates are extracted at the pixel level from
-WorldPop<span class="citation"><sup><a href="#ref-worldpop">1</a></sup></span>. We use the “Unconstrained
-individual countries 2000-2020 UN adjusted ( 1km resolution )”
-rasters.</p>
-<p>Options disaggregated by 1-year age bands
-(<code>site_file$population$population_by_age</code>) or total
-(<code>site_file$population$population_total</code>) are provided</p>
-<div class="section level4">
-<h4 id="urban-rural">Urban rural<a class="anchor" aria-label="anchor" href="#urban-rural"></a>
-</h4>
-<p>Urban rural splits within administrative unit are defined using a
-threshold density of 1500 people per square km.</p>
-</div>
-<div class="section level4">
-<h4 id="population-at-risk">Population at risk<a class="anchor" aria-label="anchor" href="#population-at-risk"></a>
-</h4>
-<p><code>site_file$population$par_pf</code>
-<code>site_file$population$par_pv</code>
-<code>site_file$population$par</code></p>
-<p>Population at risk from <em>Plasmodium falciparum</em>,
-<em>Plasmodium vivax</em> or both are estimated by masking the total
-population raster by areas with active transmission (prevalence &gt;0%)
-in year 2000<span class="citation"><sup><a href="#ref-MAP">2</a></sup></span>.</p>
-</div>
-<div class="section level4">
-<h4 id="population-growth-and-urbanisation">Population growth and urbanisation<a class="anchor" aria-label="anchor" href="#population-growth-and-urbanisation"></a>
-</h4>
-<p>We provide annual population projections to 2050 using UN data on
-total population growth<span class="citation"><sup><a href="#ref-UNWPP">3</a></sup></span> combined with UN projections of the
-levels of urbanisation<span class="citation"><sup><a href="#ref-UNWUP">4</a></sup></span>. We use these projections to
-produces estimates of the rate of urban and rural growth (relative to a
-baseline year) which are then applied to our spatial-unit population
-estimates. Final estimates are rescaled to ensure that population total
-match UN totals.</p>
-</div>
+<p><code>pop</code> Total population<br><code>par</code> Total population at risk<br><code>par_pf</code> Total population at risk (Pf)<br><code>par_pv</code> Total population at risk (Pv)<br><code>age_lower</code> Age lower bound (years)<br><code>age_upper</code> Age upper bound (years)</p>
 </div>
 <div class="section level3">
-<h3 id="demography">Demography<a class="anchor" aria-label="anchor" href="#demography"></a>
+<h3 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
 </h3>
-<p>Population demographics (age structure) are defined over time for
-each site. Demography is obtained using the <a href="https://github.com/mrc-ide/peeps" class="external-link">peeps R package</a>, and are
-based on data from the UN WPP<span class="citation"><sup><a href="#ref-UNWPP">3</a></sup></span></p>
-<p>Mortality rates are specified for neonates (0-30 days), young infants
-(31 days - 1 year), older infants (1 year - 5 years) and then in five
-year age bands.</p>
+<p>Population total and age-disaggregated estimates by year for the
+country are sourced from the UN WPP. The spatial distribution of the
+population is informed using WorldPop population rasters. The spatial
+distribution pre-2015 and post-2026 is assumed to be that of 2015 and
+2026 respectively. If the site file contains the urban-rural
+disaggregation, this is informed from UN WUP estimates of the proportion
+of the population living in urban areas. Pixels are assigned to be
+“urban” in descending order of population density until the implied
+national urban population total for that year is reached. Remaining
+pixels are classified as rural. Population at risk variables are defined
+as the population in areas with Plasmodium falciparum, Plasmodium vivax
+or either prevalence &gt;0% in year 2000.</p>
+</div>
+<div class="section level3">
+<h3 id="sources">Sources<a class="anchor" aria-label="anchor" href="#sources"></a>
+</h3>
+<p><a href="https://mrc-ide.github.io/site/articles/data-sources.html#UN" class="external-link data-badge" style="background-color: rgba(91, 146, 229, 0.75);">🇺🇳
+| UN</a>
+<a href="https://mrc-ide.github.io/site/articles/data-sources.html#WorldPop" class="external-link data-badge" style="background-color: rgba(30, 74, 139, 0.75);">👥
+| WorldPop</a>
+<a href="https://mrc-ide.github.io/site/articles/data-sources.html#MAP" class="external-link data-badge" style="background-color: rgba(235, 188, 64, 0.75);">🌍
+| MAP</a></p>
+</div>
 </div>
 <div class="section level2">
-<h2 class="unnumbered" id="citations">Citations<a class="anchor" aria-label="anchor" href="#citations"></a>
+<h2 id="model-input-demography">Model input demography<a class="anchor" aria-label="anchor" href="#model-input-demography"></a>
 </h2>
-<div id="refs" class="references csl-bib-body" entry-spacing="0" line-spacing="2">
-<div id="ref-worldpop" class="csl-entry">
-<div class="csl-left-margin">1. </div>
-<div class="csl-right-inline">
-<a href="https://www.worldpop.org/" class="external-link">WorldPop</a>.</div>
+<p><code>site_file$demography</code></p>
+<p>Model input demography parameters</p>
+<div class="section level3">
+<h3 id="variables-1">Variables<a class="anchor" aria-label="anchor" href="#variables-1"></a>
+</h3>
+<p><code>age_lower</code> Age lower bound (years)<br><code>age_upper</code> Age upper bound (years)<br><code>qx</code> The probability that an individual aged x dies before
+reaching age x<br><code>population</code> Population<br><code>population_proportion</code> Proportion of the total population in
+the designated age group<br><code>adjusted_mortality_rates</code> Mortality rates adjusted to retain
+age-structure in a modelled population of constant size</p>
 </div>
-<div id="ref-MAP" class="csl-entry">
-<div class="csl-left-margin">2. </div>
-<div class="csl-right-inline">
-<a href="https://malariaatlas.org/" class="external-link">Malaria atlas project</a>.</div>
+<div class="section level3">
+<h3 id="description-1">Description<a class="anchor" aria-label="anchor" href="#description-1"></a>
+</h3>
+<p>Model-input demography is adjusted because the model population size
+is constant over time. This adjustment preserves the time-varying age
+structure implied by UN WPP within a constant-size model population, and
+is performed using the <a href="https://github.com/mrc-ide/peeps" class="external-link">peeps
+R package</a>.</p>
 </div>
-<div id="ref-UNWPP" class="csl-entry">
-<div class="csl-left-margin">3. </div>
-<div class="csl-right-inline">United Nations. <a href="https://population.un.org/wpp/" class="external-link">World population
-prospects</a>.</div>
-</div>
-<div id="ref-UNWUP" class="csl-entry">
-<div class="csl-left-margin">4. </div>
-<div class="csl-right-inline">United Nations. <a href="https://population.un.org/wup/" class="external-link">World urbanization
-prospects</a>.</div>
-</div>
+<div class="section level3">
+<h3 id="sources-1">Sources<a class="anchor" aria-label="anchor" href="#sources-1"></a>
+</h3>
+<p><a href="https://mrc-ide.github.io/site/articles/data-sources.html#UN" class="external-link data-badge" style="background-color: rgba(91, 146, 229, 0.75);">🇺🇳
+| UN</a></p>
+<p>⚠️ <strong>Warning:</strong> For all external and post-processing
+work the <code>site_file$population$population_by_age</code> should be
+used for age-disaggregated outputs.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

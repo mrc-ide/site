@@ -5,7 +5,7 @@ Add IRS
 ## Usage
 
 ``` r
-add_irs(p, interventions)
+add_irs(p, irs, irs_adjust = 1)
 ```
 
 ## Arguments
@@ -14,9 +14,13 @@ add_irs(p, interventions)
 
   parameter list
 
-- interventions:
+- irs:
 
-  site intervention inputs
+  interventions IRS object
+
+- irs_adjust:
+
+  Operational downscaling of irs coverage
 
 ## Value
 

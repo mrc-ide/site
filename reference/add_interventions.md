@@ -5,7 +5,7 @@ Add all interventions
 ## Usage
 
 ``` r
-add_interventions(p, interventions, species)
+add_interventions(p, interventions, resistance, irs_adjust)
 ```
 
 ## Arguments
@@ -18,10 +18,14 @@ add_interventions(p, interventions, species)
 
   site intervention inputs
 
-- species:
+- resistance:
 
-  Can be falciparum: "pf" or vivax: "pv", for vivax SMC, RTSS, R21 and
-  PMC are not implemented
+  pyrethroid resistance data for ITN efficacy calculations
+
+- irs_adjust:
+
+  scalar adjustment factor to IRS coverage inputs to account for
+  observed discrepancies between trial and real-world implementation
 
 ## Value
 

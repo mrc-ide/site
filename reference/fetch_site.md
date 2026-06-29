@@ -1,4 +1,4 @@
-# Fetch a site file for a country from the malariaverse sitefile server.
+# Fetch a site file for a country from the malariaverse site file server.
 
 The site file is identified by its country code, and optionally the
 admin_level, urban/rural setting and version of the site files. The

@@ -1,68 +1,78 @@
 # Population and Demography
 
-### Population projections
+## Population projections
 
-`site_file$population`
+`site_file$population$population_total`
 
-Site-level population estimates are extracted at the pixel level from
-WorldPop^([1](#ref-worldpop)). We use the “Unconstrained individual
-countries 2000-2020 UN adjusted ( 1km resolution )” rasters.
+Total population and population at risk estimates.
 
-Options disaggregated by 1-year age bands
-(`site_file$population$population_by_age`) or total
-(`site_file$population$population_total`) are provided
+`site_file$population$population_by_age`
 
-#### Urban rural
+Single-year age disaggregated population and population at risk
+estimates.
 
-Urban rural splits within administrative unit are defined using a
-threshold density of 1500 people per square km.
+### Variables
 
-#### Population at risk
+`pop` Total population  
+`par` Total population at risk  
+`par_pf` Total population at risk (Pf)  
+`par_pv` Total population at risk (Pv)  
+`age_lower` Age lower bound (years)  
+`age_upper` Age upper bound (years)
 
-`site_file$population$par_pf` `site_file$population$par_pv`
-`site_file$population$par`
+### Description
 
-Population at risk from *Plasmodium falciparum*, *Plasmodium vivax* or
-both are estimated by masking the total population raster by areas with
-active transmission (prevalence \>0%) in year 2000^([2](#ref-MAP)).
+Population total and age-disaggregated estimates by year for the country
+are sourced from the UN WPP. The spatial distribution of the population
+is informed using WorldPop population rasters. The spatial distribution
+pre-2015 and post-2026 is assumed to be that of 2015 and 2026
+respectively. If the site file contains the urban-rural disaggregation,
+this is informed from UN WUP estimates of the proportion of the
+population living in urban areas. Pixels are assigned to be “urban” in
+descending order of population density until the implied national urban
+population total for that year is reached. Remaining pixels are
+classified as rural. Population at risk variables are defined as the
+population in areas with Plasmodium falciparum, Plasmodium vivax or
+either prevalence \>0% in year 2000.
 
-#### Population growth and urbanisation
+### Sources
 
-We provide annual population projections to 2050 using UN data on total
-population growth^([3](#ref-UNWPP)) combined with UN projections of the
-levels of urbanisation^([4](#ref-UNWUP)). We use these projections to
-produces estimates of the rate of urban and rural growth (relative to a
-baseline year) which are then applied to our spatial-unit population
-estimates. Final estimates are rescaled to ensure that population total
-match UN totals.
+[🇺🇳 \| UN](https://mrc-ide.github.io/site/articles/data-sources.html#UN)
+[👥 \|
+WorldPop](https://mrc-ide.github.io/site/articles/data-sources.html#WorldPop)
+[🌍 \|
+MAP](https://mrc-ide.github.io/site/articles/data-sources.html#MAP)
 
-### Demography
+## Model input demography
 
-Population demographics (age structure) are defined over time for each
-site. Demography is obtained using the [peeps R
-package](https://github.com/mrc-ide/peeps), and are based on data from
-the UN WPP^([3](#ref-UNWPP))
+`site_file$demography`
 
-Mortality rates are specified for neonates (0-30 days), young infants
-(31 days - 1 year), older infants (1 year - 5 years) and then in five
-year age bands.
+Model input demography parameters
 
-## Citations
+### Variables
 
-1\.
+`age_lower` Age lower bound (years)  
+`age_upper` Age upper bound (years)  
+`qx` The probability that an individual aged x dies before reaching age
+x  
+`population` Population  
+`population_proportion` Proportion of the total population in the
+designated age group  
+`adjusted_mortality_rates` Mortality rates adjusted to retain
+age-structure in a modelled population of constant size
 
-[WorldPop](https://www.worldpop.org/).
+### Description
 
-2\.
+Model-input demography is adjusted because the model population size is
+constant over time. This adjustment preserves the time-varying age
+structure implied by UN WPP within a constant-size model population, and
+is performed using the [peeps R
+package](https://github.com/mrc-ide/peeps).
 
-[Malaria atlas project](https://malariaatlas.org/).
+### Sources
 
-3\.
+[🇺🇳 \| UN](https://mrc-ide.github.io/site/articles/data-sources.html#UN)
 
-United Nations. [World population
-prospects](https://population.un.org/wpp/).
-
-4\.
-
-United Nations. [World urbanization
-prospects](https://population.un.org/wup/).
+⚠️ **Warning:** For all external and post-processing work the
+`site_file$population$population_by_age` should be used for
+age-disaggregated outputs.

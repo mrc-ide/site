@@ -5,7 +5,7 @@ Add SMC
 ## Usage
 
 ``` r
-add_smc(p, interventions)
+add_smc(p, smc)
 ```
 
 ## Arguments
@@ -14,9 +14,9 @@ add_smc(p, interventions)
 
   parameter list
 
-- interventions:
+- smc:
 
-  site intervention inputs
+  interventions smc object
 
 ## Value
 

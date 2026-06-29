@@ -10,7 +10,8 @@
 <link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Site specific malariasimulation modelling">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
+<meta property="og:title" content="Site specific malariasimulation modelling">
 <meta name="description" content='This package converts a parameterised "site file" into malariasimulation model input parameter list.'>
 <meta property="og:description" content='This package converts a parameterised "site file" into malariasimulation model input parameter list.'>
 </head>
@@ -22,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="index.html">site</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.10</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.13</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,17 +32,19 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item"><a class="nav-link" href="articles/Upcoming-changes.html">📢 Upcoming changes</a></li>
+<li class="nav-item"><a class="nav-link" href="articles/Latest-changes.html">📢 Latest changes</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="articles/Accessing-site-files.html">Accessing site-files</a></li>
+    <li><a class="dropdown-item" href="articles/blood_disorders_accessibility.html">Blood Disorders and Accessibility</a></li>
+    <li><a class="dropdown-item" href="articles/data_sources.html">Data Sources and Citations</a></li>
     <li><a class="dropdown-item" href="articles/historical_epi.html">Historical Epidemiological Data</a></li>
     <li><a class="dropdown-item" href="articles/Interventions.html">Interventions</a></li>
+    <li><a class="dropdown-item" href="articles/Latest-changes.html">Latest changes to malariaverse</a></li>
     <li><a class="dropdown-item" href="articles/Metadata.html">Metadata</a></li>
     <li><a class="dropdown-item" href="articles/pop_demog.html">Population and Demography</a></li>
     <li><a class="dropdown-item" href="articles/Seasonality.html">Seasonality</a></li>
-    <li><a class="dropdown-item" href="articles/Upcoming-changes.html">Upcoming changes to malariaverse</a></li>
     <li><a class="dropdown-item" href="articles/vectors.html">Mosquito Vectors</a></li>
   </ul>
 </li>
@@ -64,17 +67,19 @@
 <!-- badges: start -->
 
 <blockquote>
-<h2 id="loudspeaker-advance-notice-of-a-major-update">📢 Advance notice of a major update</h2>
-<p>The malariaverse site files and several supporting packages are about to receive a significant update that will change the site-file structure and may <strong>break existing workflows</strong>. <strong>Please read <a href="https://mrc-ide.github.io/site/articles/Upcoming-changes.html" class="external-link">Upcoming changes to malariaverse</a></strong> for what’s changing, timing, and how to keep reproducing existing work.</p>
+<h2 id="loudspeaker-latest-update">📢 Latest update</h2>
+<p>The malariaverse site files and several supporting packages have had a significant update that changes the site-file structure and may <strong>break existing workflows</strong>. <strong>Please read <a href="https://mrc-ide.github.io/site/articles/Latest-changes.html" class="external-link">Latest changes to malariaverse</a></strong> for what’s changed and how to keep reproducing existing work.</p>
 </blockquote>
 <p>The site package supports malariaverse users to:</p>
 <ol style="list-style-type: decimal">
 <li>Access and download the latest country site-files 🌐 ➡️ 💻</li>
 <li>Translate site file information into malariasimulation parameters 🌍 ➡️ 📉</li>
 </ol>
-<p><span class="emoji" data-emoji="warning">⚠️</span> The site package streamlines model runs for specific geographies, but it also encapsulates many underlying assumptions, limitations, and uncertainties. Mis-specifying inputs or misinterpreting outputs from the complex malariasimulation model remains very possible. We strongly recommend consulting a member of the Imperial College modelling team before using these results for science, policy or decision-making purposes.</p>
 <div style="font-weight: bold;">
-<p>While every effort has been made to ensure the reliability of the package and its outputs, the authors, contributors, and affiliated institutions accept no responsibility or liability for any errors, omissions, or consequences arising from their use. All results should be interpreted with caution and professional judgement.</p>
+<p><span class="emoji" data-emoji="warning">⚠️</span> The site package streamlines model runs for specific geographies, but it also encapsulates many underlying assumptions, limitations, and uncertainties. Mis-specifying inputs or misinterpreting outputs from the complex malariasimulation model remains very possible. We strongly recommend consulting a member of the Imperial College modelling team before using these results for science, policy or decision-making purposes.</p>
+</div>
+<div style="font-weight: bold;">
+<p><span class="emoji" data-emoji="warning">⚠️</span> While every effort has been made to ensure the reliability of the package and its outputs, the authors, contributors, and affiliated institutions accept no responsibility or liability for any errors, omissions, or consequences arising from their use. All results should be interpreted with caution and professional judgement.</p>
 </div>
 <p>Email: <a href="mailto:malariaverse@imperial.ac.uk" class="email">malariaverse@imperial.ac.uk</a></p>
 <div class="section level2">
@@ -82,22 +87,28 @@
 </h2>
 <p>The site-file is the file storing all of the sub nationally disaggregated information for a country. Components of the site-file include:</p>
 <ol style="list-style-type: decimal">
-<li>The <a href="https://mrc-ide.github.io/site/articles/Metadata.html" class="external-link">Metadata</a>, with high level information about the country and site-file version.</li>
+<li>The <a href="https://mrc-ide.github.io/site/articles/Metadata.html" class="external-link">Metadata</a>, with high level information about the country, site-file version and spatial boundaries.</li>
 <li>
-<a href="https://mrc-ide.github.io/site/articles/historical_epi.html" class="external-link">Historical Epidemiological Data</a> with estimates of cases, deaths and parasite prevalence.</li>
+<a href="https://mrc-ide.github.io/site/articles/historical_epi.html" class="external-link">Historical Epidemiological Data</a> with estimates of cases, deaths and parasite prevalence, the calibrated baseline EIR and bias-correction factors.</li>
 <li>
 <a href="https://mrc-ide.github.io/site/articles/pop_demog.html" class="external-link">Population and Demography</a> information.</li>
 <li>Estimates of the <a href="https://mrc-ide.github.io/site/articles/Interventions.html" class="external-link">Historical Intervention Use</a> in the country.</li>
 <li>
 <a href="https://mrc-ide.github.io/site/articles/Seasonality.html" class="external-link">Rainfalll and Seasonality</a> data.</li>
-<li>Information on the <a href="https://mrc-ide.github.io/site/articles/vectors.html" class="external-link">Mosquito Vectors</a>
-</li>
+<li>Information on the <a href="https://mrc-ide.github.io/site/articles/vectors.html" class="external-link">Mosquito Vectors</a>.</li>
+<li>
+<a href="https://mrc-ide.github.io/site/articles/blood_disorders_accessibility.html" class="external-link">Blood Disorders and Accessibility</a>, with inherited blood-disorder frequencies and travel-time accessibility metrics.</li>
 </ol>
+</div>
+<div class="section level2">
+<h2 id="data-inputs">Data inputs<a class="anchor" aria-label="anchor" href="#data-inputs"></a>
+</h2>
+<p>Data inputs are linked throughout via the data buttons which link to all <a href="https://mrc-ide.github.io/site/articles/data_sources.html" class="external-link">information on the data sources</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="accessing-and-downloading-site-files">Accessing and downloading site-files<a class="anchor" aria-label="anchor" href="#accessing-and-downloading-site-files"></a>
 </h2>
-<p>Please see <a href="https://mrc-ide.github.io/site/articles/Accessing-site-files.html" class="external-link">this detailed guide</a> for information on how to gain access and download site files.</p>
+<p>Please see <a href="https://mrc-ide.github.io/site/articles/Accessing-site-files.html" class="external-link">this detailed guide</a> for information on how to gain access and download site files. When using site, use should acknowledge and cite these sources.</p>
 </div>
 <div class="section level2">
 <h2 id="translating-site-file-information-to-malariasimulation-parameters">Translating site-file information to malariasimulation parameters<a class="anchor" aria-label="anchor" href="#translating-site-file-information-to-malariasimulation-parameters"></a>
@@ -111,25 +122,20 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># Pull information for a single sub-national unit from the site-file</span></span>
-<span><span class="va">site</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/subset_site.html">subset_site</a></span><span class="op">(</span></span>
-<span>  site <span class="op">=</span> <span class="va">example_site</span>,</span>
-<span>  site_filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  country <span class="op">=</span> <span class="st">"Burkina Faso"</span>,</span>
-<span>  iso3c <span class="op">=</span> <span class="st">"BFA"</span>,</span>
-<span>  name_1 <span class="op">=</span> <span class="st">"Sahel"</span>,</span>
-<span>  urban_rural <span class="op">=</span> <span class="st">"rural"</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<span><span class="va">site</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/create_example_site.html">create_example_site</a></span><span class="op">(</span>itn_use <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Convert site information to malariasimulation parameters</span></span>
 <span><span class="va">site_par</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/site_parameters.html">site_parameters</a></span><span class="op">(</span></span>
 <span>  interventions <span class="op">=</span> <span class="va">site</span><span class="op">$</span><span class="va">interventions</span>,</span>
 <span>  demography <span class="op">=</span> <span class="va">site</span><span class="op">$</span><span class="va">demography</span>,</span>
-<span>  vectors <span class="op">=</span> <span class="va">site</span><span class="op">$</span><span class="va">vectors</span><span class="op">$</span><span class="va">vector_species</span>,</span>
-<span>  seasonality <span class="op">=</span> <span class="va">site</span><span class="op">$</span><span class="va">seasonality</span><span class="op">$</span><span class="va">seasonality_parameters</span>,</span>
+<span>  vectors <span class="op">=</span> <span class="va">site</span><span class="op">$</span><span class="va">vectors</span>,</span>
+<span>  seasonality <span class="op">=</span> <span class="va">site</span><span class="op">$</span><span class="va">seasonality</span>,</span>
 <span>  eir <span class="op">=</span> <span class="va">site</span><span class="op">$</span><span class="va">eir</span><span class="op">$</span><span class="va">eir</span>,</span>
 <span>  overrides <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    human_population <span class="op">=</span> <span class="fl">1000</span></span>
-<span>  <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  start_year <span class="op">=</span> <span class="fl">2000</span>,</span>
+<span>  end_year <span class="op">=</span> <span class="fl">2002</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Run the model!</span></span>
