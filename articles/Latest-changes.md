@@ -50,8 +50,8 @@ Many of you will need to re-run or reproduce earlier analyses. Two
 things make that possible:
 
 1.  **Older site files remain available** through
-    [`fetch_site()`](../reference/fetch_site.md), so you can continue to
-    retrieve the previous data.
+    [`fetch_site()`](https://mrc-ide.github.io/site/reference/fetch_site.md),
+    so you can continue to retrieve the previous data.
 2.  We have **frozen the previous versions** of the malariaverse
     packages as a coordinated snapshot under the tag
     `malariaverse_01_2025`. Pairing the older site files with this
@@ -70,7 +70,7 @@ pak::pak(c(
 ```
 
 Remember, you can see all available site-files and versions by calling
-[`site::available_sites()`](../reference/available_sites.md)
+[`site::available_sites()`](https://mrc-ide.github.io/site/reference/available_sites.md)
 
 ## 🗓️ Package versions
 

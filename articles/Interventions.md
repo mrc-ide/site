@@ -61,12 +61,12 @@ coverage is constant with respect to 3 years prior. For example if years
 == 2023.
 
 ⚠️ **Warning:** For ITNs to work when passed to
-[`site::site_parameters()`](../reference/site_parameters.md) you will
-need to specify a column:
+[`site::site_parameters()`](https://mrc-ide.github.io/site/reference/site_parameters.md)
+you will need to specify a column:
 `site_file$interventions$itn$implementation$itn_input_dist` indicating
 the size of the model ITN distributions each year. This is **not** the
 same as ITN usage. Use
-[`site::site_usage_to_model_distribution()`](../reference/site_usage_to_model_distribution.md)
+[`site::site_usage_to_model_distribution()`](https://mrc-ide.github.io/site/reference/site_usage_to_model_distribution.md)
 to convert usage to model input distributions, or call
 `stop_missing_itn_input_dist()` for full details.
 

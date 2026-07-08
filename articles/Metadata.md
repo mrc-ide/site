@@ -65,7 +65,8 @@ file, for example `level_0` (the national outline) and `level_1` (the
 first sub-national level). These are the GADM administrative boundaries
 — version **4.1.0**, as recorded in `site_file$metadata$boundary`
 (`GADM_4.1.0`) — used to define the sites and to draw maps such as those
-produced by [`plot_site_map()`](../reference/plot_site_map.md).
+produced by
+[`plot_site_map()`](https://mrc-ide.github.io/site/reference/plot_site_map.md).
 
 ### Sources
 

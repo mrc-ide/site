@@ -33,8 +33,8 @@ pkgdown::build_site()
 
 ### Core Flow
 
-[`site_parameters()`](reference/site_parameters.md) in
-`R/site_parameters.R` is the main entry point. It takes site file
+[`site_parameters()`](https://mrc-ide.github.io/site/reference/site_parameters.md)
+in `R/site_parameters.R` is the main entry point. It takes site file
 components (interventions, demography, vectors, seasonality, EIR) and a
 year range, then orchestrates calls to intervention-specific modules to
 build a complete `malariasimulation` parameter list.
@@ -55,11 +55,12 @@ sequence.
 ### Supporting Modules
 
 - `R/time.R` - Year-to-timestep conversion
-  ([`calendar_to_timestep()`](reference/calendar_to_timestep.md),
-  [`calculate_total_timesteps()`](reference/calculate_total_timesteps.md))
+  ([`calendar_to_timestep()`](https://mrc-ide.github.io/site/reference/calendar_to_timestep.md),
+  [`calculate_total_timesteps()`](https://mrc-ide.github.io/site/reference/calculate_total_timesteps.md))
 - `R/seasonality.R`, `R/vectors.R`, `R/demography.R` - Set baseline
   model parameters from site data
-- `R/single_site.R` - [`subset_site()`](reference/subset_site.md)
+- `R/single_site.R` -
+  [`subset_site()`](https://mrc-ide.github.io/site/reference/subset_site.md)
   filters site files by country/ISO/name
 - `R/fetch.R` - Downloads site files from the malariaverse Packit server
   via `orderly`
@@ -69,23 +70,25 @@ sequence.
 ### Visualization
 
 - `R/plot.R` - Diagnostic plotting functions for site data
-  - [`plot_site_diagnostic()`](reference/plot_site_diagnostic.md) -
+  - [`plot_site_diagnostic()`](https://mrc-ide.github.io/site/reference/plot_site_diagnostic.md) -
     Composite 6-panel dashboard (map, prevalence, interventions,
     vectors, resistance, age distribution) assembled with `patchwork`
-  - [`plot_interventions()`](reference/plot_interventions.md) /
-    [`plot_site_interventions()`](reference/plot_site_interventions.md) -
+  - [`plot_interventions()`](https://mrc-ide.github.io/site/reference/plot_interventions.md)
+    /
+    [`plot_site_interventions()`](https://mrc-ide.github.io/site/reference/plot_site_interventions.md) -
     Multi-layer intervention timeline (ITN, SMC, IRS, treatment,
     vaccines, PMC, LSM, rainfall)
   - Individual plots:
-    [`plot_site_prevalence()`](reference/plot_site_prevalence.md),
-    [`plot_vector_species()`](reference/plot_vector_species.md),
-    [`plot_pyrethroid_resistance()`](reference/plot_pyrethroid_resistance.md),
-    [`plot_age_distribution_stacked()`](reference/plot_age_distribution_stacked.md),
-    [`plot_site_map()`](reference/plot_site_map.md)
-  - Theme/palette helpers: [`theme_site()`](reference/theme_site.md),
-    [`site_age_palette()`](reference/site_age_palette.md),
-    [`site_vector_palette()`](reference/site_vector_palette.md),
-    [`default_intervention_colours()`](reference/default_intervention_colours.md)
+    [`plot_site_prevalence()`](https://mrc-ide.github.io/site/reference/plot_site_prevalence.md),
+    [`plot_vector_species()`](https://mrc-ide.github.io/site/reference/plot_vector_species.md),
+    [`plot_pyrethroid_resistance()`](https://mrc-ide.github.io/site/reference/plot_pyrethroid_resistance.md),
+    [`plot_age_distribution_stacked()`](https://mrc-ide.github.io/site/reference/plot_age_distribution_stacked.md),
+    [`plot_site_map()`](https://mrc-ide.github.io/site/reference/plot_site_map.md)
+  - Theme/palette helpers:
+    [`theme_site()`](https://mrc-ide.github.io/site/reference/theme_site.md),
+    [`site_age_palette()`](https://mrc-ide.github.io/site/reference/site_age_palette.md),
+    [`site_vector_palette()`](https://mrc-ide.github.io/site/reference/site_vector_palette.md),
+    [`default_intervention_colours()`](https://mrc-ide.github.io/site/reference/default_intervention_colours.md)
   - Internal `prepare_*` helpers handle data wrangling per intervention
     type before plotting
 
@@ -149,7 +152,7 @@ sequence.
 Uses testthat edition 3. Tests are in `tests/testthat/` with snapshot
 tests in `tests/testthat/_snaps/`. Helper functions for creating test
 fixtures are in `R/test-helpers.R` (e.g.,
-[`create_example_site()`](reference/create_example_site.md)).
+[`create_example_site()`](https://mrc-ide.github.io/site/reference/create_example_site.md)).
 
 ## CI
 

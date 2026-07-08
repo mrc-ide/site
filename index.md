@@ -120,3 +120,10 @@ You can install the development version of site from
 # install.packages("pak")
 pak::pak("mrc-ide/site")
 ```
+
+## Analytics
+
+Visits to the [live site](https://mrc-ide.github.io/site/) are counted
+anonymously with [GoatCounter](https://www.goatcounter.com/) — a
+cookieless, privacy-friendly analytics service that collects no personal
+data.

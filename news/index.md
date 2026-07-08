@@ -42,10 +42,11 @@
 #### Minor improvement and bug fixes
 
 - Public functions that consume a site file
-  (e.g. [`site_parameters()`](../reference/site_parameters.md),
-  [`subset_site()`](../reference/subset_site.md), the `plot_*`
-  functions) now detect when an older site-file structure is supplied
-  and abort with an informative message linking to the [upgrade
+  (e.g. [`site_parameters()`](https://mrc-ide.github.io/site/reference/site_parameters.md),
+  [`subset_site()`](https://mrc-ide.github.io/site/reference/subset_site.md),
+  the `plot_*` functions) now detect when an older site-file structure
+  is supplied and abort with an informative message linking to the
+  [upgrade
   guide](https://mrc-ide.github.io/site/articles/Latest-changes.html).
 
 ## site 1.0.5

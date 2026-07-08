@@ -22,8 +22,9 @@ When you receive confirmation of this (look out for a notification on
 GitHub), you can then use the `site` package built-in functionality to
 download site files.
 
-You can call [`fetch_site()`](../reference/fetch_site.md), specifying
-the [ISO3c country
+You can call
+[`fetch_site()`](https://mrc-ide.github.io/site/reference/fetch_site.md),
+specifying the [ISO3c country
 code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) of your country
 of interest. For example, for Nigeria:
 `fetch_site(iso3c = "NGA", admin_level = 1, urban_rural = TRUE)`.
@@ -45,8 +46,8 @@ Please make sure you have installed orderly from the r-universe:
 
 Site files are periodically updated. You can check which version you
 have by inspecting the site metadata. The function
-[`available_sites()`](../reference/available_sites.md) lists all site
-files currently available on the server.
+[`available_sites()`](https://mrc-ide.github.io/site/reference/available_sites.md)
+lists all site files currently available on the server.
 
 By default, `fetch_site(iso3c = ...)` downloads the latest version of a
 site file. For reproducibility, you can also specify admin_level,
