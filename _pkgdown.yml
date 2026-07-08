@@ -1,6 +1,10 @@
-url: ~
+url: https://mrc-ide.github.io/site/
 template:
   bootstrap: 5
+  includes:
+    in_header: |
+      <script data-goatcounter="https://pwinskill.goatcounter.com/count"
+              async src="//gc.zgo.at/count.js"></script>
 
 navbar:
   structure:
